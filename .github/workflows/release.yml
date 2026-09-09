@@ -48,20 +48,20 @@ jobs:
         run: cargo test --workspace --all-targets --locked
 
       - name: Build release binary
-        run: cargo build -p p5136-cli --release --locked
+        run: cargo build -p p4475-cli --release --locked
 
       - name: Build and test Win32 XUN sidecar
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          cmake -S native/p5136-xun-sidecar `
-            -B target/p5136-finish-kart-abilities/xun-sidecar-win32 `
+          cmake -S native/p4475-xun-sidecar `
+            -B target/p4475-finish-kart-abilities/xun-sidecar-win32 `
             -G "Visual Studio 17 2022" -A Win32
-          cmake --build target/p5136-finish-kart-abilities/xun-sidecar-win32 `
+          cmake --build target/p4475-finish-kart-abilities/xun-sidecar-win32 `
             --config Release
-          ctest --test-dir target/p5136-finish-kart-abilities/xun-sidecar-win32 `
+          ctest --test-dir target/p4475-finish-kart-abilities/xun-sidecar-win32 `
             -C Release --output-on-failure
-          cmake --install target/p5136-finish-kart-abilities/xun-sidecar-win32 `
+          cmake --install target/p4475-finish-kart-abilities/xun-sidecar-win32 `
             --config Release --prefix package-root
 
       - name: Package release binary
@@ -72,23 +72,23 @@ jobs:
           platform="$(printf '%s' "$RUNNER_OS" | tr '[:upper:]' '[:lower:]')"
           arch="$(printf '%s' "$RUNNER_ARCH" | tr '[:upper:]' '[:lower:]')"
           if [[ "$RUNNER_OS" == "Windows" ]]; then
-            cp target/p5136-finish-kart-abilities/release/p5136.exe "dist/p5136-${platform}-${arch}.exe"
-            cp target/p5136-finish-kart-abilities/release/p5136.exe package-root/p5136.exe
+            cp target/p4475-finish-kart-abilities/release/p4475.exe "dist/p4475-${platform}-${arch}.exe"
+            cp target/p4475-finish-kart-abilities/release/p4475.exe package-root/p4475.exe
             mkdir -p package-root/startup-proxy
             mv package-root/dinput8.dll package-root/startup-proxy/dinput8.dll
             cp README.md README.en.md README.zh-CN.md CHANGELOG.md WINDOWS_SERVER_2012.md package-root/
-            cp native/p5136-xun-sidecar/README.md package-root/XUN-SIDECAR.md
+            cp native/p4475-xun-sidecar/README.md package-root/XUN-SIDECAR.md
             pwsh -NoLogo -NoProfile -NonInteractive -Command \
-              "Compress-Archive -Path 'package-root/*' -DestinationPath 'dist/p5136-${platform}-${arch}.zip' -CompressionLevel Optimal"
+              "Compress-Archive -Path 'package-root/*' -DestinationPath 'dist/p4475-${platform}-${arch}.zip' -CompressionLevel Optimal"
           else
-            tar -czf "dist/p5136-${platform}-${arch}.tar.gz" \
-              -C target/p5136-finish-kart-abilities/release p5136
+            tar -czf "dist/p4475-${platform}-${arch}.tar.gz" \
+              -C target/p4475-finish-kart-abilities/release p4475
           fi
 
       - name: Upload release binary
         uses: actions/upload-artifact@v7
         with:
-          name: p5136-${{ runner.os }}-${{ runner.arch }}
+          name: p4475-${{ runner.os }}-${{ runner.arch }}
           path: dist/*
           if-no-files-found: error
           retention-days: 7
@@ -115,7 +115,7 @@ jobs:
           set -euo pipefail
           (
             cd dist
-            sha256sum p5136-* > SHA256SUMS
+            sha256sum p4475-* > SHA256SUMS
           )
 
       - name: Prepare Korean release notes
@@ -140,4 +140,4 @@ jobs:
           --repo "$GITHUB_REPOSITORY"
           --verify-tag
           --notes-file release-notes.md
-          --title "P5136 Rust $GITHUB_REF_NAME"
+          --title "P4475 Rust $GITHUB_REF_NAME"

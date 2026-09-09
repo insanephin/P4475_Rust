@@ -1,4 +1,4 @@
-# Retained P5136 packet-trace coverage
+# Retained P4475 packet-trace coverage
 
 Last updated: 2026-08-11
 
@@ -137,7 +137,7 @@ race paths, but they are now covered as well.
   remains an E2E gate.
 - The original 30 type-12 corpus records comprise Course state 0/1 with count
   4, Banana state 2, Rocket state 2, and Barricade state 1 shapes. A subsequent
-  runtime capture (`p5136-1785508674395-18928.log`) adds reachable Barricade
+  runtime capture (`p4475-1785508674395-18928.log`) adds reachable Barricade
   state 3 and state 2 forms with exact 25-byte raw bodies after a collision.
   Those exact state forms carry retained trace evidence and require their
   nested owner to match the claimed sender. Other known type-12 pairs use the
@@ -167,7 +167,7 @@ as authority, and does not enable the disabled C# relay branch.
 
 - The opt-in test
   `session::tests::external_retained_packet_corpus_matches_the_dispatch_domains`
-  reads the external directory through `P5136_PACKET_TRACE_DIR`.
+  reads the external directory through `P4475_PACKET_TRACE_DIR`.
 - It revalidated all 19,496 incoming records and 100 distinct hashes. All 97
   TCP hashes resolve through composed Rust dispatch domains; every actual
   packet belonging to the former 28-hash gap is fully parsed; every retained

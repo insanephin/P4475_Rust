@@ -1,0 +1,24 @@
+[package]
+name = "p4475-profile"
+description = "Versioned cross-platform profile persistence for KartRider P4475"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+version.workspace = true
+
+[dependencies]
+cap-fs-ext.workspace = true
+cap-std.workspace = true
+fs2.workspace = true
+p4475-core = { path = "../p4475-core" }
+quick-xml.workspace = true
+rand.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+tempfile = "3.23"
+
+[lints]
+workspace = true

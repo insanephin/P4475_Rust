@@ -1,0 +1,26 @@
+[package]
+name = "p4475-server"
+description = "Tokio server runtime for the KartRider P4475 client"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+version.workspace = true
+
+[dependencies]
+chrono.workspace = true
+p4475-core = { path = "../p4475-core" }
+p4475-profile = { path = "../p4475-profile" }
+p4475-rho5 = { path = "../p4475-rho5" }
+quick-xml.workspace = true
+rand.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true
+tempfile = "3.23"
+
+[lints]
+workspace = true

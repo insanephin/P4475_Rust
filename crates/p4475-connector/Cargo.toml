@@ -1,0 +1,23 @@
+[package]
+name = "p4475-connector"
+description = "Cross-platform connector core for KartRider P4475"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+version.workspace = true
+
+[dependencies]
+flate2 = "1.1"
+fs2 = "0.4"
+p4475-core = { path = "../p4475-core" }
+p4475-rho5 = { path = "../p4475-rho5" }
+tempfile = "3.23"
+thiserror.workspace = true
+tokio.workspace = true
+
+[dev-dependencies]
+base64 = "0.22"
+sha2.workspace = true
+
+[lints]
+workspace = true

@@ -9,13 +9,13 @@ short feature ledger is in [PORTING.md](PORTING.md).
 
 - The Connector tab now persists independently selectable XUN hook-helper and
   DLL paths. Both controls provide a native file picker, and a new installation
-  defaults to `p5136-xun-attach.exe` and `p5136-xun.dll` beside `p5136.exe`.
+  defaults to `p4475-xun-attach.exe` and `p4475-xun.dll` beside `p4475.exe`.
 - The Windows release archive places those files at its root, so the default
   paths work without copying files into the game directory. DLL file logging
   remains an independent checkbox and does not disable hooks.
 - The complete Win32 sidecar, attach helper, optional DirectInput proxy, CMake
   definitions, public ABI header, and smoke-test sources are now tracked under
-  `native/p5136-xun-sidecar`. Proprietary client data, IDB/decompiler output,
+  `native/p4475-xun-sidecar`. Proprietary client data, IDB/decompiler output,
   executable fixtures, and runtime logs remain excluded.
 - The Rust workspace and native CMake project are versioned `1.0.0`. The Korean
   `CHANGELOG.md` is the user-facing release summary; this file remains the
@@ -29,7 +29,7 @@ short feature ledger is in [PORTING.md](PORTING.md).
   markers, localized exclusion reasons, and throttled phase progress.
 - Candidate discovery is deliberately allowlisted to the audited 57 kart, 73
   character, 24 pet, and 47 flying-pet groups. XUN/Kart12 groups are omitted. Six karts
-  whose item transforms require client-native results absent from P5136 are
+  whose item transforms require client-native results absent from P4475 are
   visible but disabled, leaving 51 selectable karts, 73 characters, 24 pets,
   and 47 flying pets.
 - Added exact `category:asset_id` planner selectors and selected-only bundle
@@ -40,7 +40,7 @@ short feature ledger is in [PORTING.md](PORTING.md).
   the two server-visible catalog RHO5 files are updated in packed `Data`, each
   preserving its first source as a sibling `.pristine.bak`; generated resource
   archives are never copied into packed `Data`.
-- Added the read-only `p5136-assets list-compatible-assets` command. Against
+- Added the read-only `p4475-assets list-compatible-assets` command. Against
   the current newer Chinese source and live target it reports exactly 201
   candidates: 51 eligible installed karts, 73 eligible installed characters,
   24 eligible uninstalled pets, 47 eligible uninstalled flying pets, and six
@@ -69,7 +69,7 @@ short feature ledger is in [PORTING.md](PORTING.md).
   `aaa.pk`. Existing legacy archives can be materialized with their original
   storage properties and semantically repacked.
 - Added a bounded `aaa.pk` KRData/binary-XML codec with order-preserving
-  `RhoFolder` upsert. Real P5136 `aaa.pk` and `character_.rho` semantic
+  `RhoFolder` upsert. Real P4475 `aaa.pk` and `character_.rho` semantic
   round-trips pass against the local stock client.
 - Added explicit CN RHO5 key support and verified 62 archives / 22,429 entries
   in the newer local Chinese Data set.
@@ -77,20 +77,20 @@ short feature ledger is in [PORTING.md](PORTING.md).
   path. It splits output below the server's 64 MiB archive bound, rewrites new
   names to asset codes, hashes other non-ASCII shop fields, and verifies every
   generated archive with the normal reader.
-- Added the standalone `p5136-assets` scanner and staging importer. Imports are
+- Added the standalone `p4475-assets` scanner and staging importer. Imports are
   SHA-256 pinned, require an explicit static-compatibility assertion, and are
   refused when output points at either live Data directory.
 - Added the read-only asset planner. It reconstructs `aaa.pk` legacy mounts and
   RHO5 overlays, builds bounded kart/character/track dependency closures,
-  parses XML/KML/BML structurally, emits localization tasks, checks P5136 `.1s`
+  parses XML/KML/BML structurally, emits localization tasks, checks P4475 `.1s`
   signatures, and generates guarded manifests with four explicit compatibility
   outcomes. Invalidated legacy-index caches avoid reopening roughly 3,200 RHO
   mounts on every run.
 - Corrected the planner boundary so ordinary V1 `exceed` is recognized as a
-  stock P5136 feature; only XUN/Kart12 extensions trigger the native marker.
+  stock P4475 feature; only XUN/Kart12 extensions trigger the native marker.
   Binary image metadata is no longer interpreted as a dependency/native-class
   source, and root-level catalogs are no longer counted as asset groups.
-- Completed the deployed-client newer-CN-to-P5136 census: 294 source-only
+- Completed the deployed-client newer-CN-to-P4475 census: 294 source-only
   groups produced 183 direct static candidates (57 karts, 73 characters, and
   53 tracks), 111
   XUN-native-gated karts, and zero unresolved groups. Every planner run now
@@ -106,7 +106,7 @@ short feature ledger is in [PORTING.md](PORTING.md).
   models loaded through `itemTable`, while names and descriptions did not.
   The first attempt using new
   `DataPack4_00005`-`00009` names proved server-visible but client-invisible
-  through repeated unknown `ItemObject` errors; P5136 only enumerates its stock
+  through repeated unknown `ItemObject` errors; P4475 only enumerates its stock
   pack ranges. Replaced files receive one-time `.pristine.bak` backups.
   Effective-catalog
   extraction confirmed code names and hashed descriptions, the server loaded
@@ -116,7 +116,7 @@ short feature ledger is in [PORTING.md](PORTING.md).
   by pickup transforms, post-hit rewards, post-use rewards, and special
   boosters. The deployed 57-kart set adds 43 `transformByKart`, 14
   `fired2Gain`, 10 `firing2Gain`, and 7 `animalBooster` rows; eight rules whose
-  result items do not exist in P5136 are deliberately skipped. The Rust server
+  result items do not exist in P4475 are deliberately skipped. The Rust server
   now overlays the supported pickup/special-booster rules from RHO5 and loads
   676 resolved transforms for the imported client shape.
 - Recorded version-pinned IDA addresses and the additive sidecar boundary for
@@ -125,7 +125,7 @@ short feature ledger is in [PORTING.md](PORTING.md).
 
 ## 2026-08-11 v0.2.7 stock channel physics and configurable basic AI
 
-- Corrected normal speed and item channels to the stock Korean P5136
+- Corrected normal speed and item channels to the stock Korean P4475
   `channel.xml` integrated S7 speed byte. Individual/team Infinite Booster
   remains the original S4; S6 is the event preset and S8 is manual-only.
 - Added persistent Korean/English/Simplified-Chinese Server management inputs
@@ -160,7 +160,7 @@ short feature ledger is in [PORTING.md](PORTING.md).
   incomplete `boxter7` presentation behaves as dummy data in the stock client.
   Kartneck/Kartneck X (795/1167) remain the only verified `dummyBox`-named
   exceptions.
-- Static P5136 inspection confirms both Shop and Magic Hat entry requests are
+- Static P4475 inspection confirms both Shop and Magic Hat entry requests are
   base-only 16-byte packet objects and therefore hash-only four-byte logical
   packets. The separate account audit also corrects pmap 1798: `0x706`
   contains the anonymous-loadout bit `0x400` and not the suppressor `0x40`,
@@ -228,7 +228,7 @@ short feature ledger is in [PORTING.md](PORTING.md).
 
 ## 2026-08-05 v0.1.5 room control and customization compatibility
 
-- Corrected the P5136 plant snapshot's engine/wheel/handle/kit category order
+- Corrected the P4475 plant snapshot's engine/wheel/handle/kit category order
   and the kart-level probability-query result field that previously terminated
   the client when it was confused with a success percentage.
 - Added the exact room-title/password change codec and atomic master-only room
@@ -243,10 +243,10 @@ short feature ledger is in [PORTING.md](PORTING.md).
   on the server-decided winning team. AI, observers, and departed racers are
   not eligible.
 - The fixed-path Windows release candidate is
-  `target/p5136-finish-kart-abilities/release/p5136.exe` (18,356,736 bytes,
+  `target/p4475-finish-kart-abilities/release/p4475.exe` (18,356,736 bytes,
   SHA-256
   `4293B8F1245CB28277677A0E6263356FC8917626B65686A42649B2A378576376`).
-  `--version` reports `p5136 0.1.5`. Workspace all-target tests, warning-denying
+  `--version` reports `p4475 0.1.5`. Workspace all-target tests, warning-denying
   Clippy, formatting, `git diff --check`, and the release build pass.
 
 ## 2026-08-04 lobby balance, channel fallback, GUI settings memory, and next grid
@@ -264,7 +264,7 @@ short feature ledger is in [PORTING.md](PORTING.md).
   an item-mode default. The race-start physics lookup receives that same
   fallback, while game types 2/4 select their individual/team item matrix
   rows. Thus channel/session metadata and the emitted 235-byte physics block
-  follow the P5136 client catalog.
+  follow the P4475 client catalog.
 - The native GUI now enables eframe desktop persistence and stores a bounded
   (2 MiB maximum) versioned snapshot of all server/connector input fields:
   addresses, ports, paths, nickname, runner/Wine/CrossOver/Sikarugir settings,
@@ -283,7 +283,7 @@ short feature ledger is in [PORTING.md](PORTING.md).
   fallback selection, GUI persistence and required-path rejection, and exact
   next-start `RoomPlayer.ranking` serialization.
 - The refreshed fixed-path release is
-  `target/p5136-finish-kart-abilities/release/p5136.exe` (18,347,008 bytes,
+  `target/p4475-finish-kart-abilities/release/p4475.exe` (18,347,008 bytes,
   SHA-256
   `F1A8093D794BAD57CCD1B98C1F3FD860EE46EA338544ACEB5BE04290B20BF86F`).
   Workspace tests with all features, warning-denying workspace Clippy, release
@@ -297,7 +297,7 @@ short feature ledger is in [PORTING.md](PORTING.md).
   the effective folder (`addModelFolder` when present, otherwise the kart's own
   folder). Internal/display names that look like dummy, test, NPC, or AI rows
   are also excluded.
-- The stock P5136 client resolves 1,296 shop karts: 1,282 remain automatic and
+- The stock P4475 client resolves 1,296 shop karts: 1,282 remain automatic and
   14 are quarantined (`199, 312, 323, 352, 657, 658, 659, 744, 745, 746, 795,
   814, 886, 1167`). Quarantine removes only implicit serial-1 ownership and
   ordinary name search; it does not discard catalog identity.
@@ -314,7 +314,7 @@ short feature ledger is in [PORTING.md](PORTING.md).
 
 ## 2026-08-04 Floater/TuneData and Black-H physics
 
-- Reconstructed all four fixed-width P5136 Floater request/reply pairs from the
+- Reconstructed all four fixed-width P4475 Floater request/reply pairs from the
   client consumers: socket creation, activation kit, protection spanner, and
   socket reset. Requests now distinguish `consumable_id` from the required
   category-3 kart type. Every failure returns the complete decoder shape, so a
@@ -424,8 +424,8 @@ short feature ledger is in [PORTING.md](PORTING.md).
   Re-run it with:
 
   ```powershell
-  $env:P5136_UDP_STRESS_SECONDS='120'
-  cargo test -p p5136-server --test udp_runtime_standalone eight_clients_sustain_jittered_exact_relay_for_configured_duration --locked -- --ignored --exact --nocapture
+  $env:P4475_UDP_STRESS_SECONDS='120'
+  cargo test -p p4475-server --test udp_runtime_standalone eight_clients_sustain_jittered_exact_relay_for_configured_duration --locked -- --ignored --exact --nocapture
   ```
 
 - Added a real-socket standalone UDP test with eight independently bound
@@ -496,11 +496,11 @@ short feature ledger is in [PORTING.md](PORTING.md).
 ## Scope and source policy
 
 - Rust repository:
-  `C:\Users\drash\Documents\kartrider\kartrider_p5136_rust`
+  `C:\Users\drash\Documents\kartrider\kartrider_p4475_rust`
 - C# behavioral reference:
-  `C:\Users\drash\Documents\kartrider\KartRider-P5136`
+  `C:\Users\drash\Documents\kartrider\KartRider-P4475`
 - C# audit:
-  `C:\Users\drash\Documents\kartrider\KartRider-P5136\P5136_STABILITY_AUDIT.md`
+  `C:\Users\drash\Documents\kartrider\KartRider-P4475\P4475_STABILITY_AUDIT.md`
 - `PhysicsSim`, captures, scratch output, and historical analysis are separate
   projects/artifacts and must not be copied into this repository.
 - The C# repository is read-only for the rest of this port. A defect found in
@@ -575,7 +575,7 @@ a partial authoritative transition.
 
 The pinned IDB was re-probed through each `GoItem*` vtable offset `+0x24` and
 joined to both the native producer and `Gop*` writer. The resulting ledger is
-`analysis/P5136_ITEM_OPERATION_SEMANTICS.md`; the reproducible probe and full
+`analysis/P4475_ITEM_OPERATION_SEMANTICS.md`; the reproducible probe and full
 output are `analysis/ida_5136_type12_semantics_probe.py` and
 `analysis/ida_5136_type12_semantics_probe_v5.log`.
 
@@ -635,7 +635,7 @@ simulate boss AI, controller timers, or course collision physics.
 The stock client's complete ordinary-track archive set was scanned directly:
 218 `_Rnn/_Inn` archives (94 speed, 124 item), 534 `.1s` scenes, and no archive
 read failures. The resulting external ledger is
-`analysis/P5136_RI_TRACK_GIMMICK_AUDIT.md`.
+`analysis/P4475_RI_TRACK_GIMMICK_AUDIT.md`.
 
 Base scenes explicitly place `banana`, `itemCube`, `mine`, `waterMine`,
 `event`, `obstacle`, and `dummy` object types. The first four instantiate the
@@ -703,7 +703,7 @@ to Gold Shield item 36, kind 3 maps to Protect Shield item 81, and trailing
 `u16=106` on state 2 is the Siren Shield override. The independent oracle and
 FSM retain the activation while accepting repeated impact objects; unknown
 kinds relay without authoritative registry mutation.
-The normal-dependency-free `p5136-client-oracle::item_operation` module repeats
+The normal-dependency-free `p4475-client-oracle::item_operation` module repeats
 the recovered expansion's pair table, state locations, lengths, conditional
 branches, counted targets, and actor offsets without importing core. Its
 differential tests run all 166 recovered external branches and distinct actor
@@ -712,7 +712,7 @@ the production outer GameSlot parser likewise refuses to promote those shapes
 to strict `ItemOperation` (while retaining its bounded opaque fallback policy).
 Lucci, BonusItem and TeamFlag remain scope-excluded.
 
-`p5136-client-oracle::item_client_fsm` now executes the original 149 consumer
+`p4475-client-oracle::item_client_fsm` now executes the original 149 consumer
 fixtures as state transitions rather than decode-only assertions. The pinned
 outcome census is 74 `LocalOnly`, 70 `DeferredOutbound`, zero
 `ImmediateOutbound`, and 5 `UnknownSideEffect`. Angel state 0 is deferred
@@ -755,11 +755,11 @@ and leave the existing object fingerprint unchanged.
 ### Complete gameplay-page item catalog (2026-08-03)
 
 The user-supplied Korean item page is now represented by
-`p5136_core::item_gameplay_catalog`. Its 54 heading entries are a complete,
+`p4475_core::item_gameplay_catalog`. Its 54 heading entries are a complete,
 uniqueness-tested catalog across acceleration (6), attack (22), defense (7),
 placement (11), status (5), and utility (3). Each entry records a stable slug,
 Korean name, target scope, effect hints, a concise Korean summary, established
-P5136 symbol/ID pairs, and evidence-graded `Gop*` links. Forty-one numeric
+P4475 symbol/ID pairs, and evidence-graded `Gop*` links. Forty-one numeric
 name/ID pairs are currently anchored as 19 retained fallback-table pairs, 20
 Korean-executable initializer pairs, and two verified profile supplements
 (`siren=24`, `superMagnet=103`). Exact literal tests pin all 54 per-heading
@@ -777,7 +777,7 @@ rolling waterbomb variant can no longer be promoted merely because both
 candidate classes have recovered native writers.
 
 The attached page was last edited in 2026, so it is never used to synthesize
-P5136 offsets, states, durations, probabilities, or defense rules. Direct RHO
+P4475 offsets, states, durations, probabilities, or defense rules. Direct RHO
 resources and executable producers now close every active ambiguous join:
 Guide Rocket 33 uses `GopRocket`; StraightRocket 73 is Giant Missile;
 Timebomb 13 is distinct from the Abyss special BigTimebomb 122; SnowWaterfly
@@ -786,7 +786,7 @@ while `GopSpecialShield` is item 40; and both Cloud discriminator maps are
 exact. `GopShield` state 1 is corrected to `item_id:u16@16, token@18,
 source@22`. Rolling Waterbomb, Jiangshi, and first-place Devil are explicitly
 `DeferredByUser`. Net and modern Random Missile remain page-only because no
-P5136 join is proven, rather than because two packet classes compete.
+P4475 join is proven, rather than because two packet classes compete.
 GoldShield remains the exact Gold/Protect/Siren defense envelope. The full
 ledger and source hash are in
 [ITEM_GAMEPLAY_COVERAGE.md](ITEM_GAMEPLAY_COVERAGE.md).
@@ -802,14 +802,14 @@ completion.
 ### Start-collect-record codec and speed-team compatibility (2026-08-04)
 
 The speed-team disconnect in runtime log
-`p5136-1785851850557-11152.log` is now tied to the four-byte logical hash
+`p4475-1785851850557-11152.log` is now tied to the four-byte logical hash
 `0x529107F4`, which is `PqStartCollectRecord`. Rust previously classified that
 identity-bound hash as unsupported and actively ended the TCP session. The
 retained C# dispatcher has only the packet-name enum entry and falls through
 without a reply, which explains why the older deployed C# build did not fail
 at the same point.
 
-The installed P5136 executable establishes both native classes exactly. The
+The installed P4475 executable establishes both native classes exactly. The
 request uses the 16-byte base-only vtable at `0x01064E78`, so its wire shape is
 only the hash. `PrStartCollectRecord` is a 20-byte object with vtable
 `0x01064E9C`; native readers `0x00593260`/`0x00593590` write one raw byte to
@@ -848,7 +848,7 @@ request with a spurious suffix fails as a typed race-protocol error.
 
 ### Recorded-race finish disconnect and unknown-packet policy (2026-08-04)
 
-Runtime log `p5136-1785855133322-26316.log` did not reach server settlement or
+Runtime log `p4475-1785855133322-26316.log` did not reach server settlement or
 podium serialization for the local rider. At the speed-team finish the client
 sent the exact 24-byte logical packet
 `BC0AF494D294010000000000670000005F00000039010000`, hash `0x94F40ABC`.
@@ -872,7 +872,7 @@ The broader authenticated fallback now follows the requested compatibility
 policy. Classified packets still use strict complete-consumption codecs and a
 malformed known packet remains an error. A genuinely unknown hash is checked
 against the admitted identity generation and bound profile, then produces a
-`p5136_packet` warning and no response while the session stays alive. Its raw
+`p4475_packet` warning and no response while the session stays alive. Its raw
 payload is already preserved by the immediately preceding bounded logical
 receive record. This replaces the former arbitrary-unknown fail-closed policy
 without weakening typed handlers.
@@ -931,11 +931,11 @@ local room installation.
 
 ### Independent client-semantics oracle (2026-08-03)
 
-The workspace now contains `p5136-client-oracle`, a separate non-published
+The workspace now contains `p4475-client-oracle`, a separate non-published
 crate that reconstructs selected client-side packet readers without importing
 the production `PacketReader`, Adler hash function, wire constants, encoded
-scalar table, or serializer models. `p5136-core` is a dev-dependency only for
-integration-test input; `cargo tree -p p5136-client-oracle --edges normal`
+scalar table, or serializer models. `p4475-core` is a dev-dependency only for
+integration-test input; `cargo tree -p p4475-client-oracle --edges normal`
 shows no normal dependency at all. This prevents a server writer and its test
 reader from sharing the same offset or hash bug.
 
@@ -979,7 +979,7 @@ byte test as native semantic proof:
   count, and both `current < capacity` and full/unavailable admission.
 
 The oracle integration suite passes. Its policy tests prevent silent
-promotion of evidence grades and prevent `p5136-core` from becoming a normal
+promotion of evidence grades and prevent `p4475-core` from becoming a normal
 oracle dependency. The complete workspace
 passes `cargo test --workspace --all-features`; full all-target/all-feature
 Clippy passes with `-D warnings`; formatting and the no-normal-dependency check
@@ -991,7 +991,7 @@ remaining global oracle and stock-client LAN E2E gates stay open in
 ### Ceremony packet-order correction from deployed C# evidence (2026-08-03)
 
 The two-machine Rust log
-`target\p5136-finish-kart-abilities\release\logs\p5136-1785768755004-28608.log`
+`target\p4475-finish-kart-abilities\release\logs\p4475-1785768755004-28608.log`
 records an item-team settlement at `14:55:31.804Z`: Rust sent
 `GameNextStage` (13 bytes), the old 486-byte `GameResult`, then final
 `GameControl(state=4)` (85 bytes). The local client continued writing for
@@ -999,7 +999,7 @@ roughly 13 seconds and then reset TCP; the server-side Windows error 10054 is
 the consequence of that client exit, not its initiating cause.
 
 Static analysis confirms that the modern C#-derived human-result record is not
-the P5136 layout. `sub_71BF00` consumes 212 bytes when all four bounded nested
+the P4475 layout. `sub_71BF00` consumes 212 bytes when all four bounded nested
 vectors are empty. At wire offset 63 it reads the team as one byte, then reads
 dwords at offsets 64, 68, and 72. The old writer instead put `team_points` at
 63 and the team byte at 67, and appended five bytes beyond the decoded record.
@@ -1036,7 +1036,7 @@ remains the live acceptance gate.
 ### Post-ceremony stale lobby-snapshot crash fix (2026-07-31)
 
 The two-machine log
-`target\\p5136-finish-kart-abilities\\release\\logs\\p5136-1785542687403-33332.log`
+`target\\p4475-finish-kart-abilities\\release\\logs\\p4475-1785542687403-33332.log`
 shows that, at `00:08:56Z`, Rust sent the then-current `GameNextStage` (13
 bytes), two-human `GameResult` (486 bytes), and final `GameControl` (85 bytes)
 to both clients without an immediate reset. That delayed reset did not prove
@@ -1065,14 +1065,14 @@ post-race scene.
   still required to confirm the stock client returns from ceremony to the
   room without a reset.
 - The tag-driven GitHub Release workflow packages from the same bounded
-  `target/p5136-finish-kart-abilities/release` directory configured for local
+  `target/p4475-finish-kart-abilities/release` directory configured for local
   builds, so its Windows/macOS/Linux assets cannot silently look in Cargo's
   default target path.
 
 ### C# opaque-packet audit remediation (2026-07-31)
 
 The read-only static audit
-`C:\Users\drash\Documents\kartrider\analysis\P5136_CSHARP_OPAQUE_PACKET_AUDIT.md`
+`C:\Users\drash\Documents\kartrider\analysis\P4475_CSHARP_OPAQUE_PACKET_AUDIT.md`
 was compared against the Rust codecs and retained packet fixtures. The C# tree
 was not modified.
 
@@ -1111,10 +1111,10 @@ was not modified.
   second-word transformation. A broad room broadcast or hard-coded zero would
   be less correct than the current no-reply behavior.
 
-### Local Club UI hand-off from the live P5136 crash (2026-07-31)
+### Local Club UI hand-off from the live P4475 crash (2026-07-31)
 
 The stock-client run in
-`target\\p5136-finish-kart-abilities\\release\\logs\\p5136-1785523302246-26424.log`
+`target\\p4475-finish-kart-abilities\\release\\logs\\p4475-1785523302246-26424.log`
 ended at the first `PqClubChannelSwitch` request, hash `0x48770772`, because
 Rust treated the previously unclassified identity-bound packet as terminal.
 The exact 29-byte decoded request is a channel-switch-shaped envelope:
@@ -1123,7 +1123,7 @@ reserved_zero[4]`. It is not an ordinary `PqChannelSwitch`: C# replies with
 the local Club UI variant of `PrChannelSwitch` rather than creating a TCP
 migration permit.
 
-- `p5136-core::channel` now exposes a dedicated parser that bounds the opaque
+- `p4475-core::channel` now exposes a dedicated parser that bounds the opaque
   block before copying, verifies the `PqClubChannelSwitch` hash, and requires
   exactly four zero reserved bytes. Wrong hashes, every truncated prefix, and
   nonzero/resized reserved suffixes are typed errors.
@@ -1139,10 +1139,10 @@ migration permit.
   membership namespace, join flow, or club economy exists. Those remain the
   explicitly deferred actor-owned design slice below.
 
-### P5136 ceremony/DNF diagnostic checkpoint (2026-07-31)
+### P4475 ceremony/DNF diagnostic checkpoint (2026-07-31)
 
 The item-team race in
-`target\\p5136-finish-kart-abilities\\release\\logs\\p5136-1785523302246-26424.log`
+`target\\p4475-finish-kart-abilities\\release\\logs\\p4475-1785523302246-26424.log`
 ended with one human and four AI entries. One AI did not finish; it remains a
 normal result participant with `finish_time = u32::MAX`, its assigned rank,
 kart, team, and team points. Rust must not remove or synthesize away that
@@ -1152,7 +1152,7 @@ entry merely to avoid a client crash.
   roster retains all four AI entries, including the DNF entry. Removing the
   old human record's five unconsumed bytes changes this one-human/four-AI
   packet from 357 to 352 bytes without removing a racer.
-  The deployed P5136 settlement order is final `GameControl(type=4)`,
+  The deployed P4475 settlement order is final `GameControl(type=4)`,
   `GameNextStage`, then `GameResult`; Rust now uses that captured order rather
   than the later source-only Korean5136 branch.
 - C# excludes the first human finisher from the earlier
@@ -1167,7 +1167,7 @@ entry merely to avoid a client crash.
 ### Two-client item race follow-up (2026-07-31)
 
 The live run in
-`target\\p5136-finish-kart-abilities\\release\\logs\\p5136-1785526711472-27784.log`
+`target\\p4475-finish-kart-abilities\\release\\logs\\p4475-1785526711472-27784.log`
 identified two concrete protocol gaps and one verified delivery path.
 
 - The client sent the exact 88-byte `PcRideSwithInfoPacket` (`0x5815082A`)
@@ -1192,7 +1192,7 @@ identified two concrete protocol gaps and one verified delivery path.
 ### Authoritative item-box pickup and probability controls (2026-07-30)
 
 The stock-client run in
-`target\p5136-gameslot-static\release\logs\p5136-1785453355779-31260.log`
+`target\p4475-gameslot-static\release\logs\p4475-1785453355779-31260.log`
 reached item individual gameplay and sent three valid 73-byte type-1
 `GameSlotPacket` item-box requests at 23:18:36 and 23:18:46. All three passed
 the strict hash, sender, all-bits mask, finite-position, blob-length, and
@@ -1234,7 +1234,7 @@ transport or client disconnect error in that interval.
   unique, tables are capped at 512 rows, names at 64 characters, each weight
   at 1,000,000, and every active rank total must be nonzero. Checked `u64`
   totals and an explicit `[0,total)` roll avoid overflow and modulo bias.
-- The installed P5136 data keeps these tables in the 28.9MB legacy
+- The installed P4475 data keeps these tables in the 28.9MB legacy
   `Data\item.rho`, not the RHO5 packs. The new no-`unsafe`, read-only
   Rh-layer-1.1 reader bounds archive/block/directory/name sizes, validates the
   decrypted header and nonzero block checksums, rejects duplicate/out-of-range
@@ -1292,7 +1292,7 @@ transport or client disconnect error in that interval.
 ### Live MyRoom/X-parts/room-mode fixes (2026-07-30)
 
 The stock-client run recorded in
-`target\p5136-gameslot-static\release\logs\p5136-1785449807325-35392.log`
+`target\p4475-gameslot-static\release\logs\p4475-1785449807325-35392.log`
 separated one intentional EOF from two actionable failures and one room-mode
 policy gap.
 
@@ -1335,7 +1335,7 @@ policy gap.
 - The external
   `C:\Users\drash\Documents\kartrider\KartRider_5136\logs` corpus is now an
   executable opt-in test boundary rather than a prose-only inventory.
-  `P5136_PACKET_TRACE_DIR` drives a read-only parser that verifies all 19,496
+  `P4475_PACKET_TRACE_DIR` drives a read-only parser that verifies all 19,496
   incoming records, 100 distinct hashes, and 97 TCP hashes. Every TCP hash is
   owned by a composed Rust dispatch domain, every actual packet in the former
   28-hash gap is fully consumed by its strict codec, and every Game/P2P UDP
@@ -1385,9 +1385,9 @@ policy gap.
   `0x5815082A` is the named `PcRideSwithInfoPacket`, not an unknown-hash
   exception: its map/vector/aggregate containers are parsed for each retained
   56/64/68/72/76/80/88-byte form. The 56-byte compact-retire fixture comes
-  from `p5136-1785514451491-14604.log`, the 72-byte finish-adjacent fixture
-  from `p5136-1785511619293-33416.log`, and the 88-byte post-goal fixture from
-  `p5136-1785526711472-27784.log`. At that checkpoint arbitrary unknown hashes
+  from `p4475-1785514451491-14604.log`, the 72-byte finish-adjacent fixture
+  from `p4475-1785511619293-33416.log`, and the 88-byte post-goal fixture from
+  `p4475-1785526711472-27784.log`. At that checkpoint arbitrary unknown hashes
   still failed closed; the recorded-race finish correction above supersedes
   that fallback with authenticated logged no-reply consumption. Rust does not
   copy C# client-authoritative anti-cheat mutation or fabricate the disabled
@@ -1406,10 +1406,10 @@ policy gap.
   analysis artifact and authoritative object ownership remain documented
   evidence/tooling gaps rather than guessed runtime policy.
 - The current CLI/GUI E2E build is
-  `target\p5136-finish-kart-abilities\release\p5136.exe` (18,356,736 bytes,
+  `target\p4475-finish-kart-abilities\release\p4475.exe` (18,356,736 bytes,
   SHA-256
   `4293B8F1245CB28277677A0E6263356FC8917626B65686A42649B2A378576376`).
-  `--version` reports `p5136 0.1.5`; the release target is the single fixed
+  `--version` reports `p4475 0.1.5`; the release target is the single fixed
   Cargo output directory. The latest stock-data loader test used the user's
   real `KartRider_5136\Data` directly, loaded 493 catalog transforms, classified
   1,282 automatic and 14 quarantined karts, and required no generated
@@ -1417,7 +1417,7 @@ policy gap.
   transports and passed messenger reachability. The installed
   legacy `item.rho` opt-in test separately confirmed 14/18 probability rows
   and combined weights 400/410. The server smoke log is
-  `target\p5136-finish-kart-abilities\release\logs\p5136-1785851010010-9888.log`.
+  `target\p4475-finish-kart-abilities\release\logs\p4475-1785851010010-9888.log`.
   Launch with no arguments for the Server/Connector GUI or use the documented
   `server`/`connect` commands.
 - No C# files were modified. C# remains protocol/product evidence; checked
@@ -1425,7 +1425,7 @@ policy gap.
   strict known-packet codecs, and authenticated logged unknown consumption
   intentionally improve unsafe C# behavior.
 - Local Cargo output is fixed to the same
-  `target\p5136-finish-kart-abilities` directory through
+  `target\p4475-finish-kart-abilities` directory through
   `.cargo/config.toml`; older diagnostic build trees were removed after this
   checkpoint.
 - The retire/flying-pet checkpoint was rebuilt after the previous runtime
@@ -1453,12 +1453,12 @@ policy gap.
   generation-authorized, returns `false` outside a Lobby, and does not fan out
   a synthetic wire packet.
 - The later-version V2 Exceed code is deliberately excluded rather than a
-  missing P5136 extractor: `Parts12Data.json` and `Level12Data.json` are
+  missing P4475 extractor: `Parts12Data.json` and `Level12Data.json` are
   per-account C# server persistence files, not stock client assets. The C#
-  audit documents that Korean P5136 emits only the Tune/Plant/Level/Parts four
+  audit documents that Korean P4475 emits only the Tune/Plant/Level/Parts four
   streams; adding the later byte-gated Level12/Parts12 stream desynchronizes
   its decoder. Its exported catalog also supplies no nonzero V2 default type.
-  Normal P5136 V1 speed/dual-booster/instant-accel fields remain data-backed
+  Normal P4475 V1 speed/dual-booster/instant-accel fields remain data-backed
   from the catalog and are now refreshed correctly.
 
 The current checkpoint closes the direct-request disposition ledger at 40 of
@@ -1474,7 +1474,7 @@ unchanged and is evidence only.
 
 ### Race completion GameControl tail (2026-07-31)
 
-- The runtime log `p5136-1785522788375-25004.log` isolated a client disconnect
+- The runtime log `p4475-1785522788375-25004.log` isolated a client disconnect
   to its normal 406-byte `GameControlPacket` finish report: the 13-byte prefix
   is followed by a 393-byte result snapshot. Rust's former 256-byte
   compatibility cap rejected it before the World actor could record the
@@ -1491,8 +1491,8 @@ unchanged and is evidence only.
 
 ### Desktop server and connector GUI
 
-- `p5136` remains one native binary by design. `p5136 server` and
-  `p5136 connect` remain the scriptable CLI surfaces; launching with no
+- `p4475` remains one native binary by design. `p4475 server` and
+  `p4475 connect` remain the scriptable CLI surfaces; launching with no
   arguments opens the desktop Server/Connector GUI.
 - The Server tab maps directly to the public CLI server configuration: bind
   address, advertised IPv4 address, configured base port, profile root,
@@ -1525,12 +1525,12 @@ unchanged and is evidence only.
 ### File sink and complete packet diagnostics (2026-07-30)
 
 - Every CLI or GUI process reserves a new local log at
-  `<executable directory>\logs\p5136-<timestamp>-<pid>.log`; the GUI displays
-  the exact path. `P5136_LOG_DIR` overrides the directory for a test run.
+  `<executable directory>\logs\p4475-<timestamp>-<pid>.log`; the GUI displays
+  the exact path. `P4475_LOG_DIR` overrides the directory for a test run.
   Creation/open failure is a startup error, never a silent console-only
   fallback. Files are intentionally not rotated or deleted automatically so a
   just-crashed client run remains available for inspection.
-- The file sink independently enables `p5136_packet=debug`, so it captures
+- The file sink independently enables `p4475_packet=debug`, so it captures
   packet records even with the normal `info` terminal level. Its records have
   direction, peer, full length, captured length, and first-word little-endian
   value (the packet hash for logical TCP/Messenger frames),
@@ -1577,7 +1577,7 @@ unchanged and is evidence only.
 ### Audited login and menu initialization path (2026-07-30)
 
 - The next retained run is
-  `target\p5136-startup-queries\release\logs\p5136-1785435892564-5036.log`.
+  `target\p4475-startup-queries\release\logs\p4475-1785435892564-5036.log`.
   It proves that login, the complete catalog inventory stream, rider
   completion, endpoint reports, and the earlier post-rider replies all
   succeeded. The terminal request was the exact four-byte
@@ -1587,7 +1587,7 @@ unchanged and is evidence only.
   treating source order as client order. It reads the hash under the session
   lock, establishes or acquires the identity-generation operation, invokes
   `Korean5136Protocol.TryHandle` first, then the general packet dispatcher,
-  and only then its large fallback handler. The P5136 path is therefore:
+  and only then its large fallback handler. The P4475 path is therefore:
   server `PcFirstMessage`; client `PqLogin` and server `PrLogin`; client
   `PqGetRider`; complete `LoRpGetRiderItemPacket` inventory stream followed by
   `PrGetRider`; then client-driven post-rider/menu queries. `PqCnAuthenLogin`
@@ -1643,7 +1643,7 @@ unchanged and is evidence only.
   opt-in tests ignored; formatting, `git diff --check`, and workspace
   all-target/all-feature Clippy with `-D warnings` also pass.
 - The fresh release is
-  `target\p5136-initialization\release\p5136.exe` (15,473,152 bytes, SHA-256
+  `target\p4475-initialization\release\p4475.exe` (15,473,152 bytes, SHA-256
   `C01B47262FE5FC258EE7B1B063FD57EE6331A2D084E62647A5349A046E083745`).
   It was built in a distinct target directory so a running older executable
   could not mask the new implementation.
@@ -1652,7 +1652,7 @@ unchanged and is evidence only.
 ### Captured Koin fix and retained-log coverage audit (2026-07-30)
 
 - The next Rust run,
-  `target\p5136-initialization\release\logs\p5136-1785436881093-30272.log`,
+  `target\p4475-initialization\release\logs\p4475-1785436881093-30272.log`,
   passed the gift, cash-inventory, and adjacent menu queries. It terminated on
   a five-byte `SpRqKoinBalance` request:
   `BD 05 4C 2D 01`. The old Rust parser incorrectly treated Koin as a
@@ -1711,29 +1711,29 @@ unchanged and is evidence only.
   all-target/all-feature Clippy with `-D warnings`, and the workspace
   `unsafe_code = "forbid"` policy also pass.
 - The fresh release is
-  `target\p5136-corpus-audit\release\p5136.exe` (15,488,000 bytes, SHA-256
+  `target\p4475-corpus-audit\release\p4475.exe` (15,488,000 bytes, SHA-256
   `FAC9124B4C3640965FCF3BFCC15F1620A0CFA7DCA0A955D2CB322D5139ED3E36`).
   It was built in a distinct target directory so an older running executable
   could not mask the new implementation.
 - The C# repository remains unmodified.
 
-### Correct stock P5136 and LAN E2E setup (2026-07-30)
+### Correct stock P4475 and LAN E2E setup (2026-07-30)
 
-- The local stock P5136 installation is
+- The local stock P4475 installation is
   `C:\Users\drash\Documents\kartrider\KartRider_5136`, not the
   `HF_20051214_Factory` client copies. Its `KartRider.exe` SHA-256 is the
-  connector's exact supported P5136 hash:
+  connector's exact supported P4475 hash:
   `629F084E2A12C6FA1FF0EA603B90F8768454D13A1BC2DF6A8504F8AA06FD6194`.
-  The Factory client copies hash differently and are not valid P5136 E2E
+  The Factory client copies hash differently and are not valid P4475 E2E
   targets.
 - The same installation supplies both required local runtime data paths:
   `Profile\KartCatalog.xml` for `--catalog` and `Data` for
   `--client-data-dir`. Release startup with both paths was smoke-tested on
   `127.0.0.1:49311` through a real messenger probe. The copied Factory Data
   path failed closed because it did not contain the required KR emblem entry.
-- One P5136 installation does not support concurrent multi-client launch.
+- One P4475 installation does not support concurrent multi-client launch.
   The first real two-player test must use a second machine on the local LAN,
-  with its own supported P5136 installation and a copied release connector.
+  with its own supported P4475 installation and a copied release connector.
   Do not race connector patching or launcher-profile writes inside a shared
   game directory.
 - At this checkpoint the server host's physical LAN interface is Wi-Fi
@@ -1757,8 +1757,8 @@ unchanged and is evidence only.
   TCP `39313`. Before connecting the remote client, authorize those exact
   inbound protocols/ports for the active Windows firewall network profile. No
   firewall rule was created by this port checkpoint.
-- On the remote machine, run its release `p5136.exe` GUI only for the
-  Connector tab: point Game directory to that machine's P5136 installation,
+- On the remote machine, run its release `p4475.exe` GUI only for the
+  Connector tab: point Game directory to that machine's P4475 installation,
   set a unique nickname, Server IPv4 to `192.168.1.10`, configured port to
   `39311`, and use its native runner. The remote server must create the new
   profile, so the server-side remote-creation checkbox above is required for
@@ -1917,7 +1917,7 @@ unchanged and is evidence only.
   request, stale migration ownership, and quiesce priority. Two independent
   read-only reviews found no P0-P3 issue in the protocol, abstraction,
   ordering, error propagation, or `unsafe` policy.
-- The direct P5136 request-disposition ledger is now 40 of 40 explicit after
+- The direct P4475 request-disposition ledger is now 40 of 40 explicit after
   the later item-state checkpoint. The deliberate compatibility no-op table
   remains 25 of 25 explicit. Successful club membership, creation, join,
   search, and rename remain deferred until an actor-owned repository and
@@ -1969,11 +1969,11 @@ unchanged and is evidence only.
   preserves the full `u8` domain without inventing an undocumented business
   range, then rejects every truncated or trailing shape the C# handler
   ignored.
-- The reply is exactly `hash | raw status 1 | 235-byte P5136 kart-physics
+- The reply is exactly `hash | raw status 1 | 235-byte P4475 kart-physics
   block`, for 240 total bytes. Serialization is fallible and
   `KartPhysicsBuildError` propagates through `LoginSessionError`; no panic or
   default-on-error path can emit a partial reply.
-- Rust reuses `build_p5136_kart_physics_block` with the validated S7 baseline.
+- Rust reuses `build_p4475_kart_physics_block` with the validated S7 baseline.
   The normal formula yields `2304.0` and `3745.587890625` at physics offsets
   138 and 142. The compatibility shortcut instead hardcodes `2305.0` and
   `3745.0`; that isolated drift and the mutable global `SpeedPatch` dependency
@@ -1989,14 +1989,14 @@ unchanged and is evidence only.
   fields/digest, unbound-profile ordering, authenticated direct dispatch,
   profile immutability, follow-up liveness, stale migration ownership, and
   quiesce.
-- Room and single-player kart physics now resolve the Korean P5136 flying-pet
+- Room and single-player kart physics now resolve the Korean P4475 flying-pet
   table (80 immutable IDs) before building the 235-byte block, matching the C#
   `FlyingPetSpec` additions. Normal-pet defense remains client-authoritative:
   Rust persists and broadcasts `Set_Pet` at rider-item offset 26 and relays the
   client's type-11 reaction/mask without rolling `itemTable@kr.xml` a second
   time. Unknown flying-pet IDs retain the C# zero-spec behavior and are logged
   as a typed fallback.
-- The direct P5136 request-disposition ledger is now 40 of 40 explicit after
+- The direct P4475 request-disposition ledger is now 40 of 40 explicit after
   the later item-state checkpoint. The deliberate compatibility no-op table
   remains 25 of 25 explicit. Stock-client school-start E2E remains an open
   validation gate.
@@ -2035,7 +2035,7 @@ unchanged and is evidence only.
   request, unbound profile behavior, stale migration ownership, quiesce, and
   the malformed/error-priority combinations.
 - These were tracked as additional shared startup-handler gaps rather than
-  members of the 40 direct P5136 request-disposition set. That direct ledger
+  members of the 40 direct P4475 request-disposition set. That direct ledger
   was therefore unchanged by this slice. After the later rider-info,
   rider-school, club-query, and item-state work, the current ledger is 40 of
   40 explicit; the deliberate no-op table remains 25 of 25 explicit.
@@ -2043,7 +2043,7 @@ unchanged and is evidence only.
   behavior and the successful extra-data value policy remain open evidence
   gaps.
 
-### Fail-closed P5136 shop buys
+### Fail-closed P4475 shop buys
 
 - `SpReqNormalShopBuyItemPacket` is `0x9E700B05` with the exact body
   `stock_id:i32 | unknown:i32 | mode:u8`, for 9 body bytes and 13 total bytes.
@@ -2077,7 +2077,7 @@ unchanged and is evidence only.
   quiesce rejection. Stock-client purchase UI/E2E behavior and the meanings of
   the unknown fields remain open evidence gaps.
 - These two aliases contributed to the earlier 30-of-40 checkpoint. The
-  current direct P5136 request-disposition audit is 40 of 40 explicit after
+  current direct P4475 request-disposition audit is 40 of 40 explicit after
   rider-info, rider-school, club-query, and item-state integration. The
   separate deliberate compatibility no-op table remains 25 of 25 explicit.
 - `LoRqDeleteItemPacket` and `PqUnLockedItem` are now explicit safe no-reply
@@ -2119,7 +2119,7 @@ unchanged and is evidence only.
   bytes before copying it. This codec is independent of the opaque UDP relay
   envelope that happens to use the same packet name; the TCP cap is never
   applied to UDP movement traffic.
-- The accepted Korean P5136 wire types are `1`, `2`, `4`, `5`, `6`, `7`,
+- The accepted Korean P4475 wire types are `1`, `2`, `4`, `5`, `6`, `7`,
   `8`, `9`, `10`, `11`, `12`, `13`, `16`, and `17`. Claimed player IDs must
   be in `0..=15`;
   type-specific masks, declared lengths, complete consumption, item-vector
@@ -2247,12 +2247,12 @@ unchanged and is evidence only.
   once after base selection. The stability audit identifies double
   transformation and synthetic packet behavior as failure risks; the
   remaining effects stay separate rather than reproducing those defects.
-- GameSlot wire errors, unsupported P5136 types, wrong phase, spoofing,
+- GameSlot wire errors, unsupported P4475 types, wrong phase, spoofing,
   observer source, inactive frozen membership, closed settlement, and outbound
   saturation are structured nonfatal drops. Stale global identity ownership,
   actor termination, invariant failures, quiesce closure, and an impossible
   command/outcome mismatch still propagate. Ordinary runtime events include
-  bounded metadata and typed reasons; the dedicated local `p5136_packet` file
+  bounded metadata and typed reasons; the dedicated local `p4475_packet` file
   sink additionally retains bounded raw packet diagnostics as documented
   above.
 - The opt-in external audit sends the older 1,471 retained TCP GameSlot RX
@@ -2298,7 +2298,7 @@ unchanged and is evidence only.
 - The codec consumes but does not expose the claimed IPv4 bytes. Rust derives
   the wire address only from the authenticated TCP peer. Direct IPv4 and
   IPv4-mapped IPv6 peers retain that IPv4 address; native IPv6 peers are
-  deliberately unadvertised as `(0.0.0.0, 0)` because P5136 room packets
+  deliberately unadvertised as `(0.0.0.0, 0)` because P4475 room packets
   cannot represent IPv6. A native IPv6 peer must never become the false
   capability `0.0.0.0:<nonzero>`.
 - The Game-UDP report is strict validation-only and has no reply. Observed UDP
@@ -2352,7 +2352,7 @@ unchanged and is evidence only.
 
 ### LAN relay readiness (2026-08-01)
 
-- Two-machine capture `p5136-1785562566890-30896.log` confirms the server
+- Two-machine capture `p4475-1785562566890-30896.log` confirms the server
   forwards the real 112-byte GameSlot UDP envelope from `192.168.1.10:63367`
   to `192.168.1.15:61002`; the relay is not a missing P2P implementation.
   The inverse direction exposed two compatibility gaps instead: `.15` sent
@@ -2363,7 +2363,7 @@ unchanged and is evidence only.
   all-ready schedules the normal one-second-delayed `RaceStart`, while the
   bounded 30-second fallback remains for a client that never originates its
   own time-sync request.
-- Capture `p5136-1785767798854-25476.log` disproved the temporary eager-ready
+- Capture `p4475-1785767798854-25476.log` disproved the temporary eager-ready
   experiment: `GrCommandStart` reached both clients at `14:43:11.023`, their
   state-0 controls arrived at `14:43:12.815` and `14:43:15.147`, and Rust sent
   state 1 at `14:43:16.156` before UDP preparation completed. Both clients
@@ -2432,7 +2432,7 @@ unchanged and is evidence only.
   `etc_/emblem/emblem@kr.xml` once in `DataPack1_00000.rho5`: 586 unique
   positive IDs, minimum 1 and maximum 8803. This proprietary XML and its
   archive are evidence only and are not copied into Git.
-- The safe `p5136-rho5` crate scans the configured stock-client `Data`
+- The safe `p4475-rho5` crate scans the configured stock-client `Data`
   directory without writing to it. It uses checked offsets/ranges, bounded
   archive/table/path/file counts and declared-size totals, KR key goldens,
   header and entry checksums, exact first-`0x400` double decryption, exact zlib
@@ -2942,7 +2942,7 @@ selected stock `Profile/KartCatalog.xml`, searches the real Korean display
 name with case/whitespace-insensitive substring ranking or an exact decimal
 ID, and shows the name-to-ID resolution before mutation.
 
-The persistence rule is owned by `p5136-profile`, not the GUI. Each addition
+The persistence rule is owned by `p4475-profile`, not the GUI. Each addition
 first acquires a short-lived offline lease on the same profile-root lock held
 by a live server, captures and revalidates the durable profile-store identity,
 then runs through the immutable-revision profile transaction. This prevents a
@@ -2983,16 +2983,16 @@ The current worktree passed on Windows:
 ```text
 cargo fmt --all -- --check
 cargo clippy --workspace --all-targets --all-features -- -D warnings
-P5136_CLIENT_DATA_DIR=<stock Data> cargo test --workspace --all-features
-P5136_KART_CATALOG=<stock KartCatalog.xml> cargo test -p p5136-profile inventory_editor::tests::stock_client_catalog_name_search_smoke -- --ignored --exact
-P5136_CLIENT_DATA=<stock Data> cargo test -p p5136-server random_track::tests::stock_client_catalog_smoke -- --ignored --exact
+P4475_CLIENT_DATA_DIR=<stock Data> cargo test --workspace --all-features
+P4475_KART_CATALOG=<stock KartCatalog.xml> cargo test -p p4475-profile inventory_editor::tests::stock_client_catalog_name_search_smoke -- --ignored --exact
+P4475_CLIENT_DATA=<stock Data> cargo test -p p4475-server random_track::tests::stock_client_catalog_smoke -- --ignored --exact
 # 1,031 regular tests and the real catalog-name data gate passed;
 # 5 external-data-only tests remained ignored in the regular workspace run
 git diff --check
 ```
 
 The earlier deployment-tweak checkpoint build was
-`target/p5136-finish-kart-abilities/release/p5136.exe` (16,822,272 bytes),
+`target/p4475-finish-kart-abilities/release/p4475.exe` (16,822,272 bytes),
 SHA-256
 `EB918B7D345993545942F90A1FD8F97B56A459FF4B2573088CC92A3DF2CBB0C7`.
 
@@ -3218,7 +3218,7 @@ These items prevent a "port complete" claim.
    Also add captures/fixtures for special observer-map master policy, AI
    roster/start and nonzero AI-master payloads, the real track-pool/control
    surface, stock-client rider-school start acceptance of the canonical
-   physics reply, and any P5136-vs-modern packet difference still represented
+   physics reply, and any P4475-vs-modern packet difference still represented
    by a fallback.
 
 5. **Race-wide crash atomicity**
@@ -3318,14 +3318,14 @@ These items prevent a "port complete" claim.
 - The 53 source-only track-shaped folders are no longer treated as 53 ordinary
   compatible tracks. Global BML inspection split them into 34 active ordinary
   rows, nine blocked special rows, and ten unregistered/dormant folders.
-- Per-folder manifests omit global track/locale rows, P5136 thumbnail aliases,
+- Per-folder manifests omit global track/locale rows, P4475 thumbnail aliases,
   and 64 required AI-path files across eight ordinary candidates.
 - Decoded theme comparison found substantially stable existing themes, but
   `china`, `ice`, and `mine` have large same-path texture revisions and must
   not receive automatic whole-theme overlays.
 - Cemetery is not revised in the inspected pair: all 152 common
   `theme_tomb.rho` payloads and the compared `tomb_I07/track.1s` are identical;
-  P5136 has one extra fog texture.
+  P4475 has one extra fog texture.
 - `fengshen` is a full new-theme bundle: track folders alone omit 235 theme
   resources, selector UI, BGM, custom item cubes, AI paths, and presentation
   art. IDA Professional 9.4 found the generic scene RTTI boundary in both
@@ -3341,13 +3341,13 @@ These items prevent a "port complete" claim.
 - The locale patch injects the three physically complete `transFormer` rows
   and removes `blocked` only for six rows whose ordinary definitions and track
   archives are present. It excludes story-only `S` rows and incomplete XYY;
-  live-data integration verifies P5136 BML decode, Korean RHO5 encode/decode,
+  live-data integration verifies P4475 BML decode, Korean RHO5 encode/decode,
   and byte-exact reserved-slot restoration without modifying the live client.
-- `p5136-assets stage-tracks` now stages only source-catalog-backed active
+- `p4475-assets stage-tracks` now stages only source-catalog-backed active
   `Ixx`/`Rxx` item/speed rows (plus `_kd` variants). It merges selected
   `track@zz` and ASCII-safe Korean-locale rows, adds AI paths and both selector
   image aliases, and packages source-only theme/UI/BGM/item-cube/stage assets.
-- Existing same-path P5136 theme files are never overwritten. This makes
+- Existing same-path P4475 theme files are never overwritten. This makes
   stable-theme extensions bounded and turns `fengshen` into a full data-side
   theme bundle, while leaving revised `china`/`ice`/`mine` shared resources for
   explicit material-closure review.
@@ -3413,24 +3413,24 @@ These items prevent a "port complete" claim.
 ## 2026-08-12 XUN sidecar phase 1
 
 - Added a separate CMake/MSVC Win32 project under
-  `native/p5136-xun-sidecar`; it stays outside the Rust workspace because the
+  `native/p4475-xun-sidecar`; it stays outside the Rust workspace because the
   client ABI needs native 32-bit hooks while the Rust workspace forbids unsafe
   code and builds the launcher/server for 64-bit hosts.
 - The 84 KiB release `dinput8.dll` proxy forwards all six system exports,
   links the CRT statically, exposes a versioned diagnostic ABI, logs its
-  decision, and remains inert unless the exact unpacked P5136 PE metadata and
+  decision, and remains inert unless the exact unpacked P4475 PE metadata and
   SHA-256 match.
 - Loader tests verify exact-file acceptance, wrong-process rejection, export
   presence, and a real `IDirectInput8W` create/release through the proxy.
   Dumpbin confirms PE32/x86, ASLR/NX, and only ADVAPI32/KERNEL32/USER32 direct
   dependencies.
-- Added a second `p5136-xun.dll` target and a 32-bit
-  `p5136-xun-attach.exe`. The helper accepts a PID or uniquely discovers the
+- Added a second `p4475-xun.dll` target and a 32-bit
+  `p4475-xun-attach.exe`. The helper accepts a PID or uniquely discovers the
   running client, refuses every non-matching executable, loads the DLL through
   a remote module-relative `LoadLibraryW`, and calls the ABI-v2 initializer
   outside loader lock. A standalone attach-DLL smoke test and wrong-process
   refusal test pass. Artifacts install under the shared
-  `target/p5136-finish-kart-abilities/release/xun` tree.
+  `target/p4475-finish-kart-abilities/release/xun` tree.
 - No gameplay hook is installed in phase 1. Even with `enabled=1`, status is
   diagnostic-ready and the public hooks-installed bit remains zero.
 - IDA 9.4 xrefs confirm XUN uses two added runtime-type registrations for its
@@ -3441,7 +3441,7 @@ These items prevent a "port complete" claim.
 
 ## 2026-08-12 XUN sidecar phase 2 lifecycle probes
 
-- Reconfirmed the exact P5136 V1/X tachometer allocator prologues in IDA 9.4
+- Reconfirmed the exact P4475 V1/X tachometer allocator prologues in IDA 9.4
   and added ABI-v3 observation hooks at `0x006C2980` and `0x006CECF0`.
 - Hook installation checks the exact image plus live six-byte prologues,
   allocates RX trampolines, suspends and checks other client threads, and
@@ -3454,7 +3454,7 @@ These items prevent a "port complete" claim.
 
 ## Definition of port complete
 
-The port is complete only when every supported P5136 request has explicit
+The port is complete only when every supported P4475 request has explicit
 behavior and evidence, no classified request silently falls through, accepted
 work is cancellation-safe and crash-diagnosable, normal/force shutdown is
 tested, strict gates pass on Windows/macOS/Linux, and the stock client completes
@@ -3465,9 +3465,9 @@ and connector.
 - Added one deliberately bounded XUN asset candidate: `mancarXUN` (kart ID
   1590). Its 13-file, 520,779-byte dependency closure has no unresolved
   references, no localization task, and uses a `.1s` signature already seen by
-  P5136. The other 110 native-gated kart groups remain hidden.
+  P4475. The other 110 native-gated kart groups remain hidden.
 - Experimental native assets use the distinct
-  `p5136-xun-sidecar-experimental-v1` manifest assertion. Bulk staging cannot
+  `p4475-xun-sidecar-experimental-v1` manifest assertion. Bulk staging cannot
   consume it; only an exact explicit integrated selection can.
 - The client catalog grants ID 1590 only when its imported DataRaw model exists.
   This does not generalize the automatic-grant range to later unknown karts.
@@ -3480,7 +3480,7 @@ and connector.
   catalog-backed inventory snapshot after the next server restart.
 - The first live test confirmed the `XunGenTacho` factory path but displayed
   the stock X skin. A second V1-prefix experiment reached the real XUN BML but
-  crashed during `sub_6BFA90+0x4AE`: P5136 looked up the V1-only `n2o/on`
+  crashed during `sub_6BFA90+0x4AE`: P4475 looked up the V1-only `n2o/on`
   hierarchy, received a null parent, and dereferenced `null+0x4C` at
   `0x004F6ED1`. This proves that the common `0x2B8` prefix is not a functional
   XUN implementation. The V1/X aliases and proposed BML-name shim were removed;
@@ -3494,24 +3494,24 @@ and connector.
 
 ## 2026-08-12 XUN physics-first state probe
 
-- Matched the later XUN drive-event handler/main tick to P5136 `0x00A2D720`
+- Matched the later XUN drive-event handler/main tick to P4475 `0x00A2D720`
   and `0x00A33420`, and recovered the booster-cycle activation, duration, and
   strict expiry rules.
 - Confirmed the later `GoPlayKart` vtable adds four trailing slots while the
-  P5136 prefix and V1 instant-acceleration helpers remain compatible. The
+  P4475 prefix and V1 instant-acceleration helpers remain compatible. The
   backport therefore uses a `GoPlayKart*` side table instead of enlarging or
   replacing the client object.
 - Sidecar ABI v7 adds exact-boundary observation hooks for the drive-event and
   physics-tick functions plus a tested, allocation-free charger state model.
   Status counters and transition logs are diagnostic only; no physics consumer
   is patched yet.
-- Mapped six later conditional consumers onto P5136 acceleration, collision,
+- Mapped six later conditional consumers onto P4475 acceleration, collision,
   wall-gauge, and boost-gauge functions. Their addresses and current semantic
   confidence are recorded in `XUN_BACKPORT_AUDIT.md`.
 
 ## 2026-08-12 XUN speed-based boost-gauge consumer
 
-- Corrected the first XUN consumer's meaning: later `0x00B4E9F0` / P5136
+- Corrected the first XUN consumer's meaning: later `0x00B4E9F0` / P4475
   `0x00A34640` controls speed-derived ordinary booster-gauge charging, not
   vehicle acceleration. The raw S/B/L table value is `350`; S activates after
   four boosters for 3000 ms, B after five/3750, and L after six/4500.
@@ -3522,7 +3522,7 @@ and connector.
   to `GoPlayKart+0x994`; no percent-to-ratio conversion occurs before the
   later consumer's multiplication.
 - Sidecar ABI v8 verifies and redirects only the three protected-float add
-  calls at P5136 `0x00A3481D`, `0x00A3486C`, and `0x00A348AB`. The bridge
+  calls at P4475 `0x00A3481D`, `0x00A3486C`, and `0x00A348AB`. The bridge
   preserves flags, GPRs, and FPU/SSE state and scales the pending gauge addend
   only while the external charger state is active.
 - `probe_apply_speed_boost_gauge` remains an explicit V1 mock switch because
@@ -3538,10 +3538,10 @@ and connector.
   `base+0.09`/`base+0.03`, anti-collision balance `0.8`, and the XUN
   wall-collision response multiplier `100`.
 - The implementation redirects six additional complete call instructions at
-  P5136 `0x00A349B0`, `0x00A3B058`, `0x00A3DBC1`, `0x00A3DC36`,
+  P4475 `0x00A349B0`, `0x00A3B058`, `0x00A3DBC1`, `0x00A3DC36`,
   `0x00A3F8B9`, and `0x00A3FC13`. Together with lifecycle and the first
   consumer, thirteen sites must all match before the atomic installation runs.
-- Getter wrappers preserve P5136's protected-float representation and alter
+- Getter wrappers preserve P4475's protected-float representation and alter
   only the returned operand for an active side-table kart. The collision
   wrapper also preserves the original x87 floating return expected by the
   caller, avoiding an FPU-stack imbalance.
@@ -3555,8 +3555,8 @@ and connector.
 
 - Added an optional private TCP endpoint at configured base port +3 (default
   `39314`). It is separate from the stock game protocol and cannot introduce
-  unknown packets into an unmodified P5136 client.
-- The connector atomically writes `p5136-xun-session.ini` beside the game
+  unknown packets into an unmodified P4475 client.
+- The connector atomically writes `p4475-xun-session.ini` beside the game
   executable. The sidecar uses its normalized nickname to subscribe to the
   current server-selected kart profile.
 - Catalog generation and parsing now preserve the XUN BodyParam markers rather
@@ -3581,7 +3581,7 @@ and connector.
   `KartSpec.defaultExceedType == 1` assigns `KartSpec.startItemId`, using
   `SlotData.RandomItemSkill(nickname, 2)`. The `2` deliberately chooses the
   individual item probability table regardless of the room's team flag.
-- P5136 cannot consume the post-5136 KartSpec tail directly. At race start the
+- P4475 cannot consume the post-5136 KartSpec tail directly. At race start the
   compatibility server therefore selects from its configured individual table,
   applies the equipped kart's ordinary `no_flag` transform, and emits one
   target-scoped stock `GameSlotPacket` type-1 award. Floater and
@@ -3599,13 +3599,13 @@ and connector.
   the `charger` node through modern `0x01116D60`; activation creates mode
   `0x0C` through `0x01116800`, and expiry removes the returned handle through
   `0x011170A0`. The resource ID and live handle occupy later-client
-  `GoPlayKart+0xCF4/+0xCF8` and therefore cannot be appended to P5136's object.
-- Structural fingerprints map those manager calls exactly to P5136
+  `GoPlayKart+0xCF4/+0xCF8` and therefore cannot be appended to P4475's object.
+- Structural fingerprints map those manager calls exactly to P4475
   `0x00F66000`, `0x00F65AA0`, and `0x00F66340`. The first implementation
-  redirected P5136 `0x00A31D4B`, but that is the `draft` registration backed
+  redirected P4475 `0x00A31D4B`, but that is the `draft` registration backed
   by the kart-root context. The latest client registers `dualBooster`,
   `dualBoosterReady`, `exceed`, and `charger` from the separately loaded
-  `engine_common` context. ABI v11 therefore redirects P5136's existing
+  `engine_common` context. ABI v11 therefore redirects P4475's existing
   `exceed` registration at `0x00A31E52`, preserves it, and queries that exact
   `engine_common` context for the imported `charger` node.
   The resulting resource ID and instance handle stay in the existing
@@ -3620,25 +3620,25 @@ and connector.
   tachometer tree. Re-importing the live test client wrote exactly these four
   files and found the other 96 resource/catalog files byte-identical.
 - Hook installation now verifies fourteen exact instruction boundaries. All
-  four native Release tests and all `p5136-assets` tests pass. Runtime behavior
+  four native Release tests and all `p4475-assets` tests pass. Runtime behavior
   remains exact-build and server-profile gated; a kart context without the
   `charger` node returns `-1` and never enters the effect manager's spawn path.
 
 ## 2026-08-13 XUN tachometer compatibility layer
 
-- The fatal XUN dashboard exception was pinned to P5136 `0x00AC14FC`: the
+- The fatal XUN dashboard exception was pinned to P4475 `0x00AC14FC`: the
   `XunGenTacho` factory lookup returned null and the caller dereferenced it.
-  Routing the name to P5136's V1 allocator reached initialization but exposed
+  Routing the name to P4475's V1 allocator reached initialization but exposed
   a second incompatibility at `0x004F6ED1`: the modern BML does not contain the
   four V1 node names `n2o`, `n2o_always`, `v1gen_bg1`, and `v1gen_bg2`.
 - ABI v11 hooks the exact factory lookup at `0x00684960`, preserves the lookup
-  object's `ECX`, and returns a P5136 V1-layout object only for
+  object's `ECX`, and returns a P4475 V1-layout object only for
   `XunGenTacho`. Other factory requests pass through unchanged. The imported
   XUN BML maps its four equivalent nodes to the required names, so the actual
   XUN skin can initialize without copying the later client's larger C++
-  object into P5136.
+  object into P4475.
 - XUN-only dashboard state remains in the existing `GoPlayKart*` side table.
-  The importer turns the modern charger gauge into three P5136-compatible
+  The importer turns the modern charger gauge into three P4475-compatible
   segments, and a post-update hook at `0x006C11E0` drives them from the exact
   booster-count/active state. This is a functional coarse gauge, not yet the
   latest client's continuous fill and animation implementation.
@@ -3646,16 +3646,16 @@ and connector.
   `TachometerType=V1GenTacho` fallback back to `XunGenTacho`. Hook installation
   now verifies sixteen exact instruction boundaries and reports status `6`.
 - The first live ABI-v11 pass proved that the factory key returned by
-  P5136 `0x004DE560` is UTF-16, not the similarly shaped narrow-string type.
+  P4475 `0x004DE560` is UTF-16, not the similarly shaped narrow-string type.
   The ANSI comparison saw only the first `X`, missed `XunGenTacho`, and left
   the original null dereference at `0x00AC14FC` unchanged. The detour now uses
   the recovered `wchar_t` contract and `lstrcmpiW`.
-- P5136's ordinary Exceed display still uses the stock V1 flat-gauge
+- P4475's ordinary Exceed display still uses the stock V1 flat-gauge
   controller at `0x006BEA20`. The modern XUN BML omitted the legacy root
   `instAccelFullLenth` contract and started `instAccelBar` hidden because the
   later, larger XUN tachometer owns that first visibility transition. The
   importer now pins the legacy length to `1000` and starts `instAccel`, its
-  fill, and its position marker visible so P5136 can clip and move them with
+  fill, and its position marker visible so P4475 can clip and move them with
   the native controller. ABI-v11 also records the controller's normalized
   fill in 5-percent buckets through the asynchronous logger, allowing visual
   skin faults to be distinguished from missing KartSpec/Exceed state without
@@ -3667,7 +3667,7 @@ and connector.
   second deliberately bounded XUN import candidate. It is a speed kart with
   exact `defaultExceedType=4`, so the server selects the recovered L profile:
   six boosters and 4500 ms.
-- Installed its complete dependency closure into the live P5136 `DataRaw` and
+- Installed its complete dependency closure into the live P4475 `DataRaw` and
   merged its item-table/shop/kart-spec rows. Sixteen resources were new and 84
   shared XUN resources were byte-identical. Existing accounts receive it from
   the normal audited catalog grant after the server restarts.
@@ -3678,12 +3678,12 @@ and connector.
 
 ## 2026-08-13 XUN live-profile and initial-visibility repair
 
-- Corrected the connector's private `p5136-xun-session.ini` encoding from
+- Corrected the connector's private `p4475-xun-session.ini` encoding from
   BOM-less UTF-8 to UTF-16LE with BOM. `GetPrivateProfileStringW` previously
   interpreted Korean nicknames through the system ANSI code page, causing the
   server to reject every sidecar handshake before a kart profile was sent.
 - The imported XUN tachometer now exposes the separate `exceedFeatures`
-  hierarchy required by P5136's stock V1 flat-gauge controller. Its ordinary
+  hierarchy required by P4475's stock V1 flat-gauge controller. Its ordinary
   `instAccel`, fill, and marker nodes start visible, while the later-client-only
   `idling`, `usable`, and `playFull` overlays start hidden. This is independent
   of `chargerFeatures`; conflating the two left a full-charge-looking image
@@ -3691,14 +3691,14 @@ and connector.
   parent.
 - Recovered the reference server's exact `V2ExcSpec` compatibility projection
   for XUN BodyParam data. The server now applies `defaultExceedType` 1-10 to
-  P5136's existing Exceed KartSpec fields and projects all four default part
+  P4475's existing Exceed KartSpec fields and projects all four default part
   types into the stock V2 contribution block. For `slrProXUN` type 4 with
   engine/handle/wheel/booster type 21 this includes fill rates
   `0.02/0.07/0.15`, factor `1.16`, length `2500`, usable threshold `500`, and
   default-part contributions `0.45438/0.488/494/-13`. The previous raw modern
   BodyParam import omitted both compositions, explaining zero gauge fill and
   the incorrect effective kart specification.
-- P5136 already registers `dualBooster`, `dualBoosterReady`, and `exceed` from
+- P4475 already registers `dualBooster`, `dualBoosterReady`, and `exceed` from
   the shared `engine_common` resource. Imported `slrProXUN` retains its V1
   dual-booster fields (`20/30`, multiplier `1.07`, low-speed threshold `100`)
   and engine grade 9 satisfies the stock eligibility gate. No speculative
@@ -3708,7 +3708,7 @@ and connector.
 - Sidecar profile subscription/closure and failed charger-resource lookups now
   emit explicit diagnostics. A missing effect-context binding can therefore be
   separated from profile delivery and charger state on the next live pass.
-- IDA 9.4 corrected the first charger registration detour: P5136
+- IDA 9.4 corrected the first charger registration detour: P4475
   `0x00A31D4B` is `draft` and receives the kart-root context, whereas the
   existing `exceed` registration at `0x00A31E52` receives the same
   `engine_common` context used by the modern client's `charger` registration.
@@ -3722,37 +3722,37 @@ and connector.
 > The `engine_common` lookup conclusion below was also superseded. Loose
 > `effect/charger` is a directly loadable renderer scene and does not need to
 > become a named node in `engine_common`; the corrected implementation uses
-> P5136's renderer/resource ABI described in the final section.
+> P4475's renderer/resource ABI described in the final section.
 
-- A live run proved the remaining split precisely: the stock P5136 Exceed
+- A live run proved the remaining split precisely: the stock P4475 Exceed
   controller advanced from `0.000` to `0.986`, and the independent charger
   state activated and expired repeatedly, while neither surface was visible.
   This was therefore a presentation binding fault rather than another
   KartSpec, counter, or state-machine fault.
 - The imported XUN `instAccel` node was a generic later-client `Window` with
   no textured drawable of its own. The importer now converts it to the legacy
-  `Panel` contract used by P5136 `V1GenTacho`, pins the XUN Exceed background,
-  and leaves the native P5136 flat-gauge controller in charge of clipping the
+  `Panel` contract used by P4475 `V1GenTacho`, pins the XUN Exceed background,
+  and leaves the native P4475 flat-gauge controller in charge of clipping the
   fill and moving the marker. The separate charger hierarchy uses its modern
   `instChargerGauge` as one continuous clipped bar. Booster-use increments are
   interpolated over ten update ticks; `blinkRoad1/2/3` remain independent road
   state indicators rather than three charger levels.
-- Static analysis of P5136 `0x00A3E7F0` confirmed that both its native
+- Static analysis of P4475 `0x00A3E7F0` confirmed that both its native
   `dualBooster` and `exceed` effects call `0x00F65AA0` with creation mode
   `0x0C`, matching the later charger's recovered mode. A live resource lookup
   also showed that importing loose `effect/charger` files does not add the
-  post-5136 `charger` node to P5136's already-built `engine_common` graph.
+  post-5136 `charger` node to P4475's already-built `engine_common` graph.
   The registration hook therefore uses a real `charger` ID only. A missing
   node stays fail-closed; it never substitutes the unrelated stock `exceed`
   resource. The resource and instance handle remain in the DLL side table, so
-  no P5136 object is enlarged.
+  no P4475 object is enlarged.
 - Re-importing `mancarXUN` and `slrProXUN` updated exactly the shared XUN
   tachometer BML in the live `DataRaw`; all other asset and catalog files were
   unchanged. The Rust asset tests and all four Win32 sidecar tests pass.
 
 ## 2026-08-13 XUN display conversion and continuous charger gauge
 
-- IDA 9.4 recovered P5136's four-stat converter at RVA `0x002F64A0` and the
+- IDA 9.4 recovered P4475's four-stat converter at RVA `0x002F64A0` and the
   newer client's separate `weightKart`/`weightParts` formulas. Sidecar
   protocol v2 extends the fixed profile frame from 48 to 52 bytes with the
   selected kart's default engine, handle, wheel, and booster part types.
@@ -3764,7 +3764,7 @@ and connector.
 - The former three-step charger approximation and `ExceedWaveType` aura
   fallback were removed. Charger now owns a separate continuous dashboard
   controller, state machine, and resource lookup. Ordinary Exceed keeps its
-  original P5136 controller and effect untouched.
+  original P4475 controller and effect untouched.
 
 ## 2026-08-13 elevated XUN attach GUI
 
@@ -3783,32 +3783,32 @@ and connector.
 
 - A second IDA 9.4 pass disproved the earlier effect-manager interpretation:
   modern `0x00B4B8D0`, `0x01116D60`, `0x01116800`, and `0x011170A0` operate on
-  sound resources. The sidecar no longer hooks or calls their P5136 matches.
+  sound resources. The sidecar no longer hooks or calls their P4475 matches.
 - The actual later-client wrapper is `ReChargerEffect`: constructor
   `0x0070C640`, scene load `0x0070C960`, kart attach `0x0070C6D0`, start
   `0x0070C7C0`, and stop `0x0070C810`. Renderer update `0x01003F30` owns the
   activation timestamp and invokes those methods. The scene is the UTF-16
   resource pair `charger` / `카트바디차저발동`.
-- P5136 renderer update `0x00E56D20` predates the `ReChargerEffect` member, so
+- P4475 renderer update `0x00E56D20` predates the `ReChargerEffect` member, so
   the sidecar does not enlarge `GoPlayKart` or any render-entry structure.
   Instead it owns one process-lifetime object per tracked kart in the existing
-  side table. P5136 `ReCrashEffect` provides the compatible base/resource ABI:
+  side table. P4475 `ReCrashEffect` provides the compatible base/resource ABI:
   constructor `0x00E5DCA0`, kart attach `0x00E5DD60`, and attached-resource
   slot `+0x194`. The sidecar replaces that resource with the imported charger
   scene through the stock catalog/path/assignment routines.
 - Starting only the scene root was insufficient. Modern charger start first
   enables the root and then recursively starts its child emitters; stop uses
-  the inverse order. The exact P5136 matches are `0x00EEBFE0` and
+  the inverse order. The exact P4475 matches are `0x00EEBFE0` and
   `0x00EEC120`. The sidecar now calls them with the current race timestamp,
   which supplies the missing live aura lifecycle. Creation, start, and stop
   are reported through the asynchronous logger.
 - Modern scene initialization also visits every `ReBillboard`, attaches an
   alpha property configured as `enabled=1 / source=5 / destination=6`, and
-  assigns render depth `-1000.0`. P5136 retains the same class layouts,
+  assigns render depth `-1000.0`. P4475 retains the same class layouts,
   property ABI, and recursive `ReRenderee` helper at `0x00F2A530`; the sidecar
   reproduces those bindings with client-owned reference-counted properties so
   the imported emitters are drawable rather than merely active.
-- Ordinary Exceed remains a separate stock P5136 effect. Import now derives
+- Ordinary Exceed remains a separate stock P4475 effect. Import now derives
   its selector from `defaultExceedType`: `1 -> Exd_Wave_C`,
   `2 -> Exd_Wave_S`, `3 -> Exd_Wave_B`, and `4 -> Exd_Wave_L`. It also repairs
   a stale noncanonical selector during safe re-import. This restores the
@@ -3829,7 +3829,7 @@ and connector.
   oversized/non-Unicode relative paths.
 - Preflight uses a versioned `P5DR`/`P5DS` exchange on the private base+3 TCP
   endpoint before the messenger probe and game launch. It is disjoint from
-  every stock P5136 packet and from the DLL's `P5XC` subscription handshake.
+  every stock P4475 packet and from the DLL's `P5XC` subscription handshake.
   A disabled server or a differing file count/list digest stops client launch
   with an actionable error.
 - Expanded the importer from the two live-test vehicles to 100 statically
@@ -3837,7 +3837,7 @@ and connector.
   3, or 4. These are the item/S/B/L profiles implemented by the current
   sidecar; later special-profile karts remain fail-closed. Multiplayer XUN
   behavior remains explicitly experimental.
-- P5136 updates only the legacy `kmh` CharPanel in the imported modern XUN
+- P4475 updates only the legacy `kmh` CharPanel in the imported modern XUN
   dashboard. The two decorative `kmh2`/`kmh3` layers therefore retained their
   default text `0`. Import normalization now hides those duplicate layers and
   preserves the live `kmh` speed display.

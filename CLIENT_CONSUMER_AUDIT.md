@@ -1,10 +1,10 @@
-# P5136 client server-packet consumer audit
+# P4475 client server-packet consumer audit
 
 Last updated: 2026-08-11
 
 ## Purpose and scope
 
-This audit inventories the Korean P5136 client's server-packet consumption
+This audit inventories the Korean P4475 client's server-packet consumption
 surface independently of the Rust server's current serializers.  The product
 scope is the LAN multiplayer path:
 
@@ -33,7 +33,7 @@ C:\Users\drash\Documents\kartrider\analysis\ida_5136_server_packet_consumer_cens
 Its machine-readable output is likewise an external analysis artifact:
 
 ```text
-C:\Users\drash\Documents\kartrider\analysis\p5136_server_packet_consumer_census.json
+C:\Users\drash\Documents\kartrider\analysis\p4475_server_packet_consumer_census.json
 ```
 
 The scan found:
@@ -74,7 +74,7 @@ types 1/2/9/10/11/12/13/16/17. Types 4/5/6/7/8 remain strictly classified and
 bounded for diagnostics, but their Lucci-world-object, bonus-item-world-object,
 and team-flag gameplay is explicitly outside the port scope. The existing
 item schema and receiver audits are evidence for that subgraph; they are not
-yet independent `p5136-client-oracle` decoders.
+yet independent `p4475-client-oracle` decoders.
 
 For strictly decoded type-12 bodies, the World actor now supplies the common
 race-object completion boundary independently of the client decoder: a
@@ -179,7 +179,7 @@ emits canonical flag 0/1. The retained C# no-reply behavior remains historical
 compatibility evidence, but is no longer the Rust dispatch policy.
 
 Nested type-12 coverage is tracked separately from that outer-consumer count.
-`p5136-client-oracle::item_operation` now independently models the 63-class
+`p4475-client-oracle::item_operation` now independently models the 63-class
 bomb/mine/time/shield/UFO/Lockdown/Thunderbolt/ordinary-effect expansion with hard-coded pairs,
 exact lengths, state offsets, source/target/token bindings, ignored fields,
 conditional runtime guards, and Thunderbolt's counted target vector.

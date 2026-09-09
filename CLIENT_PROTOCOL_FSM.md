@@ -1,12 +1,12 @@
-# P5136 protocol-visible client FSM
+# P4475 protocol-visible client FSM
 
-This document reconstructs the part of the Korean P5136 client's state
+This document reconstructs the part of the Korean P4475 client's state
 machine that constrains a compatible LAN server and a future mock client. It
 does not attempt to reproduce UI-only pages, events, store flows, or social
 features.
 
 The executable oracle is
-`crates/p5136-client-oracle/src/protocol_fsm.rs`. It has no normal dependency
+`crates/p4475-client-oracle/src/protocol_fsm.rs`. It has no normal dependency
 on the production packet writers.
 
 ## Evidence boundary
@@ -34,9 +34,9 @@ Private evidence used for this pass:
 - `analysis/ida_5136_gamefinal_derived.log`
 - `analysis/ida_5136_next_stage_command_probe.log`
 - `analysis/ida_5136_final_scheduler_types_probe.log`
-- `analysis/p5136_server_packet_consumer_census.json`
+- `analysis/p4475_server_packet_consumer_census.json`
 - `analysis/physics_5136/KartRiderU.idb`
-- unpacked exact-P5136 `stage/gameFinalIndi` and `stage/gameFinalTeam`
+- unpacked exact-P4475 `stage/gameFinalIndi` and `stage/gameFinalTeam`
   resources under the private analysis tree
 - the known-working deployed packet trace documented in `PORTING_STATUS.md`
 
@@ -260,7 +260,7 @@ packet types.
 
 The ordinary podium-to-room transition is executable-side and automatic. It
 is not a server packet and is not defined by the final-stage RHO resources.
-The exact P5136 `stage.xml` files only select `GameFinalIndiStage` or
+The exact P4475 `stage.xml` files only select `GameFinalIndiStage` or
 `GameFinalTeamStage` and their UI resources; they contain no duration or room
 callback.
 
@@ -309,7 +309,7 @@ phase until local action 13 advances phase 4 to dispatch phase 5. Its broader
 product-facing mode name has not been invented because RTTI/strings do not
 establish one.
 
-`crates/p5136-client-oracle/src/final_stage_scheduler.rs` encodes these native
+`crates/p4475-client-oracle/src/final_stage_scheduler.rs` encodes these native
 guards independently of production server code. The high-level FSM's
 `ClientPodiumSchedulerCompleted` event is the boundary at which virtual slot
 103 has successfully installed the ready stage; it is no longer shorthand
@@ -352,7 +352,7 @@ SpecialShield check fires. The mock oracle can therefore predict local phase
 and actor bindings byte-for-byte, but it must not synthesize a network reply
 unless a separate producer path proves one.
 
-`p5136_client_oracle::item_client_fsm::ItemClientFsm` makes that boundary
+`p4475_client_oracle::item_client_fsm::ItemClientFsm` makes that boundary
 executable. The original 149-branch corpus is a fixed regression gate; the 14
 subsequently recovered boss/controller branches, the variable-length Course
 consumer, and two exact `GopGoldShield` branches run through the same FSM, for
@@ -442,7 +442,7 @@ Still open:
 
 ## Executable regression surface
 
-`cargo test -p p5136-client-oracle --test protocol_fsm` covers:
+`cargo test -p p4475-client-oracle --test protocol_fsm` covers:
 
 - cold login and rider-bootstrap gating;
 - normal channel migration and same-socket club UI hand-off;
@@ -454,12 +454,12 @@ Still open:
 - rejection of out-of-order result packets and cross-scene lobby snapshots;
 - leave-room escape, disconnect reset, and transactional error handling.
 
-`cargo test -p p5136-client-oracle --test final_stage_scheduler` additionally
+`cargo test -p p4475-client-oracle --test final_stage_scheduler` additionally
 covers strict threshold boundaries, both individual observer animation holds,
 ordinary team timing, ready-stage selection, and the flag-`0x80` action-13
 gate.
 
-`cargo test -p p5136-client-oracle --test item_operation_semantics` executes
+`cargo test -p p4475-client-oracle --test item_operation_semantics` executes
 the complete 149-branch base census, the 15 supplemental controller/Course
 branches, lifecycle storage/removal/no-op behavior, deferred-marker emission,
 malformed-input rollback, and the 149-branch production-server

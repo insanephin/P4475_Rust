@@ -1,10 +1,10 @@
-# P5136 Rust Server
+# P4475 Rust Server
 
 [한국어](README.md) | [English](README.en.md) | [简体中文](README.zh-CN.md) | [Korean changelog](CHANGELOG.md)
 
-If any translation sounds unnatural or is incorrect, please [open an issue](https://github.com/ILoveKartrider/P5136_Rust/issues) or submit a pull request.
+If any translation sounds unnatural or is incorrect, please [open an issue](https://github.com/ILoveKartrider/P4475_Rust/issues) or submit a pull request.
 
-This is an independent Rust server and connector for the Korean KartRider P5136 client. The original C# project is used only as a read-only protocol reference and is not included in this repository.
+This is an independent Rust server and connector for the Korean KartRider P4475 client. The original C# project is used only as a read-only protocol reference and is not included in this repository.
 
 This project is not yet a complete recreation of every commercial service feature. Its current goal is a stable multiplayer cycle for friends on the same LAN: create or join a room, start a race, drive, view results and the ceremony, and return to the room. Lucci, bonus items, team flags, and some event, social, and shop features are out of scope or receive limited responses.
 
@@ -15,7 +15,7 @@ See the [documentation map](DOCUMENTATION.md) for the current roles of every use
 Build a release with Rust 1.94 or newer:
 
 ```powershell
-cargo build --release -p p5136-cli
+cargo build --release -p p4475-cli
 ```
 
 A legacy-compatible Windows Server 2012 x64 build uses the same source with a separate target and static CRT. See [the Windows Server 2012 build notes](WINDOWS_SERVER_2012.md) for the procedure and validation scope.
@@ -23,17 +23,17 @@ A legacy-compatible Windows Server 2012 x64 build uses the same source with a se
 The repository currently uses this fixed output path:
 
 ```text
-target/p5136-finish-kart-abilities/release/p5136.exe
+target/p4475-finish-kart-abilities/release/p4475.exe
 ```
 
-Run `p5136.exe` without arguments to open the GUI. Choose 한국어, English, or 简体中文 in the upper-right corner; the selection is restored on the next run. The server and connector are two tabs in the same executable.
+Run `p4475.exe` without arguments to open the GUI. Choose 한국어, English, or 简体中文 in the upper-right corner; the selection is restored on the next run. The server and connector are two tabs in the same executable.
 
-1. In the Server tab, set the required **Client or Profile path** to the P5136 client root, for example `C:\Games\KartRider_5136`.
+1. In the Server tab, set the required **Client or Profile path** to the P4475 client root, for example `C:\Games\KartRider_5136`.
 2. If another PC will connect, select **Auto-configure my LAN IPv4** and choose the real LAN adapter when several are listed.
 3. Enable **Allow new nicknames on LAN** when a remote nickname connects for the first time.
 4. Select **Start server**.
 5. In the Connector tab, enter the game directory, nickname, and server IPv4, then select **Prepare and launch client**.
-6. To use an XUN kart, wait for the client to start, select the adjacent **Attach XUN DLL** button, and approve the UAC request. By default, the connector uses `p5136-xun-attach.exe` and `p5136-xun.dll` beside its own executable; each path can also be selected separately on the Connector tab. DLL file logging is controlled by the checkbox on the same tab.
+6. To use an XUN kart, wait for the client to start, select the adjacent **Attach XUN DLL** button, and approve the UAC request. By default, the connector uses `p4475-xun-attach.exe` and `p4475-xun.dll` beside its own executable; each path can also be selected separately on the Connector tab. DLL file logging is controlled by the checkbox on the same tab.
 
 The connector prepares PIN/XML using an immutable pristine backup and a process lock, then launches through Windows UAC, Wine, CrossOver, or a macOS Sikarugir wrapper. For manual prefix and wrapper setup, see the [macOS Sikarugir walkthrough](MACOS_SIKARUGIR.md).
 
@@ -61,17 +61,17 @@ Expand **Inventory editor by nickname** to grant multiple copies of one kart wit
 4. Search with a name, a whitespace-normalized name, or a numeric ID such as `1410`, then select a result.
 5. Select **Add selected kart**. Repeating the action allocates another unique serial.
 
-Only karts with a resolved name, `BodyParam`, actual `model.1s`, and no test/dummy/NPC indicators are granted automatically as serial 1. In the stock P5136 data, 1,284 of 1,296 karts pass. Twelve IDs (`199, 312, 323, 352, 657, 658, 659, 744, 745, 746, 814, 886`) remain quarantined to avoid inventory-scroll crashes. If a quarantined kart is confirmed to work in the client, enter its exact numeric ID and select the **manual review** result. This adds only a serial-2-or-higher copy for that nickname; it does not re-enable the default serial-1 grant.
+Only karts with a resolved name, `BodyParam`, actual `model.1s`, and no test/dummy/NPC indicators are granted automatically as serial 1. In the stock P4475 data, 1,284 of 1,296 karts pass. Twelve IDs (`199, 312, 323, 352, 657, 658, 659, 744, 745, 746, 814, 886`) remain quarantined to avoid inventory-scroll crashes. If a quarantined kart is confirmed to work in the client, enter its exact numeric ID and select the **manual review** result. This adds only a serial-2-or-higher copy for that nickname; it does not re-enable the default serial-1 grant.
 
 Additional copies are stored atomically in the nickname profile's `GrantedKarts`. They use the same `(kart_id, serial)` key as tune, plant, level, and parts data, so each copy can keep different upgrades. The allocator also reserves serials still referenced by `TuneData.json`, `PlantData.json`, `LevelData.json`, and `PartsData.json`. Missing profiles are created on the first grant. Reconnect a client that was already online.
 
 Legacy-engine upgrades use a simplified friends-server policy. The target and material karts must be owned, but materials and currency are not consumed and success is always 100%. Level, remaining points, four-slot distribution, and special effects are saved per nickname in `LevelData.json` and restored into inventory and race physics. Each slot is limited to 0–10 and the total distribution to 35 points.
 
-The stock floater UI is supported for socket creation, activation kits, protection spanners, and reset. Consumables are not deducted, but ownership, kart type, and socket state are validated and saved atomically in `TuneData.json`. Black-kit values `603/703/903` contribute start-booster time `+800`, transform acceleration `+0.018`, and drift escape force `+210`. Normal speed values `103`–`903` follow the C# values. All 20 item Floater meanings are derived from the Korean P5136 RHO5 `zeta_/kr/enchant/desc.xml`. Item-box transforms—shield to super shield, water bomb to toxic/ice water bomb, rocket to gold rocket, booster to siren/super shield, and banana to water mine—run in the server award path. Every chance comes from its exact `enchant.xml` Tune entry (for example, `10503` 15%, `11103` 40%, `11403` 25%, and `11803` 30%); RHO replacement effects are 100%. In contrast, the client resolves and awards all 78 `firing2Gain` use-trigger rewards and 150 `fired2Gain` hit-trigger rewards itself. The server relays the corresponding GameSlot types 10 and 11 byte-exactly and does not synthesize duplicate rewards.
+The stock floater UI is supported for socket creation, activation kits, protection spanners, and reset. Consumables are not deducted, but ownership, kart type, and socket state are validated and saved atomically in `TuneData.json`. Black-kit values `603/703/903` contribute start-booster time `+800`, transform acceleration `+0.018`, and drift escape force `+210`. Normal speed values `103`–`903` follow the C# values. All 20 item Floater meanings are derived from the Korean P4475 RHO5 `zeta_/kr/enchant/desc.xml`. Item-box transforms—shield to super shield, water bomb to toxic/ice water bomb, rocket to gold rocket, booster to siren/super shield, and banana to water mine—run in the server award path. Every chance comes from its exact `enchant.xml` Tune entry (for example, `10503` 15%, `11103` 40%, `11403` 25%, and `11803` 30%); RHO replacement effects are 100%. In contrast, the client resolves and awards all 78 `firing2Gain` use-trigger rewards and 150 `fired2Gain` hit-trigger rewards itself. The server relays the corresponding GameSlot types 10 and 11 byte-exactly and does not synthesize duplicate rewards.
 
 When granting a kart in the GUI, use the existing **333 preset** or select each of the three vertically arranged Floater slots. The editor exposes 27 validated speed codes and all 20 RHO-verified item effects by their actual translated meanings. It rejects duplicate speed-effect families and duplicate item codes before creating the kart. **Apply grade 5** remains independent and can be combined with either Floater choice.
 
-The default inventory keeps Kartneck/Kartneck X as verified P5136 exceptions even though their historical internal names contain `dummyBox`. Boxter HT-S/HT-B/HT LE are quarantined again because their shared, incomplete model layout behaves like dummy data in the stock client. Four bodies without a Korean/default BodyParam and five explicit dummy/test bodies also remain excluded.
+The default inventory keeps Kartneck/Kartneck X as verified P4475 exceptions even though their historical internal names contain `dummyBox`. Boxter HT-S/HT-B/HT LE are quarantined again because their shared, incomplete model layout behaves like dummy data in the stock client. Four bodies without a Korean/default BodyParam and five explicit dummy/test bodies also remain excluded.
 
 The editor briefly acquires the same profile-root lease used by the server and revalidates the store identity. A server in another process therefore blocks offline edits. Live grants use the running server's serialized profile queue. If the client path changes after a catalog is loaded, the catalog and selection are invalidated and the canonical `Data` path is checked again immediately before a grant.
 
@@ -87,7 +87,7 @@ Track and pool proper names come from the Korean client data and are therefore s
 
 The ordinary room add/remove-AI request contains no difficulty value. Actual AI behaviour parameters arrive in `GrCommandStartPacket` as six encoded floats per AI racer. **AI driving parameters** under Server management exposes separate speed and item vectors, defaulting to `[0.7, 2400, 2950, 1.5, 1000, 1500]` and `[0.6, 2400, 2950, 1.5, 1000, 1500]`. The GUI persists them and applies them to races after the server is restarted. The former C# launcher's Easy, Hard, and Hell labels were server presets that randomly generated these values from mode-specific ranges, not a native client enum.
 
-The recovered consumer path shows that the first two values are multiplied into the AI's base target speed, the third is the boost duration in milliseconds, and the fourth is the boost-acceleration multiplier. The fifth and sixth values pass through the P5136 codec but are not read by `GoBasicAiKart`; they are reserved compatibility fields in this build. The exact formula and the complementary client-side `basicAI.xml` parameters are documented in [the AI difficulty audit](AI_DIFFICULTY_AUDIT.md). Duel-mission difficulty and battle-mode AI are separate paths.
+The recovered consumer path shows that the first two values are multiplied into the AI's base target speed, the third is the boost duration in milliseconds, and the fourth is the boost-acceleration multiplier. The fifth and sixth values pass through the P4475 codec but are not read by `GoBasicAiKart`; they are reserved compatibility fields in this build. The exact formula and the complementary client-side `basicAI.xml` parameters are documented in [the AI difficulty audit](AI_DIFFICULTY_AUDIT.md). Duel-mission difficulty and battle-mode AI are separate paths.
 
 ## S0–S8 room-title physics
 
@@ -101,7 +101,7 @@ Friendly S2
 S4 Infinite Booster
 ```
 
-Tokens are case-insensitive and use ASCII alphanumeric boundaries, so `TESTS1ROOM` and `S10` do not match. Updating the room title broadcasts the title and password immediately; the physics token applies at the next race start. Without a token, both normal speed and item channels use the integrated S7 selected by the stock P5136 `channel.xml`, while solo/team Infinite Booster uses the regular S4 preset. Item individual/team rooms select their distinct item-physics rows through game types 2/4 rather than a different speed byte. S6 remains a special event preset. S8 retains an `integrated speed` display key and physics slot in the client but is not bound to an active stock channel, so it is available only as an explicit manual preset. Each player receives a 235-byte race-start physics block composed from the room default and that player's kart, pet, and equipment.
+Tokens are case-insensitive and use ASCII alphanumeric boundaries, so `TESTS1ROOM` and `S10` do not match. Updating the room title broadcasts the title and password immediately; the physics token applies at the next race start. Without a token, both normal speed and item channels use the integrated S7 selected by the stock P4475 `channel.xml`, while solo/team Infinite Booster uses the regular S4 preset. Item individual/team rooms select their distinct item-physics rows through game types 2/4 rather than a different speed byte. S6 remains a special event preset. S8 retains an `integrated speed` display key and physics slot in the client but is not bound to an active stock channel, so it is available only as an explicit manual preset. Each player receives a 235-byte race-start physics block composed from the room default and that player's kart, pet, and equipment.
 
 ## Account roles: observer and anonymous league
 
@@ -113,19 +113,19 @@ Observer chat uses `GrRiderEchoPacket` with observer IDs 8–15 and is sent to e
 
 ## Blocked and hidden special tracks
 
-The Connector checkbox **Show blocked/hidden special tracks (experimental)** restores only entries for which P5136 still has both the physical track RHO and a normal `gameType` definition. The current set is the three TF tracks (Autobot Base, Galvatron's Earth Assault, and Mystery of Planet Cybertron) plus six individually blocked tracks that passed the static completeness check. Story-only Camelot, Olympus, Korea, Mabinogi, and Maple `S` stages have no normal track definition and remain excluded to avoid selector hangs or crashes.
+The Connector checkbox **Show blocked/hidden special tracks (experimental)** restores only entries for which P4475 still has both the physical track RHO and a normal `gameType` definition. The current set is the three TF tracks (Autobot Base, Galvatron's Earth Assault, and Mystery of Planet Cybertron) plus six individually blocked tracks that passed the static completeness check. Story-only Camelot, Olympus, Korea, Mabinogi, and Maple `S` stages have no normal track definition and remain excluded to avoid selector hangs or crashes.
 
 The connector does not rewrite `track_common.rho` or `aaa.pk`. It preserves the originally empty `DataPack1_00014.rho5` once as `DataPack1_00014.rho5.pristine.bak`, then replaces that slot with a one-file Korean track-locale overlay. If reserved slot 13 contains an experimental I/R track-import catalog, the patch uses that locale as its base so imported rows survive. Launching again with the option unchecked restores the pristine slot. `xyy` (Pleasant Goat) retains definitions and selector art, but only one of its three physical track RHOs and no dedicated BGM remain, so it is not part of this safe option.
 
 ## Importing tracks from another client
 
-The GUI's **Track import** tab indexes RHO/RHO5 files directly from another Korean or Chinese client's `Data` directory. It provides searchable multi-selection of eligible I/R tracks, displays phase and file progress for discovery/import, and installs them into the current P5136 complete `DataRaw` tree. The audit covers track files, AI paths, thumbnails, themes, track-local/common/cross-theme materials, positional environment sounds, and theme BGM. P5136 hard-codes 34 native theme enums, so adding a BML selector row alone cannot expose a new theme. The reviewed `fengshen` import now reuses removed XYY native slot 17 only for client-side grouping while preserving the real `fengshen_*` track IDs, assets, and BGM paths. It explicitly sets `texTheme=xyy` to populate the old client's separate material-theme mask, while preserving an existing cross-theme list such as `abyss|sword` as `xyy|abyss|sword`. Because the old client resolves bare material names under `theme/xyy`, the importer also mirrors the complete `theme/fengshen` namespace into that native runtime namespace without deleting the original files. Because that dormant slot is also absent from the stock content registry, the import registers `themeXyy` as enabled and visible in `zeta_/kr/content/config.xml`. Installed tracks remain selectable for dependency, catalog, and compatibility-attribute repair. Other new themes are rejected until they receive a reviewed native slot or client patch. Existing same-path files with different bytes are preserved and reported as conflicts. Work files and the one-time catalog backup are stored under `.p5136-track-import` in the game directory. A complete data closure does not prove compatibility with a newer native gimmick or shader, which still requires separate review.
+The GUI's **Track import** tab indexes RHO/RHO5 files directly from another Korean or Chinese client's `Data` directory. It provides searchable multi-selection of eligible I/R tracks, displays phase and file progress for discovery/import, and installs them into the current P4475 complete `DataRaw` tree. The audit covers track files, AI paths, thumbnails, themes, track-local/common/cross-theme materials, positional environment sounds, and theme BGM. P4475 hard-codes 34 native theme enums, so adding a BML selector row alone cannot expose a new theme. The reviewed `fengshen` import now reuses removed XYY native slot 17 only for client-side grouping while preserving the real `fengshen_*` track IDs, assets, and BGM paths. It explicitly sets `texTheme=xyy` to populate the old client's separate material-theme mask, while preserving an existing cross-theme list such as `abyss|sword` as `xyy|abyss|sword`. Because the old client resolves bare material names under `theme/xyy`, the importer also mirrors the complete `theme/fengshen` namespace into that native runtime namespace without deleting the original files. Because that dormant slot is also absent from the stock content registry, the import registers `themeXyy` as enabled and visible in `zeta_/kr/content/config.xml`. Installed tracks remain selectable for dependency, catalog, and compatibility-attribute repair. Other new themes are rejected until they receive a reviewed native slot or client patch. Existing same-path files with different bytes are preserved and reported as conflicts. Work files and the one-time catalog backup are stored under `.p4475-track-import` in the game directory. A complete data closure does not prove compatibility with a newer native gimmick or shader, which still requires separate review.
 
 ## Importing assets from another client
 
-The GUI's **Asset import** tab indexes the newer Chinese client's `Data` directory. Its internal **Karts**, **Characters**, **Pets**, and **Flying pets** tabs provide searchable multi-selection of statically audited candidates, while **Not installed only** hides entries already present in the current `DataRaw`. The audited set contains 57 ordinary karts, 100 experimental XUN karts whose recovered `defaultExceedType` is 1–4, 73 characters, 24 pets, and 47 flying pets. Six ordinary karts that require new item results absent from P5136—`SteamIV1`, `deliveryV1`, `flowerCarriageV1`, `lionmaskV1_gold`, `mechanicdragon_redV1`, and `skunaV1`—remain visible but disabled with a reason. This leaves 51 ordinary importable karts plus 100 experimental XUN candidates. Later XUN special profiles remain hidden until their separate state machines are recovered.
+The GUI's **Asset import** tab indexes the newer Chinese client's `Data` directory. Its internal **Karts**, **Characters**, **Pets**, and **Flying pets** tabs provide searchable multi-selection of statically audited candidates, while **Not installed only** hides entries already present in the current `DataRaw`. The audited set contains 57 ordinary karts, 100 experimental XUN karts whose recovered `defaultExceedType` is 1–4, 73 characters, 24 pets, and 47 flying pets. Six ordinary karts that require new item results absent from P4475—`SteamIV1`, `deliveryV1`, `flowerCarriageV1`, `lionmaskV1_gold`, `mechanicdragon_redV1`, and `skunaV1`—remain visible but disabled with a reason. This leaves 51 ordinary importable karts plus 100 experimental XUN candidates. Later XUN special profiles remain hidden until their separate state machines are recovered.
 
-The importer rechecks the selected dependency closures and SHA-256 hashes immediately before installation. Resources are added to a complete `DataRaw` tree; an existing same-path resource with different bytes stops the operation instead of being overwritten. Display names use ASCII asset codes and remaining non-ASCII catalog fields use stable hashes. The item table, Korean shop, and four kart item-ability catalogs are merged. A Chinese regional flying-pet parameter also receives a `param@kr.bml` alias for the Korean client. Unsupported XUN catalog metadata `grade=13 / engineGrade=9` is mapped only to P5136's V1 classification values `12 / 8`; BodyParam and wire KartSpec physics remain unchanged. The server auto-grants a new kart or character only when both its audited ID and matching DataRaw model exist. XUN karts require the exact-build XUN sidecar. The sidecar implements lifecycle/XUN state, all six recovered speed-mode physics consumers, an independent continuous charger gauge, and the newer body/default-part display conversion. Black Knight XUN consequently displays `Drift 1158 / Acceleration 1159 / Cornering 1050 / Booster Time 1054`. Charger remains separate from ordinary Exceed in state, UI, and effect routing. Import derives P5136's `ExceedWaveType` from `defaultExceedType` to retain the ordinary Exceed effect, while the sidecar attaches the imported `effect/charger/카트바디차저발동` scene to an independent renderer object and starts/stops its child emitters for the charger aura. This does not grow `GoPlayKart` or substitute an Exceed effect for the aura. For exact `KartSpec.defaultExceedType=1` item profiles, the server selects the starting item from the configured individual item table and applies the kart's ordinary item transform. The server-visible `DataPack1_00000.rho5` and `DataPack4_00002.rho5` catalogs are updated after preserving their original bytes once as `.pristine.bak`. Work files, reports, and DataRaw catalog backups live under `.p5136-asset-import`; a successful import enables the connector's complete-DataRaw option. Restart the server and client after importing. For a new flying-pet ID absent from P5136's hard-coded server table, server-side physics and special effects remain separate implementation work; this audit establishes resource/catalog compatibility needed for display and equipment.
+The importer rechecks the selected dependency closures and SHA-256 hashes immediately before installation. Resources are added to a complete `DataRaw` tree; an existing same-path resource with different bytes stops the operation instead of being overwritten. Display names use ASCII asset codes and remaining non-ASCII catalog fields use stable hashes. The item table, Korean shop, and four kart item-ability catalogs are merged. A Chinese regional flying-pet parameter also receives a `param@kr.bml` alias for the Korean client. Unsupported XUN catalog metadata `grade=13 / engineGrade=9` is mapped only to P4475's V1 classification values `12 / 8`; BodyParam and wire KartSpec physics remain unchanged. The server auto-grants a new kart or character only when both its audited ID and matching DataRaw model exist. XUN karts require the exact-build XUN sidecar. The sidecar implements lifecycle/XUN state, all six recovered speed-mode physics consumers, an independent continuous charger gauge, and the newer body/default-part display conversion. Black Knight XUN consequently displays `Drift 1158 / Acceleration 1159 / Cornering 1050 / Booster Time 1054`. Charger remains separate from ordinary Exceed in state, UI, and effect routing. Import derives P4475's `ExceedWaveType` from `defaultExceedType` to retain the ordinary Exceed effect, while the sidecar attaches the imported `effect/charger/카트바디차저발동` scene to an independent renderer object and starts/stops its child emitters for the charger aura. This does not grow `GoPlayKart` or substitute an Exceed effect for the aura. For exact `KartSpec.defaultExceedType=1` item profiles, the server selects the starting item from the configured individual item table and applies the kart's ordinary item transform. The server-visible `DataPack1_00000.rho5` and `DataPack4_00002.rho5` catalogs are updated after preserving their original bytes once as `.pristine.bak`. Work files, reports, and DataRaw catalog backups live under `.p4475-asset-import`; a successful import enables the connector's complete-DataRaw option. Restart the server and client after importing. For a new flying-pet ID absent from P4475's hard-coded server table, server-side physics and special effects remain separate implementation work; this audit establishes resource/catalog compatibility needed for display and equipment.
 
 ## Teams and the next starting grid
 
@@ -139,7 +139,7 @@ The room master is also reassigned after returning to the lobby. Solo mode choos
 
 The bind address is the local interface on which ports open. The advertised IPv4 is written into login and channel packets. Automatic LAN setup excludes loopback and link-local addresses, prefers physical over virtual adapters, and prioritizes private IPv4 ranges. When Wi-Fi, Ethernet, WSL, VMware, VPN, Tailscale, and similar adapters coexist, select the address on the same network as the clients. `0.0.0.0`, multicast, and broadcast advertised addresses are rejected.
 
-Bind, advertised, and connector server fields currently accept IP literals only. The advertised address is serialized as four IPv4 bytes, so a domain name cannot be placed directly into the P5136 packet. Resolve a domain to one fixed A-record address before startup if needed.
+Bind, advertised, and connector server fields currently accept IP literals only. The advertised address is serialized as four IPv4 bytes, so a domain name cannot be placed directly into the P4475 packet. Resolve a domain to one fixed A-record address before startup if needed.
 
 The GUI persists server/connector inputs in the operating-system app storage: addresses, ports, paths, nickname, runner, Wine/CrossOver/Sikarugir values, advanced limits, file-logging choice, edited probability tables, random-track selections, and the GUI language. Runtime state, logs, loaded catalogs, and temporary search results are not persisted.
 
@@ -165,7 +165,7 @@ Allow these TCP/UDP ports through the server PC firewall when testing from two m
 Run only the server:
 
 ```powershell
-p5136.exe server `
+p4475.exe server `
   --bind 192.168.1.10 `
   --advertise 192.168.1.10 `
   --client-dir C:\Games\KartRider_5136 `
@@ -175,7 +175,7 @@ p5136.exe server `
 Run only the connector:
 
 ```powershell
-p5136.exe connect `
+p4475.exe connect `
   --game-dir C:\Games\KartRider_5136 `
   --username player1 `
   --server 192.168.1.10
@@ -186,7 +186,7 @@ Add `--observer` for the observer-master profile, `--anonymous-league` for the m
 macOS Sikarugir example:
 
 ```bash
-p5136 connect \
+p4475 connect \
   --game-dir "/Users/player/Games/KartRider_5136" \
   --username player \
   --server 192.168.1.10 \
@@ -194,14 +194,14 @@ p5136 connect \
   --sikarugir-app "/Users/player/Applications/Sikarugir/kartrider.app"
 ```
 
-Use `p5136.exe --help`, `p5136.exe server --help`, and `p5136.exe connect --help` for all options.
+Use `p4475.exe --help`, `p4475.exe server --help`, and `p4475.exe connect --help` for all options.
 
 ## Logs and troubleshooting
 
 Each run creates a new file next to the executable:
 
 ```text
-logs/p5136-<timestamp>-<pid>.log
+logs/p4475-<timestamp>-<pid>.log
 ```
 
 The GUI shows the absolute log path. Received and transmitted packets are written to the detailed file log by default. Unknown packets are recorded with bounded raw bytes and consumed without a reply so one unsupported menu does not terminate the complete login session.
@@ -218,8 +218,8 @@ cargo clippy --workspace --all-targets --all-features -- -D warnings
 Run the real-client RHO smoke test separately:
 
 ```powershell
-$env:P5136_CLIENT_DATA_DIR='C:\Games\KartRider_5136\Data'
-cargo test -p p5136-server configured_real_client_catalog_matches_the_known_p5136_shape -- --nocapture
+$env:P4475_CLIENT_DATA_DIR='C:\Games\KartRider_5136\Data'
+cargo test -p p4475-server configured_real_client_catalog_matches_the_known_p4475_shape -- --nocapture
 ```
 
 Protocol evidence, completed scope, and continuation points are documented in [PORTING.md](PORTING.md), [PORTING_STATUS.md](PORTING_STATUS.md), [CLIENT_PROTOCOL_FSM.md](CLIENT_PROTOCOL_FSM.md), and [ITEM_GAMEPLAY_COVERAGE.md](ITEM_GAMEPLAY_COVERAGE.md).

@@ -1,4 +1,4 @@
-# P5136 item gameplay-reference coverage
+# P4475 item gameplay-reference coverage
 
 Last reviewed: 2026-08-11. This item ledger is indexed with the other protocol
 and implementation documents in [DOCUMENTATION.md](DOCUMENTATION.md).
@@ -10,16 +10,16 @@ page `크레이지레이싱 카트라이더/아이템` (last edit shown by the p
 `2026-07-11 00:02:47`, attachment SHA-256
 `51501a82e6d78a759270d69eea1bde08eda5bb77db91fb95cd02590e73e22d1b`).
 
-The page is a gameplay terminology and target/effect hint, not P5136 wire
+The page is a gameplay terminology and target/effect hint, not P4475 wire
 evidence. It spans later game versions, so its durations, probabilities,
 availability, defense interactions, and modern balance behavior are not copied
 into the server. The executable-backed type-12 schema/semantic ledger remains
 authoritative for packet offsets and states.
 
 The machine-readable source is
-`p5136_core::item_gameplay_catalog::P5136_GAMEPLAY_ITEM_HINTS`. It records all
+`p4475_core::item_gameplay_catalog::P4475_GAMEPLAY_ITEM_HINTS`. It records all
 54 Korean names, a stable slug, category, target scope, effect summary, 41
-currently proven P5136 numeric/name links, and evidence-graded `Gop*` links.
+currently proven P4475 numeric/name links, and evidence-graded `Gop*` links.
 The 54 exact `(heading, category, targets, effects)` rows and the ordered
 41-pair ID manifest are pinned by literal tests rather than regenerated from
 the production table.
@@ -30,18 +30,18 @@ supplements (`siren=24`, `superMagnet=103`).
 
 Legend:
 
-- `verified`: the P5136 native writer establishes the class and the page
+- `verified`: the P4475 native writer establishes the class and the page
   heading association is direct;
-- `named`: P5136 class exists, but page-to-class association is name/effect
+- `named`: P4475 class exists, but page-to-class association is name/effect
   correlation only;
 - `ambiguous`: two meanings or client generations cannot yet be distinguished;
 - `scope deferred`: retained for complete page coverage, but intentionally not
   part of the current reverse-engineering queue;
-- `—`: gameplay entry is covered, but no honest P5136 operation link exists.
+- `—`: gameplay entry is covered, but no honest P4475 operation link exists.
 
 ## Complete 54-item ledger
 
-| Category | Page item | P5136 item symbol/ID | `Gop*` link | Status |
+| Category | Page item | P4475 item symbol/ID | `Gop*` link | Status |
 |---|---|---|---|---|
 | Acceleration | 부스터 | `booster=6` | — | ID only |
 | Acceleration | 파워 부스터 | — | — | gameplay reference only |
@@ -56,7 +56,7 @@ Legend:
 | Attack | 호랑이 미사일 | `tigerRocket=99` | `GopTigerRocket` | verified |
 | Attack | 전자기 미사일 | `lockdownRocket=104` | `GopLockdownRocket` | verified |
 | Attack | 눈의 요정 | `snowman=112` | `GopSnowman` | verified |
-| Attack | 랜덤 미사일 | — | — | gameplay reference only; no P5136 join proven |
+| Attack | 랜덤 미사일 | — | — | gameplay reference only; no P4475 join proven |
 | Attack | 물폭탄 | `waterBomb=9` | `GopWaterbomb` | verified |
 | Attack | 자폭(시한) 물폭탄 | `timeBomb=13` | `GopTimebomb` | verified |
 | Attack | 독성 물폭탄 | `infectedBomb=27` | `GopInfectedBomb` | verified |
@@ -122,13 +122,13 @@ is:
 
 Rolling Waterbomb, Jiangshi, and first-place Devil are deliberately marked
 `DeferredByUser`; they remain visible but are excluded from active ambiguity
-counts. Net and modern Random Missile have no proven P5136 ID/consumer join.
+counts. Net and modern Random Missile have no proven P4475 ID/consumer join.
 That is an absence-of-evidence boundary, not a competing packet mapping.
 
-The page does not contain the separate P5136 items Giant Missile (73), Abyss
+The page does not contain the separate P4475 items Giant Missile (73), Abyss
 battle-team special (122), Kefi special (80), Special Shield/Autobot special
 (40), or Rainbow Cloud 2 (116). Their exact associations are nevertheless kept
-in `P5136_RECOVERED_OPERATION_ITEM_ASSOCIATIONS` to prevent those names from
+in `P4475_RECOVERED_OPERATION_ITEM_ASSOCIATIONS` to prevent those names from
 being reintroduced as candidates later.
 
 The gameplay model distinguishes the immediately preceding opponent from all

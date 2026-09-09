@@ -1,9 +1,9 @@
-# P5136 + Sikarugir 수동 설정 walkthrough (macOS)
+# P4475 + Sikarugir 수동 설정 walkthrough (macOS)
 
 최종 검토: 2026-08-11. 다른 사용자·프로토콜 문서는
 [전체 문서 안내](DOCUMENTATION.md)를 참고하세요.
 
-이 문서는 Sikarugir가 만든 wrapper의 Wine prefix를 P5136 클라이언트에
+이 문서는 Sikarugir가 만든 wrapper의 Wine prefix를 P4475 클라이언트에
 맞게 설정하는 절차입니다. 게임 EXE, Sikarugir 앱 또는 별도 wrapper를
 만들거나 배포하지 않습니다.
 
@@ -11,7 +11,7 @@
 
 - Sikarugir가 설치되어 있어야 합니다.
 - 사용할 `KartRider.exe`와 게임 데이터가 한 폴더에 있어야 합니다.
-- P5136 Rust를 직접 빌드했거나 macOS 릴리스 바이너리를 준비해야 합니다.
+- P4475 Rust를 직접 빌드했거나 macOS 릴리스 바이너리를 준비해야 합니다.
 
 아래 예시에서는 wrapper 경로를 `WRAPPER`, 게임 폴더를 `GAME_DIR`로
 표기합니다.
@@ -112,7 +112,7 @@ Windows Registry Editor Version 5.00
 별도 `.reg` 파일로 저장한 뒤 3단계와 같은 `regedit` 명령으로
 가져옵니다.
 
-## 6. P5136에서 실행
+## 6. P4475에서 실행
 
 GUI의 **접속기** 탭에서 다음 값을 입력합니다.
 
@@ -125,10 +125,10 @@ GUI의 **접속기** 탭에서 다음 값을 입력합니다.
 같습니다.
 
 ```bash
-p5136 connect \
+p4475 connect \
   --game-dir "$GAME_DIR" \
   --username player \
-  --server <P5136_서버_IP> \
+  --server <P4475_서버_IP> \
   --runner sikarugir \
   --sikarugir-app "$WRAPPER"
 ```
@@ -144,8 +144,8 @@ pmap 1798을 사용하려면 `--anonymous-league`를 추가합니다. 두 역할
 
 ## 확인 순서
 
-1. P5136 로그에서 `PqLogin` 수신과 `PrLogin` 송신이 보이면 인증 및
+1. P4475 로그에서 `PqLogin` 수신과 `PrLogin` 송신이 보이면 인증 및
    로그인까지 성공한 것입니다.
-2. 게임 UDP와 P2P UDP 패킷이 이어지면 P5136 연결도 완료된 것입니다.
+2. 게임 UDP와 P2P UDP 패킷이 이어지면 P4475 연결도 완료된 것입니다.
 3. 멈추면 wrapper의
    `Contents/SharedSupport/Logs/LastRunWine.log`를 확인합니다.

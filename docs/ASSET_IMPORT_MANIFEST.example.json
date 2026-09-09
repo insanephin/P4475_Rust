@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "compatibility": "p5136-static-verified-v1",
+  "compatibility": "p4475-static-verified-v1",
   "output_archive": "import_compatible.rho",
   "rho_folder_name": "compatible",
   "pack_path": ["kart"],
@@ -10,7 +10,7 @@
         "kind": "rho5_cn",
         "path": "replace/with/an/audited/source/path"
       },
-      "target_path": "replace/with/the/p5136/runtime/path",
+      "target_path": "replace/with/the/p4475/runtime/path",
       "expected_sha256": "replace_with_64_lowercase_hex_digits_after_review"
     }
   ]

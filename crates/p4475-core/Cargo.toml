@@ -1,0 +1,19 @@
+[package]
+name = "p4475-core"
+description = "Wire protocol primitives for the KartRider P4475 client"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+version.workspace = true
+
+[dependencies]
+sha2.workspace = true
+thiserror.workspace = true
+unicode-casefold.workspace = true
+unicode-normalization.workspace = true
+
+[dev-dependencies]
+tempfile = "3.23"
+
+[lints]
+workspace = true

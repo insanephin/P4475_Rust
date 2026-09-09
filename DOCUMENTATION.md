@@ -29,12 +29,12 @@ or decompiler databases.
 | `CLIENT_PROTOCOL_FSM.md` | protocol-visible client stages and legal transitions |
 | `CLIENT_CONSUMER_AUDIT.md` | native server-packet consumer census and independent-oracle gaps |
 | `CAPTURED_PACKET_COVERAGE.md` | retained trace boundary and packet classification |
-| `ITEM_GAMEPLAY_COVERAGE.md` | item terminology mapped to recovered P5136 operations |
+| `ITEM_GAMEPLAY_COVERAGE.md` | item terminology mapped to recovered P4475 operations |
 | `AI_DIFFICULTY_AUDIT.md` | ordinary room-AI request/start codecs and difficulty ownership |
-| `ASSET_CONVERSION_CANDIDATES.md` | deployed-client CN-to-P5136 static candidate census after the ordinary-V1 Exceed correction |
+| `ASSET_CONVERSION_CANDIDATES.md` | deployed-client CN-to-P4475 static candidate census after the ordinary-V1 Exceed correction |
 
 The fixture note under
-`crates/p5136-client-oracle/tests/fixtures/README.md` documents synthetic
+`crates/p4475-client-oracle/tests/fixtures/README.md` documents synthetic
 oracle bytes. Those fixtures contain no captured account or authentication
 data.
 

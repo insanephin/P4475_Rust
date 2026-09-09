@@ -27,7 +27,7 @@ __pycache__/
 /[Cc]apture/
 /[Cc]aptures/
 /[Pp]hysics[Ss]im/
-/KartRider-P5136/
+/KartRider-P4475/
 *.pcap
 *.pcapng
 
@@ -52,7 +52,7 @@ Launcher.v*.json
 # Connector transactions and local compatibility runtimes
 *.pristine.bak
 *.pristine.absent
-.p5136-connector.lock
+.p4475-connector.lock
 /.wine/
 /wine-prefix/
 /bottles/

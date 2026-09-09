@@ -1,0 +1,15 @@
+[package]
+name = "p4475-client-oracle"
+description = "Independent reconstructed P4475 client packet consumers"
+edition.workspace = true
+license.workspace = true
+publish = false
+rust-version.workspace = true
+version.workspace = true
+
+[dev-dependencies]
+p4475-core = { path = "../p4475-core" }
+p4475-server = { path = "../p4475-server" }
+
+[lints]
+workspace = true

@@ -2,4 +2,4 @@
 # Keep local debug/release artifacts in one bounded workspace directory.
 # The directory is ignored by .gitignore; the release binary is surfaced in
 # PORTING_STATUS.md when a user-facing build is produced.
-target-dir = "target/p5136-finish-kart-abilities"
+target-dir = "target/p4475-finish-kart-abilities"

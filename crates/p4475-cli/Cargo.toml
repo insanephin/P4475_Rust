@@ -1,0 +1,41 @@
+[package]
+name = "p4475-cli"
+description = "Desktop and command-line entry point for the KartRider P4475 Rust port"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+version.workspace = true
+
+[[bin]]
+name = "p4475"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+clap.workspace = true
+eframe = { version = "0.35", default-features = false, features = [
+    "default_fonts",
+    "glow",
+    "persistence",
+    "wayland",
+    "x11",
+] }
+local-ip-address.workspace = true
+p4475-connector = { path = "../p4475-connector" }
+p4475-core = { path = "../p4475-core" }
+p4475-assets = { path = "../p4475-assets" }
+p4475-profile = { path = "../p4475-profile" }
+p4475-server = { path = "../p4475-server" }
+rfd.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+tracing-appender.workspace = true
+tracing-subscriber.workspace = true
+
+[dev-dependencies]
+tempfile = "3.23"
+
+[lints]
+workspace = true

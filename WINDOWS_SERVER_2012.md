@@ -3,11 +3,11 @@
 Last reviewed: 2026-08-11. See [the documentation map](DOCUMENTATION.md) for
 the rest of the user and engineering guides.
 
-If any translation sounds unnatural or is incorrect, please [open an issue](https://github.com/ILoveKartrider/P5136_Rust/issues) or submit a pull request.
+If any translation sounds unnatural or is incorrect, please [open an issue](https://github.com/ILoveKartrider/P4475_Rust/issues) or submit a pull request.
 
 ## Summary
 
-The current P5136 source does not require a Windows Server 2012-specific code path or source modification. A compatibility build should use the same source as the regular release with only a separate Rust target and static CRT build flags.
+The current P4475 source does not require a Windows Server 2012-specific code path or source modification. A compatibility build should use the same source as the regular release with only a separate Rust target and static CRT build flags.
 
 This procedure is intended to improve compatibility; it does not guarantee that the program will run on Windows Server 2012. Before distributing the binary, test process startup, GUI initialization, server startup, and client connectivity on the actual operating system.
 
@@ -46,9 +46,9 @@ $env:RUSTFLAGS = "-C target-feature=+crt-static"
 cargo +nightly build `
   --release `
   --locked `
-  -p p5136-cli `
+  -p p4475-cli `
   --target x86_64-win7-windows-msvc `
-  --target-dir target/p5136-win2012 `
+  --target-dir target/p4475-win2012 `
   -Z build-std=std,panic_abort
 
 $env:RUSTFLAGS = $previousRustFlags
@@ -57,13 +57,13 @@ $env:RUSTFLAGS = $previousRustFlags
 The expected output is:
 
 ```text
-target/p5136-win2012/x86_64-win7-windows-msvc/release/p5136.exe
+target/p4475-win2012/x86_64-win7-windows-msvc/release/p4475.exe
 ```
 
 Rename the file when publishing it so that it cannot be confused with the regular x64 build:
 
 ```text
-p5136-win2012-x64.exe
+p4475-win2012-x64.exe
 ```
 
 Nightly toolchains can change over time. For the first build that passes testing on real hardware, record the output of `rustup show` and `rustc +nightly -vV`. Pin that exact dated nightly for subsequent releases.
@@ -73,7 +73,7 @@ Nightly toolchains can change over time. For the first build that passes testing
 First run the following command from a command prompt on Windows Server 2012:
 
 ```powershell
-p5136-win2012-x64.exe --version
+p4475-win2012-x64.exe --version
 ```
 
 - If it fails before printing the version, investigate the PE loader, missing DLLs, CRT initialization, and unsupported operating-system APIs first.

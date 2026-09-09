@@ -1,9 +1,9 @@
-# P5136 asset conversion candidates
+# P4475 asset conversion candidates
 
 Last updated: 2026-08-12
 
 This report is the retained summary of a complete planner pass over the newer
-Chinese `Data` tree and the current Korean P5136 `Data` tree. It contains only
+Chinese `Data` tree and the current Korean P4475 `Data` tree. It contains only
 paths and classifications; it does not contain proprietary asset payloads.
 
 ## Result
@@ -17,10 +17,10 @@ paths and classifications; it does not contain proprietary asset payloads.
 | Track-shaped folder | 53 | 34 ordinary catalog rows | 0 | 19 special/unregistered |
 | Total | 365 | 235 | 111 | 19 |
 
-`exceed` by itself is not a native-backport marker. Korean P5136 already
+`exceed` by itself is not a native-backport marker. Korean P4475 already
 supports ordinary V1 Exceed and serializes its nine instant-acceleration fields
 inside the stock 235-byte KartSpec snapshot. The corrected planner also
-reclassified the P5136-resident `spectorV1` reference group as
+reclassified the P4475-resident `spectorV1` reference group as
 `compatible_candidate`. XUN/Kart12 classes and resources remain gated.
 
 These are static candidates, not completed client imports. Every generated
@@ -66,7 +66,7 @@ root-level catalog file, not a character directory, and is no longer counted.
 - `dizini_block`, `dragonBoat_zongzi`, `GiLin_Gi`, `GiLin_Lin`, `jujak`, `juju`, `milu`, `moonRabbit`
 - `redHorse`, `snowtiger`, `squirrel`, `weasel`, `wonwon_mermaid`, `xyy1`, `xyy2`, `yellowCow`
 
-The source item table has 22 codes absent from P5136. `xyy1` and `xyy2` bring
+The source item table has 22 codes absent from P4475. `xyy1` and `xyy2` bring
 the audited resource count to 24 because their source resource groups are
 missing from the target even though the target already has matching catalog
 codes. Multiple pet item IDs can legitimately share one model code, so catalog
@@ -85,7 +85,7 @@ All 71 pet/flying-pet groups resolved with zero missing references and no new
 native marker. Full smoke staging reopened 1,230 pet resources in three
 archives and 2,277 flying-pet resources in four archives. Twenty-nine flying
 pets received a guarded `param@cn.bml` to `param@kr.bml` regional alias.
-Server-side physics or special effects for IDs outside P5136's existing tables
+Server-side physics or special effects for IDs outside P4475's existing tables
 remain a separate semantic implementation boundary.
 
 ## Track-shaped resources (53; 34 ordinary candidates)
@@ -103,7 +103,7 @@ The previous track false positives were atlas-editor source paths retained in
 thumbnail metadata, not resources consumed by the track loader.
 
 The per-folder pass did not cover global track tables, AI paths, shared theme
-materials, P5136 thumbnail aliases, or theme BGM/UI resources. A subsequent
+materials, P4475 thumbnail aliases, or theme BGM/UI resources. A subsequent
 audit found 34 active ordinary track rows, nine blocked special rows, and ten
 unregistered/dormant folders. The integrated track importer applies the
 additional catalog and dependency checks; do not feed all 53 folder manifests
@@ -123,10 +123,10 @@ The planner writes both `compatibility-report.json` and
 `compatibility-report.md`, plus one guarded manifest per group:
 
 ```powershell
-target\release\p5136-assets.exe plan `
+target\release\p4475-assets.exe plan `
   --source-data C:\Nexon\launcher_v2\Data `
   --target-data C:\Nexon\KartRider_5136\Data `
-  --output C:\Temp\P5136-kart-candidates `
+  --output C:\Temp\P4475-kart-candidates `
   --category kart `
   --max-assets 1000
 ```

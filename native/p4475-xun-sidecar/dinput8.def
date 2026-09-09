@@ -1,0 +1,12 @@
+LIBRARY dinput8
+EXPORTS
+    DirectInput8Create=ProxyDirectInput8Create @1
+    DllCanUnloadNow=ProxyDllCanUnloadNow @2
+    DllGetClassObject=ProxyDllGetClassObject @3
+    DllRegisterServer=ProxyDllRegisterServer @4
+    DllUnregisterServer=ProxyDllUnregisterServer @5
+    GetdfDIJoystick=ProxyGetdfDIJoystick @6
+    P4475XunGetAbiVersion @101
+    P4475XunInitialize @102
+    P4475XunGetStatus @103
+    P4475XunVerifyExecutableFile @104

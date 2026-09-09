@@ -8,7 +8,7 @@ been demonstrated.
 
 ## Compatibility foundation
 
-- [x] P5136 topology, port offsets, and boundary validation
+- [x] P4475 topology, port offsets, and boundary validation
 - [x] zero-seeded packet-name Adler-32
 - [x] little-endian primitives and .NET-compatible UTF-16 strings
 - [x] bounded login TCP framing, encryption, checksum, and IV progression
@@ -37,7 +37,7 @@ been demonstrated.
 
 ## Connector
 
-- [x] exact P5136 `KartRider.xml` and launcher-profile XML bytes
+- [x] exact P4475 `KartRider.xml` and launcher-profile XML bytes
 - [x] Windows-compatible nickname validation on every host
 - [x] PIN/BML/encoded-block read/write and build detection
 - [x] endpoint replacement and NGS toggle
@@ -71,7 +71,7 @@ been demonstrated.
   process-RNG selection and room-owned no-repeat history
 - [x] C#-exact ASCII-boundary S0-S8 room-title parser and per-equipment modern
   speed-physics variants selected transactionally at race start
-- [x] exact P5136 `PqChangeRoomInfoPacket` / `PrChangeRoomInfoPacket` codec,
+- [x] exact P4475 `PqChangeRoomInfoPacket` / `PrChangeRoomInfoPacket` codec,
   room-master-only atomic title/password update and all-room reply; a changed
   S0-S8 token selects that variant in the next `GrCommandStartPacket` while the
   existing channel/session speed byte remains unchanged, matching the C# server
@@ -185,7 +185,7 @@ been demonstrated.
   Cube, Mine, WaterMine, and EventObject runtime classes already covered by
   exact schemas, while obstacle/dummy, warp/weather/rail/lens-flare/flash
   controls remain client scene/physics state; see
-  `analysis/P5136_RI_TRACK_GIMMICK_AUDIT.md`
+  `analysis/P4475_RI_TRACK_GIMMICK_AUDIT.md`
 - [x] semantic decoding is crate-private and requires the private-field
   `ValidatedItemOperation` capability returned by exact schema validation;
   callers cannot bypass state/length validation with an arbitrary raw slice
@@ -203,7 +203,7 @@ been demonstrated.
   runtime-only flag update, Cloud's target-only hit, and SpeedDown teardown
 - [x] all 54 headings from the supplied Korean item page represented in a
   typed gameplay-reference catalog with category/target/effect hints, 41
-  proven P5136 numeric/name links, evidence-graded `Gop*` candidates, literal
+  proven P4475 numeric/name links, evidence-graded `Gop*` candidates, literal
   54-row semantic and 41-pair ID manifests, separate class/heading evidence,
   and an explicit rule that modern page timers/probabilities never define the
   wire codec; see [ITEM_GAMEPLAY_COVERAGE.md](ITEM_GAMEPLAY_COVERAGE.md)
@@ -238,14 +238,14 @@ been demonstrated.
 - [x] exact stock 20-byte `PqEquipTuningExPacket` body, including the typed
   displaced-part descriptor, fixed-width success/failure replies, and
   lease-bound/no-follow atomic `PlantData.json` publication
-- [x] exact P5136 rider-equipment plant-slot order: engine, wheel, handle, kit
+- [x] exact P4475 rider-equipment plant-slot order: engine, wheel, handle, kit
   map to inventory categories `43, 45, 44, 46`; invalid or ungranted equipment
   remains fail-closed and terminates the login TCP session
 - [x] `PrKartLevelUpProbText` keeps the 100%-success server policy separate from
   its client-facing result code: accepted selection replies use the retained C#
   golden `49 08 4C 59 00 00 00 00`, avoiding the client crash caused by writing
   the percentage (`100`) into the result field
-- [x] all 91 recovered P5136 plant-part contributions, matched by exact
+- [x] all 91 recovered P4475 plant-part contributions, matched by exact
   `(kart_id, serial)` and composed into distinct speed/item plus S0-S8
   room-start physics blocks
 - [x] exact legacy kart-level request/reply codecs and `LevelData.json` preload,
@@ -323,13 +323,13 @@ been demonstrated.
   inferred failure reply for unpublished values or sidecar persistence errors
 - [x] requested kart/speed single-player physics with explicit bounded
   contribution fallbacks
-- [x] immutable Korean P5136 flying-pet physics table applied to room and
+- [x] immutable Korean P4475 flying-pet physics table applied to room and
   single-player kart-spec replies; normal-pet defense remains a client-side
   `Set_Pet`/type-11 relay with no duplicate server probability roll
-- [x] deliberate P5136 exclusion of later-version V2 Exceed sidecars:
+- [x] deliberate P4475 exclusion of later-version V2 Exceed sidecars:
   `Parts12Data.json` and `Level12Data.json` are per-account C# server files,
   not client data, and their login/item streams are byte-incompatible with
-  Korean P5136
+  Korean P4475
 - [x] atomic time-attack start/finish persistence, checked economy arithmetic,
   and one-shot finish replay protection
 - [x] bounded complete telemetry codecs for every retained report shape,
@@ -393,8 +393,8 @@ been demonstrated.
   event/social/commerce-excluded LAN baseline of 63 outer packet classes plus
   the 80 emitted type-12 item-operation schemas; see
   [CLIENT_CONSUMER_AUDIT.md](CLIENT_CONSUMER_AUDIT.md)
-- [x] dependency-isolated `p5136-client-oracle` crate with no normal
-  `p5136-core` dependency or shared packet reader/hash/layout constants
+- [x] dependency-isolated `p4475-client-oracle` crate with no normal
+  `p4475-core` dependency or shared packet reader/hash/layout constants
 - [x] native-client exact layout/consumption oracle with selected recovered
   semantics for `GameResultPacket`, plus exact native codec/consumer coverage
   for `GameNextStagePacket`; immutable IDB-derived raw fixtures, truncation,
@@ -469,7 +469,7 @@ been demonstrated.
   scope-excluded types 4/5/6/7/8 and the three explicitly deferred gameplay
   headings are not a completion gate
 - [ ] Windows, macOS, and Linux CI pass
-- [ ] native Windows connector launches a stock P5136 client
+- [ ] native Windows connector launches a stock P4475 client
 - [ ] Wine, CrossOver, or Sikarugir connector launches the same client
 - [ ] two clients login, migrate, join a room, race, persist, and shut down
 - [x] opt-in external corpus audit parses all 19,496 retained inbound records,
