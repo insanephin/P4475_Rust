@@ -6672,7 +6672,7 @@ mod tests {
         let mut item_count = 0;
         for &category in GRANT_CATEGORIES {
             let ids: Box<dyn Iterator<Item = u16>> = if category == 3 {
-                Box::new((1..=1_199).chain([1_450, 1_453, 1_454]))
+                Box::new((1..=1_199).chain([981, 1_008, 1_454]))
             } else {
                 Box::new(1_000..1_110)
             };
@@ -6700,9 +6700,9 @@ mod tests {
         let xml = format!(
             r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
                 <Names>
-                    <Kart id="1450" name="sessionKnownKart" />
-                    <Kart id="1453" name="sessionMissingKartSpec" />
-                    <Kart id="1454" name="sessionXunKart" />
+                    <Kart id="1008" name="sessionKnownKart" />
+                    <Kart id="981" name="sessionMissingKartSpec" />
+                    <Kart id="1064" name="sessionXunKart" />
                 </Names>
                 <Specs>
                     <Spec name="sessionBaseKart">
@@ -9544,7 +9544,7 @@ mod tests {
             vec![serialize_empty_locked_item_list()]
         );
 
-        let item = FavoriteItemKey::new(3, 1_450, 2);
+        let item = FavoriteItemKey::new(3, 981, 2);
         let mut update = PacketWriter::named(LOCKED_ITEM_UPDATE_REQUEST_NAME);
         update.write_u8(1);
         update.write_u32(1);
@@ -10144,7 +10144,7 @@ mod tests {
             session_id,
         };
         let requests = [
-            exact_delete_item_request(FavoriteItemKey::new(3, 1_450, 2), 1),
+            exact_delete_item_request(FavoriteItemKey::new(3, 981, 2), 1),
             exact_unlock_item_request(),
         ];
 
@@ -10233,7 +10233,7 @@ mod tests {
         );
 
         let first_items = (0..200_u16)
-            .map(|serial| FavoriteItemKey::new(3, 1_450, serial))
+            .map(|serial| FavoriteItemKey::new(3, 981, serial))
             .collect::<Vec<_>>();
         let first_records = first_items
             .iter()
@@ -10251,7 +10251,7 @@ mod tests {
             Vec::<Vec<u8>>::new()
         );
 
-        let last = FavoriteItemKey::new(3, 1_450, 200);
+        let last = FavoriteItemKey::new(3, 981, 200);
         let second = exact_favorite_item_update(&[(last, 1)]);
         assert!(
             dispatch_packet(&services, &second, &mut context)
@@ -10340,8 +10340,8 @@ mod tests {
             session_id,
         };
         let mut context = bind_test_profile(&profiles, &identity).await;
-        let first = FavoriteItemKey::new(3, 1_450, 1);
-        let second = FavoriteItemKey::new(3, 1_450, 2);
+        let first = FavoriteItemKey::new(3, 981, 1);
+        let second = FavoriteItemKey::new(3, 981, 2);
         dispatch_packet(
             &services,
             &exact_favorite_item_update(&[(first, 1)]),
@@ -11056,7 +11056,7 @@ mod tests {
         assert!(!unequipped.physics_fallback());
         assert_eq!(unequipped.block, baseline);
 
-        profile.rider_item.kart = 1_450;
+        profile.rider_item.kart = 981;
         let resolved = room_physics_metadata(
             &profile,
             &EquipmentExceptions::default(),
@@ -11064,10 +11064,10 @@ mod tests {
         )
         .unwrap();
         let mut expected_snapshot = P4475KartPhysicsSnapshot::csharp_s7_baseline();
-        expected_snapshot.kart = *catalog.kart_spec(1_450).unwrap();
+        expected_snapshot.kart = *catalog.kart_spec(981).unwrap();
         let expected = build_p4475_kart_physics_block(&expected_snapshot).unwrap();
 
-        assert_eq!(resolved.kart_id, 1_450);
+        assert_eq!(resolved.kart_id, 981);
         assert_eq!(
             resolved.base_resolution,
             RoomKartBaseResolution::CatalogBaseSpec
@@ -11120,11 +11120,11 @@ mod tests {
     fn mixed_grade_floater_codes_are_converted_into_selected_kart_physics() {
         let catalog = test_catalog();
         let mut profile = Profile::default();
-        profile.rider_item.kart = 1_450;
+        profile.rider_item.kart = 981;
         profile.rider_item.kart_serial = 1;
         let equipment = EquipmentExceptions {
             tune: vec![p4475_core::inventory::TuneExcRecord {
-                id: 1_450,
+                id: 981,
                 serial: 1,
                 tune1: 603,
                 tune2: 903,
@@ -11139,7 +11139,7 @@ mod tests {
 
         let resolved = room_physics_metadata(&profile, &equipment, Some(catalog.as_ref())).unwrap();
         let mut expected_snapshot = P4475KartPhysicsSnapshot::csharp_s7_baseline();
-        expected_snapshot.kart = *catalog.kart_spec(1_450).unwrap();
+        expected_snapshot.kart = *catalog.kart_spec(981).unwrap();
         expected_snapshot.exc.tune = p4475_floater_spec([603, 903, 702]).unwrap();
         let baseline = {
             let mut snapshot = expected_snapshot;
@@ -11160,11 +11160,11 @@ mod tests {
     fn item_floater_codes_survive_physics_resolution_for_race_gameplay() {
         let catalog = test_catalog();
         let mut profile = Profile::default();
-        profile.rider_item.kart = 1_450;
+        profile.rider_item.kart = 981;
         profile.rider_item.kart_serial = 1;
         let equipment = EquipmentExceptions {
             tune: vec![p4475_core::inventory::TuneExcRecord {
-                id: 1_450,
+                id: 981,
                 serial: 1,
                 tune1: 10_303,
                 tune2: 10_901,
@@ -11216,7 +11216,7 @@ mod tests {
             build_p4475_kart_physics_block(&P4475KartPhysicsSnapshot::csharp_s7_baseline())
                 .unwrap();
         let mut profile = Profile::default();
-        profile.rider_item.kart = 1_450;
+        profile.rider_item.kart = 981;
 
         let missing_catalog =
             room_physics_metadata(&profile, &EquipmentExceptions::default(), None).unwrap();
@@ -11230,7 +11230,7 @@ mod tests {
         );
         assert_eq!(missing_catalog.block, baseline);
 
-        profile.rider_item.kart = 1_453;
+        profile.rider_item.kart = 1_008;
         let missing_spec = room_physics_metadata(
             &profile,
             &EquipmentExceptions::default(),
@@ -11252,7 +11252,7 @@ mod tests {
     fn optional_physics_inputs_are_typed_without_overstating_the_base_spec() {
         let catalog = test_catalog();
         let mut profile = Profile::default();
-        profile.rider_item.kart = 1_450;
+        profile.rider_item.kart = 981;
         profile.rider_item.flying_pet = 83;
         profile.rider_item.kart_plant2 = 44;
         profile.rider_item.kart_plant4 = 46;
@@ -11274,7 +11274,7 @@ mod tests {
         );
 
         let mut expected_snapshot = P4475KartPhysicsSnapshot::csharp_s7_baseline();
-        expected_snapshot.kart = *catalog.kart_spec(1_450).unwrap();
+        expected_snapshot.kart = *catalog.kart_spec(981).unwrap();
         expected_snapshot.flying_pet =
             p4475_core::kart_physics::P4475FlyingPetSpecSnapshot::korean_5136(83).unwrap();
         assert_eq!(
@@ -11287,11 +11287,11 @@ mod tests {
     fn plant_sidecar_uses_exact_kart_serial_and_room_game_mode() {
         let catalog = test_catalog();
         let mut profile = Profile::default();
-        profile.rider_item.kart = 1_450;
+        profile.rider_item.kart = 981;
         profile.rider_item.kart_serial = 2;
         let equipment = EquipmentExceptions {
             plant: vec![p4475_core::inventory::PlantExcRecord {
-                id: 1_450,
+                id: 981,
                 serial: 2,
                 engine_category: 43,
                 engine_id: 23,
@@ -11309,7 +11309,7 @@ mod tests {
             Some(&equipment),
             Some(catalog.as_ref()),
             PhysicsSelection {
-                kart_id: 1_450,
+                kart_id: 981,
                 flying_pet_id: 0,
                 requested_speed_type: 7,
                 plant_game_mode: p4475_core::plant_physics::P4475PlantGameMode::Speed,
@@ -11322,7 +11322,7 @@ mod tests {
             Some(&equipment),
             Some(catalog.as_ref()),
             PhysicsSelection {
-                kart_id: 1_450,
+                kart_id: 981,
                 flying_pet_id: 0,
                 requested_speed_type: 7,
                 plant_game_mode: p4475_core::plant_physics::P4475PlantGameMode::Item,
@@ -11357,7 +11357,7 @@ mod tests {
             Some(&mismatched),
             Some(catalog.as_ref()),
             PhysicsSelection {
-                kart_id: 1_450,
+                kart_id: 981,
                 flying_pet_id: 0,
                 requested_speed_type: 7,
                 plant_game_mode: p4475_core::plant_physics::P4475PlantGameMode::Speed,
@@ -11370,7 +11370,7 @@ mod tests {
             Some(&EquipmentExceptions::default()),
             Some(catalog.as_ref()),
             PhysicsSelection {
-                kart_id: 1_450,
+                kart_id: 981,
                 flying_pet_id: 0,
                 requested_speed_type: 7,
                 plant_game_mode: p4475_core::plant_physics::P4475PlantGameMode::Speed,
@@ -11385,7 +11385,7 @@ mod tests {
     fn unknown_flying_pet_id_keeps_csharp_zero_spec_and_reports_fallback() {
         let catalog = test_catalog();
         let mut profile = Profile::default();
-        profile.rider_item.kart = 1_450;
+        profile.rider_item.kart = 981;
         profile.rider_item.flying_pet = u16::MAX;
 
         let resolved = room_physics_metadata(
@@ -11399,7 +11399,7 @@ mod tests {
             vec![RoomPhysicsFallbackReason::FlyingPetSpecUnavailable { item_id: u16::MAX }]
         );
         let mut expected_snapshot = P4475KartPhysicsSnapshot::csharp_s7_baseline();
-        expected_snapshot.kart = *catalog.kart_spec(1_450).unwrap();
+        expected_snapshot.kart = *catalog.kart_spec(981).unwrap();
         assert_eq!(
             resolved.block,
             build_p4475_kart_physics_block(&expected_snapshot).unwrap()
@@ -14305,8 +14305,8 @@ mod tests {
             use_room_password: 1,
             room_password: "durable room".to_owned(),
             item_password: "durable item".to_owned(),
-            kart_1: 1450,
-            kart_2: 1453,
+            kart_1: 1008,
+            kart_2: 981,
             ..MyRoomInfo::default()
         };
         let owner_services = SessionServices {
@@ -14564,7 +14564,7 @@ mod tests {
         let (world, world_task) = WorldHandle::spawn(16).expect("nonzero World mailbox capacity");
         let mut rider = register_lobby_session(&world, "PhysicsSnapshot", 49_735).await;
         let mut profile = Profile::default();
-        profile.rider_item.kart = 1_450;
+        profile.rider_item.kart = 981;
         let participant =
             room_participant_from_profile(&rider.identity, &profile, Some(catalog.as_ref()))
                 .unwrap();
@@ -15349,7 +15349,7 @@ mod tests {
     async fn unlimited_floater_policy_does_not_require_catalog_or_kart_grants() {
         let profile_root = tempfile::tempdir().unwrap();
         let mut initial_profile = Profile::default();
-        initial_profile.rider_item.kart = 1_453;
+        initial_profile.rider_item.kart = 1_008;
         initial_profile.rider_item.kart_serial = 7;
         ProfileStore::new(profile_root.path())
             .save("UnlimitedFloater", &initial_profile)
@@ -15368,8 +15368,8 @@ mod tests {
         let mut context = bind_test_profile(&profiles, &identity).await;
 
         for request in [
-            floater_item_request(USE_SOCKET_REQUEST_NAME, 1, 3, 1_453, 7),
-            floater_item_request(USE_TUNE_REQUEST_NAME, 5, 3, 1_453, 7),
+            floater_item_request(USE_SOCKET_REQUEST_NAME, 1, 3, 1_008, 7),
+            floater_item_request(USE_TUNE_REQUEST_NAME, 5, 3, 1_008, 7),
         ] {
             let reply = handle_floater(&world, &profiles, session, &request, &mut context)
                 .await
@@ -15856,18 +15856,18 @@ mod tests {
         let profile_root = tempfile::tempdir().unwrap();
         let store = ProfileStore::new(profile_root.path());
         let mut profile = Profile::default();
-        profile.rider_item.kart = 1_453;
+        profile.rider_item.kart = 1_008;
         profile.rider_item.kart_serial = 1;
         let saved = store.save("UnsafeKartOwner", &profile).unwrap();
         let rider_directory = saved.path.parent().unwrap();
         fs::write(
             rider_directory.join("PlantData.json"),
-            br#"[{"ID":1453,"SN":1,"Engine":43,"EngineID":1}]"#,
+            br#"[{"ID":981,"SN":1,"Engine":43,"EngineID":1}]"#,
         )
         .unwrap();
         fs::write(
             rider_directory.join("PartsData.json"),
-            br#"[{"ID":1453,"SN":1,"Engine":2,"EngineGrade":2,"EngineValue":1150}]"#,
+            br#"[{"ID":981,"SN":1,"Engine":2,"EngineGrade":2,"EngineValue":1150}]"#,
         )
         .unwrap();
 
@@ -15901,7 +15901,7 @@ mod tests {
                         let item_id = reader.read_u16().unwrap();
                         assert_ne!(
                             (category, item_id),
-                            (3, 1_453),
+                            (3, 1_008),
                             "unresolved kart leaked through the inventory stream"
                         );
                         reader.read_bytes(14).unwrap();
@@ -16683,7 +16683,7 @@ mod tests {
         let update_profiles = profiles.clone();
         let update_nickname = identity.nickname.clone();
         let update_operation = world.admit_identity_operation(source).await.unwrap();
-        let expected = FavoriteItemKey::new(3, 1_450, 7);
+        let expected = FavoriteItemKey::new(3, 981, 7);
         let update = tokio::spawn(async move {
             let admission = update_profiles
                 .admit_for_operation(

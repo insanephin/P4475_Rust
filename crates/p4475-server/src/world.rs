@@ -17286,7 +17286,7 @@ mod tests {
         });
         let mut owner = register_channel_session(&mut world, "ItemXun", 65, 41_651, 64);
         let room_id = create_protocol_room(&mut world, &owner, 2);
-        set_result_admission(&mut world, room_id, 0, 1, 1_450, 20_000_000, 0);
+        set_result_admission(&mut world, room_id, 0, 1, 981, 20_000_000, 0);
         drain_batches(&mut owner.outbound);
         world
             .lobby_command(

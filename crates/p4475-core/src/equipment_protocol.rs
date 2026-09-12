@@ -481,7 +481,7 @@ mod tests {
     fn nonzero_kart_with_zero_serial_is_normalized() {
         let mut packet = PacketWriter::named(SET_RIDER_ITEMS_REQUEST_NAME);
         for index in 0..30 {
-            packet.write_u16(if index == 2 { 1_450 } else { 0 });
+            packet.write_u16(if index == 2 { 981 } else { 0 });
         }
         packet.write_u8(0);
         packet.write_u16(0);

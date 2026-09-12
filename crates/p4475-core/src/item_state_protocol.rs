@@ -715,7 +715,7 @@ mod tests {
     #[test]
     fn stock_request_shapes_match_full_golden_packets() {
         assert_eq!(
-            delete_request(3, 1_450, 2, 1),
+            delete_request(3, 981, 2, 1),
             [
                 0xB8, 0x07, 0x4E, 0x4F, // request hash
                 0, 0, 0, 0, // auth type
@@ -732,7 +732,7 @@ mod tests {
             favorite_update_request(
                 1,
                 &[
-                    (FavoriteItemKey::new(3, 1_450, 2), 1),
+                    (FavoriteItemKey::new(3, 981, 2), 1),
                     (FavoriteItemKey::new(u16::MAX, 0, u16::MAX), 2),
                 ],
             ),
@@ -748,11 +748,11 @@ mod tests {
 
     #[test]
     fn exact_requests_preserve_delete_and_favorite_fields() {
-        let delete = parse_item_state_request(&delete_request(3, 1_450, u16::MAX, 0xBEEF))
+        let delete = parse_item_state_request(&delete_request(3, 981, u16::MAX, 0xBEEF))
             .expect("exact delete");
         assert_eq!(delete.kind(), ItemStateRequest::DeleteItem);
         let fields = delete.delete_fields().expect("delete fields");
-        assert_eq!(fields.item(), FavoriteItemKey::new(3, 1_450, u16::MAX));
+        assert_eq!(fields.item(), FavoriteItemKey::new(3, 981, u16::MAX));
         assert_eq!(fields.quantity_or_mode(), 0xBEEF);
         assert_eq!(delete.favorite_changes(), None);
 
@@ -766,7 +766,7 @@ mod tests {
             assert_eq!(parsed.favorite_changes(), None);
         }
 
-        let add = FavoriteItemKey::new(3, 1_450, 2);
+        let add = FavoriteItemKey::new(3, 981, 2);
         let remove = FavoriteItemKey::new(4, 300, 7);
         let update =
             parse_item_state_request(&favorite_update_request(1, &[(add, 1), (remove, 2)]))
@@ -804,13 +804,13 @@ mod tests {
     #[test]
     fn every_truncated_prefix_of_each_exact_request_is_rejected() {
         let fixtures = [
-            delete_request(3, 1_450, 2, 1),
+            delete_request(3, 981, 2, 1),
             unlock_request(),
             favorite_get_request(),
             favorite_update_request(
                 1,
                 &[
-                    (FavoriteItemKey::new(3, 1_450, 2), 1),
+                    (FavoriteItemKey::new(3, 981, 2), 1),
                     (FavoriteItemKey::new(4, 300, 7), 2),
                 ],
             ),
@@ -844,7 +844,7 @@ mod tests {
 
     #[test]
     fn producer_auth_scope_and_operation_invariants_have_typed_errors() {
-        let mut delete_auth = delete_request(3, 1_450, 2, 1);
+        let mut delete_auth = delete_request(3, 981, 2, 1);
         delete_auth[4..8].copy_from_slice(&7_u32.to_le_bytes());
         assert!(matches!(
             parse_item_state_request(&delete_auth),
@@ -878,7 +878,7 @@ mod tests {
         assert!(matches!(
             parse_item_state_request(&favorite_update_request(
                 1,
-                &[(FavoriteItemKey::new(3, 1_450, 2), 3)]
+                &[(FavoriteItemKey::new(3, 981, 2), 3)]
             )),
             Err(ItemStateProtocolError::InvalidFavoriteOperation {
                 index: 0,
@@ -889,7 +889,7 @@ mod tests {
 
     #[test]
     fn repeated_item_keys_are_preserved_in_wire_order() {
-        let repeated = FavoriteItemKey::new(3, 1_450, 2);
+        let repeated = FavoriteItemKey::new(3, 981, 2);
         let parsed = parse_item_state_request(&favorite_update_request(
             1,
             &[(repeated, 1), (repeated, 2), (repeated, 1)],
@@ -942,7 +942,7 @@ mod tests {
 
     #[test]
     fn cross_kind_body_drift_and_trailing_bytes_are_rejected() {
-        let mut delete_as_get = delete_request(3, 1_450, 2, 1);
+        let mut delete_as_get = delete_request(3, 981, 2, 1);
         delete_as_get[..4].copy_from_slice(&FAVORITE_ITEM_GET_REQUEST_HASH.to_le_bytes());
         assert!(matches!(
             parse_item_state_request(&delete_as_get),
@@ -962,7 +962,7 @@ mod tests {
         ));
 
         for mut request in [
-            delete_request(3, 1_450, 2, 1),
+            delete_request(3, 981, 2, 1),
             unlock_request(),
             favorite_get_request(),
             favorite_update_request(1, &[]),
@@ -998,7 +998,7 @@ mod tests {
 
         let reply = serialize_favorite_item_list(
             &[
-                FavoriteItemKey::new(3, 1_450, 2),
+                FavoriteItemKey::new(3, 981, 2),
                 FavoriteItemKey::new(u16::MAX, 0, u16::MAX),
             ],
             DEFAULT_MAX_PAYLOAD,
@@ -1032,7 +1032,7 @@ mod tests {
             []
         );
 
-        let key = FavoriteItemKey::new(3, 1_450, 2);
+        let key = FavoriteItemKey::new(3, 981, 2);
         let one = item_update_request(LOCKED_ITEM_UPDATE_REQUEST_NAME, 1, &[(key, 1)]);
         assert_eq!(
             one,
@@ -1065,12 +1065,12 @@ mod tests {
     #[test]
     fn favorite_list_reply_enforces_the_configured_payload_cap() {
         const TEST_MAXIMUM_PAYLOAD: usize = 29;
-        let maximum = vec![FavoriteItemKey::new(3, 1_450, 2); 3];
+        let maximum = vec![FavoriteItemKey::new(3, 981, 2); 3];
         let reply =
             serialize_favorite_item_list(&maximum, TEST_MAXIMUM_PAYLOAD).expect("maximum list");
         assert_eq!(reply.len(), TEST_MAXIMUM_PAYLOAD);
 
-        let excessive = vec![FavoriteItemKey::new(3, 1_450, 2); 4];
+        let excessive = vec![FavoriteItemKey::new(3, 981, 2); 4];
         assert!(matches!(
             serialize_favorite_item_list(&excessive, TEST_MAXIMUM_PAYLOAD),
             Err(ItemStateProtocolError::FavoriteListPayloadLimitExceeded {

@@ -412,14 +412,14 @@ mod tests {
         );
 
         let json_error = serde_json::from_value::<FavoriteItems>(json!([
-            {"ItemCatID": 3, "ItemID": 1450, "ItemSN": 2},
-            {"ItemCatID": 3, "ItemID": 1450, "ItemSN": 2}
+            {"ItemCatID": 3, "ItemID": 1008, "ItemSN": 2},
+            {"ItemCatID": 3, "ItemID": 1008, "ItemSN": 2}
         ]))
         .unwrap_err();
         assert!(
             json_error
                 .to_string()
-                .contains("favorite-item record 1 duplicates record 0 (3:1450:2)")
+                .contains("favorite-item record 1 duplicates record 0 (3:1008:2)")
         );
     }
 

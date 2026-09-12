@@ -690,7 +690,7 @@ mod tests {
     fn favorite_items_roundtrip_without_disturbing_unknown_profile_fields() {
         let source = json!({
             "P4475RustFavoriteItems": [
-                {"ItemCatID": 3, "ItemID": 1450, "ItemSN": 2},
+                {"ItemCatID": 3, "ItemID": 1008, "ItemSN": 2},
                 {"ItemCatID": 4, "ItemID": 300, "ItemSN": 7}
             ],
             "futureTopLevel": {"keep": true},
@@ -710,7 +710,7 @@ mod tests {
         assert_eq!(
             encoded["P4475RustFavoriteItems"],
             json!([
-                {"ItemCatID": 3, "ItemID": 1450, "ItemSN": 2},
+                {"ItemCatID": 3, "ItemID": 1008, "ItemSN": 2},
                 {"ItemCatID": 4, "ItemID": 300, "ItemSN": 7}
             ])
         );

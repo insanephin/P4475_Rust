@@ -155,7 +155,7 @@ mod tests {
 
     fn add(serial: u16) -> FavoriteItemChange {
         FavoriteItemChange::new(
-            FavoriteItemKey::new(3, 1_450, serial),
+            FavoriteItemKey::new(3, 981, serial),
             FavoriteItemOperation::Add,
         )
     }
@@ -220,7 +220,7 @@ mod tests {
         let directory = root.path().join("SidecarFavoriteRider");
         fs::create_dir_all(&directory).unwrap();
         fs::write(directory.join("Launcher.json"), b"{}").unwrap();
-        let sidecar = br#"[{"ItemCatID":3,"ItemID":1450,"ItemSN":1}]"#;
+        let sidecar = br#"[{"ItemCatID":3,"ItemID":1008,"ItemSN":1}]"#;
         fs::write(directory.join("Favorite.json"), sidecar).unwrap();
         let store = ProfileStore::new(root.path());
         let lease = store.acquire_race_run_lease().unwrap();
@@ -233,8 +233,8 @@ mod tests {
         assert_eq!(
             receipt.items().as_slice(),
             &[
-                FavoriteItemKey::new(3, 1_450, 1),
-                FavoriteItemKey::new(3, 1_450, 2),
+                FavoriteItemKey::new(3, 981, 1),
+                FavoriteItemKey::new(3, 981, 2),
             ]
         );
         assert_eq!(fs::read(directory.join("Favorite.json")).unwrap(), sidecar);
@@ -259,9 +259,9 @@ mod tests {
         assert_eq!(
             second.items().as_slice(),
             &[
-                FavoriteItemKey::new(3, 1_450, 1),
-                FavoriteItemKey::new(3, 1_450, 2),
-                FavoriteItemKey::new(3, 1_450, 3),
+                FavoriteItemKey::new(3, 981, 1),
+                FavoriteItemKey::new(3, 981, 2),
+                FavoriteItemKey::new(3, 981, 3),
             ]
         );
     }
@@ -296,8 +296,8 @@ mod tests {
         fs::write(
             directory.join("Favorite.json"),
             br#"[
-                {"ItemCatID":3,"ItemID":1450,"ItemSN":1},
-                {"ItemCatID":3,"ItemID":1450,"ItemSN":2}
+                {"ItemCatID":3,"ItemID":1008,"ItemSN":1},
+                {"ItemCatID":3,"ItemID":1008,"ItemSN":2}
             ]"#,
         )
         .unwrap();
@@ -354,8 +354,8 @@ mod tests {
         let directory = root.path().join("CasFavoriteRider");
         fs::create_dir_all(&directory).unwrap();
         fs::write(directory.join("Launcher.json"), b"{}").unwrap();
-        let imported = FavoriteItems::try_from_items([FavoriteItemKey::new(3, 1_450, 1)]).unwrap();
-        let replaced = FavoriteItems::try_from_items([FavoriteItemKey::new(3, 1_450, 2)]).unwrap();
+        let imported = FavoriteItems::try_from_items([FavoriteItemKey::new(3, 981, 1)]).unwrap();
+        let replaced = FavoriteItems::try_from_items([FavoriteItemKey::new(3, 981, 2)]).unwrap();
         fs::write(
             directory.join("Favorite.json"),
             serde_json::to_vec(&imported).unwrap(),
@@ -410,8 +410,8 @@ mod tests {
         let directory = root.path().join("CanonicalCasFavoriteRider");
         fs::create_dir_all(&directory).unwrap();
         fs::write(directory.join("Launcher.json"), b"{}").unwrap();
-        let imported = FavoriteItems::try_from_items([FavoriteItemKey::new(3, 1_450, 1)]).unwrap();
-        let winner = FavoriteItems::try_from_items([FavoriteItemKey::new(3, 1_450, 2)]).unwrap();
+        let imported = FavoriteItems::try_from_items([FavoriteItemKey::new(3, 981, 1)]).unwrap();
+        let winner = FavoriteItems::try_from_items([FavoriteItemKey::new(3, 981, 2)]).unwrap();
         fs::write(
             directory.join("Favorite.json"),
             serde_json::to_vec(&imported).unwrap(),
@@ -529,7 +529,7 @@ mod tests {
         let outside = root.path().join("outside-favorite.json");
         fs::create_dir_all(&directory).unwrap();
         fs::write(directory.join("Launcher.json"), b"{}").unwrap();
-        fs::write(&outside, br#"[{"ItemCatID":3,"ItemID":1450,"ItemSN":1}]"#).unwrap();
+        fs::write(&outside, br#"[{"ItemCatID":3,"ItemID":1008,"ItemSN":1}]"#).unwrap();
         symlink(&outside, directory.join("Favorite.json")).unwrap();
         let store = ProfileStore::new(root.path());
         let lease = store.acquire_race_run_lease().unwrap();
@@ -559,7 +559,7 @@ mod tests {
             directory.join("Launcher.json"),
             serde_json::to_vec(&json!({
                 "P4475RustFavoriteItems": [
-                    {"ItemCatID": 3, "ItemID": 1450, "ItemSN": 1}
+                    {"ItemCatID": 3, "ItemID": 1008, "ItemSN": 1}
                 ]
             }))
             .unwrap(),
@@ -583,7 +583,7 @@ mod tests {
                 .as_ref()
                 .unwrap()
                 .as_slice(),
-            &[FavoriteItemKey::new(3, 1_450, 1)]
+            &[FavoriteItemKey::new(3, 981, 1)]
         );
 
         let retry =

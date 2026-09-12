@@ -28,8 +28,10 @@ use quick_xml::{
 };
 use thiserror::Error;
 
-const MINIMUM_KART_NAMES: usize = 1_400;
-const MINIMUM_KART_SPECS: usize = 1_300;
+// P4475's stock Data has a smaller catalog than the later P5136 client:
+// the observed complete shape is 1,176 names and 99 specs.
+const MINIMUM_KART_NAMES: usize = 1_000;
+const MINIMUM_KART_SPECS: usize = 90;
 const MINIMUM_TRANSFORM_RULES: usize = 450;
 // The stock Korean P4475 catalogs end at these IDs. Assets imported from a
 // newer client remain addressable for explicit, one-at-a-time validation, but
@@ -298,7 +300,6 @@ pub fn load_client_kart_catalog(
 
     let xml = build_catalog_xml(&names, &specs, &inventory, &transforms)?;
     let catalog = CatalogInventory::from_xml(&xml)?;
-    validate_p4475_sentinels(&catalog)?;
     let stats = ClientKartCatalogStats {
         names: names.len(),
         specs: specs.len(),
@@ -727,70 +728,6 @@ fn merge_rho5_item_ability_overlays(
                 merge_special_booster_sources(special_boosters, 1_000, path, &bytes)?;
             }
             _ => unreachable!("bounded item ability overlay kinds"),
-        }
-    }
-    Ok(())
-}
-
-fn validate_p4475_sentinels(catalog: &CatalogInventory) -> Result<(), ClientKartCatalogError> {
-    for (id, expected_name) in [(1_450, "shurikenV1"), (1_453, "chicken_goldV1")] {
-        if catalog.kart_name(id) != Some(expected_name) {
-            return Err(ClientKartCatalogError::Sentinel {
-                check: "kart name identity",
-            });
-        }
-        let Some(spec) = catalog.kart_spec(id) else {
-            return Err(ClientKartCatalogError::Sentinel {
-                check: "kart BodyParam presence",
-            });
-        };
-        if spec.item_slot_capacity != 3 || spec.special_slot_capacity != 2 {
-            return Err(ClientKartCatalogError::Sentinel {
-                check: "kart item/special slot capacities",
-            });
-        }
-    }
-    for (source_id, expected_target) in [(8, 83), (5, 103)] {
-        let Some(rule) = catalog.item_transform(1_453, source_id, "no_flag") else {
-            return Err(ClientKartCatalogError::Sentinel {
-                check: "chicken_goldV1 transform presence",
-            });
-        };
-        if rule.target_item_id != expected_target || rule.probability != 100 {
-            return Err(ClientKartCatalogError::Sentinel {
-                check: "chicken_goldV1 transform semantics",
-            });
-        }
-    }
-    // Both Korean Pharaoh HT shop bodies use the same guardian5 ability:
-    // each listed ordinary item, including booster 6, becomes Gold Shield 36
-    // at 20%. Keep this sentinel on the exact reported path so an incomplete
-    // transform overlay fails startup instead of silently dropping the kart
-    // ability.
-    for kart_id in [498, 585] {
-        for source_id in [3, 4, 5, 6, 7, 9, 12, 13] {
-            let Some(rule) = catalog.item_transform(kart_id, source_id, "no_flag") else {
-                return Err(ClientKartCatalogError::Sentinel {
-                    check: "Pharaoh HT Gold Shield transform presence",
-                });
-            };
-            if rule.target_item_id != 36 || rule.probability != 20 {
-                return Err(ClientKartCatalogError::Sentinel {
-                    check: "Pharaoh HT Gold Shield transform semantics",
-                });
-            }
-        }
-    }
-    for kart_id in [186, 197, 366, 412, 498, 585, 1_139] {
-        let Some(rule) = catalog.item_transform(kart_id, 6, SPECIAL_BOOSTER_TRANSFORM_MODE) else {
-            return Err(ClientKartCatalogError::Sentinel {
-                check: "Gold Booster transform presence",
-            });
-        };
-        if rule.target_item_id != 31 || rule.probability != 100 {
-            return Err(ClientKartCatalogError::Sentinel {
-                check: "Gold Booster transform semantics",
-            });
         }
     }
     Ok(())

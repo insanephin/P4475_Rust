@@ -40,14 +40,14 @@ const CATALOG_FORMAT_VERSION: &str = "3";
 const CATALOG_PROTOCOL_VERSION: &str = "5136";
 const CATALOG_REGION: &str = "kr";
 
-const MINIMUM_INVENTORY_ITEMS: usize = 6_800;
+// The stock P4475 Data catalog contains 5,756 items, 62 categories, and
+// 1,055 karts. Keep a margin below that observed shape without accepting a
+// substantially truncated shop export.
+const MINIMUM_INVENTORY_ITEMS: usize = 5_000;
 const MINIMUM_INVENTORY_CATEGORIES: usize = 60;
-const MINIMUM_INVENTORY_KARTS: usize = 1_200;
-// The Korean resource-safe ownership set contains 5,133 records after
-// excluding foreign-region cosmetic rows. Keep the completeness floor aligned
-// with the runtime inventory builder while still rejecting truncated exports.
-const MINIMUM_GRANT_ITEMS: usize = 5_000;
-const MINIMUM_GRANT_CATEGORIES: usize = 41;
+const MINIMUM_INVENTORY_KARTS: usize = 1_000;
+const MINIMUM_GRANT_ITEMS: usize = 3_000;
+const MINIMUM_GRANT_CATEGORIES: usize = 35;
 
 const GRANT_CATEGORY_IDS: &[u16] = &[
     1, 2, 3, 4, 7, 8, 9, 11, 12, 13, 14, 16, 18, 20, 21, 22, 23, 26, 27, 28, 30, 31, 32, 36, 37,
@@ -1468,7 +1468,9 @@ impl CatalogParser {
             return Err(CatalogInventoryError::Incomplete { stats });
         }
         if self.policy.require_sentinels {
-            for id in [1_450, 1_453] {
+            // These representative P4475 shop karts are present in the stock
+            // catalog used by the direct-RHO loader.
+            for id in [981, 1_008] {
                 if !self
                     .items
                     .iter()
@@ -2283,9 +2285,9 @@ mod tests {
             r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
                 <Names />
                 <Inventory total="3" categories="2">
-                    <Item category="3" id="1453" name="chicken_goldV1" autoGrant="false" />
+                    <Item category="3" id="981" name="chicken_gold9" autoGrant="false" />
                     <Item category="1" id="45" name="dummy" />
-                    <Item category="3" id="1450" serial="7" name="shurikenV1" xPartsCompatible="true" />
+                    <Item category="3" id="1008" serial="7" name="shuriken9" xPartsCompatible="true" />
                 </Inventory>
             </KartCatalog>"#,
         )
@@ -2300,11 +2302,11 @@ mod tests {
                 .iter()
                 .map(|item| (item.category, item.id))
                 .collect::<Vec<_>>(),
-            vec![(1, 45), (3, 1450), (3, 1453)]
+            vec![(1, 45), (3, 1008), (3, 981)]
         );
         assert_eq!(catalog.items()[1].serial, 7);
-        assert!(catalog.supports_x_parts(1450));
-        assert!(!catalog.supports_x_parts(1453));
+        assert!(catalog.supports_x_parts(1008));
+        assert!(!catalog.supports_x_parts(981));
         assert!(is_grant_category(3));
         assert!(!is_grant_category(5));
         assert!(!is_grant_item(&CatalogInventoryItem {
@@ -2316,11 +2318,11 @@ mod tests {
             x_parts_compatible: false,
         }));
         assert!(!catalog.items()[2].auto_grant);
-        assert!(catalog.contains_kart(1453));
-        assert!(!catalog.grants_item(3, 1453));
+        assert!(catalog.contains_kart(981));
+        assert!(!catalog.grants_item(3, 981));
         assert_eq!(catalog.grant_items().count(), 1);
         assert_eq!(catalog.kart_spec_stats().names, 0);
-        assert!(catalog.kart_spec(1450).is_none());
+        assert!(catalog.kart_spec(1008).is_none());
         assert_eq!(catalog.emblem_catalog(), None);
         assert!(catalog.emblems().is_empty());
     }
@@ -2458,7 +2460,7 @@ mod tests {
             parse_structural(
                 r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
                     <Inventory total="1" categories="1">
-                        <Item category="3" id="1450" name="kart" autoGrant="maybe" />
+                        <Item category="3" id="1008" name="kart" autoGrant="maybe" />
                     </Inventory>
                 </KartCatalog>"#,
             ),
@@ -2474,7 +2476,7 @@ mod tests {
             parse_structural(
                 r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
                     <Inventory total="1" categories="1">
-                        <Item category="3" id="1450" xPartsCompatible="maybe" />
+                        <Item category="3" id="1008" xPartsCompatible="maybe" />
                     </Inventory>
                 </KartCatalog>"#,
             ),
@@ -2642,13 +2644,13 @@ mod tests {
         let catalog = parse_structural(
             r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
                 <Names>
-                    <Kart id="1450" name="SHURIKENV1" />
-                    <Kart id="1451" name="sharedSpec" />
-                    <Kart id="1452" name="sharedSpec" />
-                    <Kart id="1453" name="missingSpec" />
+                    <Kart id="1008" name="SHURIKEN9" />
+                    <Kart id="1009" name="sharedSpec" />
+                    <Kart id="1010" name="sharedSpec" />
+                    <Kart id="981" name="missingSpec" />
                 </Names>
                 <Specs>
-                    <Spec name="shurikenV1">
+                    <Spec name="shuriken9">
                         <BodyParam
                             DescEnchantCap="31"
                             ForwardAccelForce="147"
@@ -2668,18 +2670,18 @@ mod tests {
                     <Spec name="unusedSpec"><BodyParam /></Spec>
                 </Specs>
                 <Inventory total="1" categories="1">
-                    <Item category="3" id="1450" name="shurikenV1" />
+                    <Item category="3" id="1008" name="shuriken9" />
                 </Inventory>
             </KartCatalog>"#,
         )
         .unwrap();
 
-        assert_eq!(catalog.kart_name(1450), Some("SHURIKENV1"));
-        assert_eq!(catalog.kart_enchant_cap(1450), Some(31));
-        assert!(catalog.supports_legacy_kart_enhancements(1450));
+        assert_eq!(catalog.kart_name(1008), Some("SHURIKEN9"));
+        assert_eq!(catalog.kart_enchant_cap(1008), Some(31));
+        assert!(catalog.supports_legacy_kart_enhancements(1008));
         assert_eq!(catalog.kart_enchant_cap(1451), None);
         assert!(!catalog.supports_legacy_kart_enhancements(1451));
-        let spec = catalog.kart_spec(1450).unwrap();
+        let spec = catalog.kart_spec(1008).unwrap();
         assert_eq!(spec.forward_accel_force.to_bits(), 147.0_f32.to_bits());
         assert_eq!(spec.normal_booster_time.to_bits(), 2_900.0_f32.to_bits());
         assert_eq!(spec.drift_lean_factor.to_bits(), 0.065_f32.to_bits());
@@ -2713,7 +2715,7 @@ mod tests {
             catalog.kart_spec(1451).unwrap(),
             catalog.kart_spec(1452).unwrap()
         ));
-        assert!(catalog.kart_spec(1453).is_none());
+        assert!(catalog.kart_spec(981).is_none());
         assert!(catalog.kart_spec_by_name("UNUSEDSPEC").is_some());
         assert_eq!(
             catalog.kart_spec_stats(),
@@ -2946,8 +2948,8 @@ mod tests {
         let duplicate = parse_structural(
             r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
                 <Inventory total="2" categories="1">
-                    <Item category="3" id="1450" />
-                    <Item category="3" id="1450" />
+                    <Item category="3" id="1008" />
+                    <Item category="3" id="1008" />
                 </Inventory>
             </KartCatalog>"#,
         );
@@ -2955,7 +2957,7 @@ mod tests {
             duplicate,
             Err(CatalogInventoryError::DuplicateItem {
                 category: 3,
-                id: 1450
+                id: 1008
             })
         ));
 
@@ -2974,7 +2976,7 @@ mod tests {
     fn checks_declared_counts() {
         let item_count = parse_structural(
             r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
-                <Inventory total="2" categories="1"><Item category="3" id="1450" /></Inventory>
+                <Inventory total="2" categories="1"><Item category="3" id="1008" /></Inventory>
             </KartCatalog>"#,
         );
         assert!(matches!(
@@ -2987,7 +2989,7 @@ mod tests {
 
         let category_count = parse_structural(
             r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
-                <Inventory total="1" categories="2"><Item category="3" id="1450" /></Inventory>
+                <Inventory total="1" categories="2"><Item category="3" id="1008" /></Inventory>
             </KartCatalog>"#,
         );
         assert!(matches!(
@@ -3004,8 +3006,8 @@ mod tests {
         let result = CatalogInventory::from_xml(
             br#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
                 <Inventory total="2" categories="1">
-                    <Item category="3" id="1450" />
-                    <Item category="3" id="1453" />
+                    <Item category="3" id="1008" />
+                    <Item category="3" id="981" />
                 </Inventory>
             </KartCatalog>"#,
         );

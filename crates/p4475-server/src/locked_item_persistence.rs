@@ -150,7 +150,7 @@ mod tests {
         let root = tempfile::tempdir().unwrap();
         let store = ProfileStore::new(root.path());
         let lease = store.acquire_race_run_lease().unwrap();
-        let key = FavoriteItemKey::new(3, 1_450, 2);
+        let key = FavoriteItemKey::new(3, 981, 2);
 
         let first = persist_locked_item_changes(
             &store,
@@ -193,12 +193,12 @@ mod tests {
         fs::write(directory.join("Launcher.json"), b"{}").unwrap();
         fs::write(
             directory.join("Locked.json"),
-            br#"[{"ItemCatID":3,"ItemID":1450,"ItemSN":1}]"#,
+            br#"[{"ItemCatID":3,"ItemID":1008,"ItemSN":1}]"#,
         )
         .unwrap();
         let store = ProfileStore::new(root.path());
         let lease = store.acquire_race_run_lease().unwrap();
-        let added = FavoriteItemKey::new(3, 1_450, 2);
+        let added = FavoriteItemKey::new(3, 981, 2);
 
         let receipt = persist_locked_item_changes(
             &store,
@@ -213,8 +213,8 @@ mod tests {
         assert_eq!(
             receipt.items().as_slice(),
             [
-                FavoriteItemKey::new(3, 1_450, 1),
-                FavoriteItemKey::new(3, 1_450, 2),
+                FavoriteItemKey::new(3, 981, 1),
+                FavoriteItemKey::new(3, 981, 2),
             ]
         );
         let loaded = store.reload("LockedImportRider").unwrap();

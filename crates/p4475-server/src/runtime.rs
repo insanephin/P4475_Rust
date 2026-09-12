@@ -970,7 +970,7 @@ async fn load_emblem_catalog(
                 maximum: MAX_EMBLEM_XML_BYTES,
             });
         }
-        let xml = directory.extract_exact(KR_EMBLEM_PATH)?;
+        let xml = directory.extract_entry_with_legacy_padding(&entry)?;
         EmblemCatalog::from_client_xml(&xml).map_err(EmblemCatalogLoadError::from)
     })
     .await
@@ -4321,11 +4321,11 @@ mod tests {
         fs::write(directory.join("Launcher.json"), b"{}").unwrap();
         fs::write(
             directory.join("Favorite.json"),
-            b"\xef\xbb\xbf[{\"ItemCatID\":3,\"ItemID\":1450,\"ItemSN\":1}]",
+            b"\xef\xbb\xbf[{\"ItemCatID\":3,\"ItemID\":1008,\"ItemSN\":1}]",
         )
         .unwrap();
-        let imported = FavoriteItemKey::new(3, 1_450, 1);
-        let added = FavoriteItemKey::new(3, 1_453, 2);
+        let imported = FavoriteItemKey::new(3, 981, 1);
+        let added = FavoriteItemKey::new(3, 1_008, 2);
         let expected = [imported, added];
 
         let (server, maximum) = start_test_server(profile_root.path(), None).await;
@@ -4454,7 +4454,7 @@ mod tests {
         profile.rider.premium = 17;
         profile.rider_item.character = 0x0102;
         profile.rider_item.paint = 0x0304;
-        profile.rider_item.kart = 1_450;
+        profile.rider_item.kart = 981;
         profile.rider_item.pet = 0x0506;
         profile.rider_item.dye = 0x0708;
         profile.rider_item.kart_serial = 0;
@@ -5277,8 +5277,8 @@ mod tests {
                 items.push((category, id));
             }
         }
-        items.push((3, 1_450));
-        items.push((3, 1_453));
+        items.push((3, 981));
+        items.push((3, 1_008));
         for &category in OTHER_CATEGORIES {
             for id in 1..=40 {
                 items.push((category, id));

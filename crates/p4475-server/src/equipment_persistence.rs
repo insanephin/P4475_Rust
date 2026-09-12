@@ -640,7 +640,7 @@ pub(crate) mod tests {
         let mut item_count = 0;
         for &category in GRANT_CATEGORIES {
             let ids: Box<dyn Iterator<Item = u16>> = if category == 3 {
-                Box::new((1..=1_198).chain([1_450, 1_453]))
+                Box::new((1..=1_198).chain([981, 1_008]))
             } else {
                 Box::new(1_000..1_110)
             };
@@ -679,8 +679,8 @@ pub(crate) mod tests {
         let xml = format!(
             r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
                 <Names>
-                    <Kart id="1450" name="testKnownKart" />
-                    <Kart id="1453" name="testMissingKartSpec" />
+                    <Kart id="1008" name="testKnownKart" />
+                    <Kart id="981" name="testMissingKartSpec" />
                 </Names>
                 <Specs>
                     <Spec name="testKnownKart">
@@ -752,14 +752,14 @@ pub(crate) mod tests {
         profile.rider_item.character = 999;
         validate_rider_item_selection(&catalog, &profile, invalid).unwrap();
 
-        profile.rider_item.kart = 1_453;
+        profile.rider_item.kart = 1_008;
         profile.rider_item.kart_serial = 1;
-        invalid.kart = 1_453;
+        invalid.kart = 1_008;
         invalid.kart_serial = 1;
         assert_eq!(
             validate_rider_item_selection(&catalog, &profile, invalid),
             Err(RiderEquipmentValidationError::KartNotGranted {
-                kart_id: 1_453,
+                kart_id: 1_008,
                 serial: 1,
             })
         );
@@ -767,11 +767,11 @@ pub(crate) mod tests {
         profile.rider_item.kart_serial = 0;
 
         profile.granted_karts.push(GrantedKart {
-            kart_id: 1_453,
+            kart_id: 1_008,
             serial: 2,
         });
         let mut manual_quarantine_override = selection;
-        manual_quarantine_override.kart = 1_453;
+        manual_quarantine_override.kart = 1_008;
         manual_quarantine_override.kart_serial = 2;
         validate_rider_item_selection(&catalog, &profile, manual_quarantine_override).unwrap();
 
