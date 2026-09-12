@@ -1,0 +1,15 @@
+services:
+  server:
+    image: rust:latest
+    container_name: kartrider-p4475
+    network_mode: bridge
+    ports:
+      - 39311:39311/udp
+      - 39312:39312/udp
+      - 39312:39312
+      - 39313:39313
+      - 39314:39314
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: bash -c "cargo build --release -p p4475-cli && ./target/p4475-finish-kart-abilities/release/p4475 server --bind 0.0.0.0 --advertise 158.180.74.152 --client-dir ./Data --allow-remote-profile-creation"
