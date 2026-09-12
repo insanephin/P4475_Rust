@@ -720,7 +720,7 @@ mod tests {
                 0xB8, 0x07, 0x4E, 0x4F, // request hash
                 0, 0, 0, 0, // auth type
                 0, 0, 0, 0, // credential count
-                3, 0, 0xAA, 0x05, 2, 0, 1, 0,
+                3, 0, 0xD5, 0x03, 2, 0, 1, 0,
             ]
         );
         assert_eq!(
@@ -740,7 +740,7 @@ mod tests {
                 0xF3, 0x07, 0x78, 0x52, // request hash
                 1,    // producer scope
                 2, 0, 0, 0, // raw u32 count
-                3, 0, 0xAA, 0x05, 2, 0, 1, // add
+                3, 0, 0xD5, 0x03, 2, 0, 1, // add
                 0xFF, 0xFF, 0, 0, 0xFF, 0xFF, 2, // remove
             ]
         );
@@ -1009,7 +1009,7 @@ mod tests {
             [
                 0xB1, 0x06, 0xBD, 0x3B, // reply hash
                 2, 0, 0, 0, // count
-                3, 0, 0xAA, 0x05, 2, 0, 0, // first item
+                3, 0, 0xD5, 0x03, 2, 0, 0, // first item
                 0xFF, 0xFF, 0, 0, 0xFF, 0xFF, 0, // second item
             ]
         );
@@ -1037,7 +1037,7 @@ mod tests {
         assert_eq!(
             one,
             [
-                0x05, 0x07, 0x82, 0x41, 1, 1, 0, 0, 0, 3, 0, 0xAA, 0x05, 2, 0, 1,
+                0x05, 0x07, 0x82, 0x41, 1, 1, 0, 0, 0, 3, 0, 0xD5, 0x03, 2, 0, 1,
             ]
         );
         assert_eq!(
@@ -1057,7 +1057,7 @@ mod tests {
         assert_eq!(
             serialize_locked_item_list(&[key], DEFAULT_MAX_PAYLOAD).expect("locked reply"),
             [
-                0xC3, 0x05, 0x8F, 0x2D, 1, 0, 0, 0, 3, 0, 0xAA, 0x05, 2, 0, 0,
+                0xC3, 0x05, 0x8F, 0x2D, 1, 0, 0, 0, 3, 0, 0xD5, 0x03, 2, 0, 0,
             ]
         );
     }
