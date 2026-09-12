@@ -827,7 +827,7 @@ mod tests {
             "p4475",
             "connect",
             "--game-dir",
-            "/Users/player/Games/KartRider_5136",
+            "/Users/player/Games/KartRider_P4475",
             "--game-exe",
             "KartRider.test.exe",
             "--username",
