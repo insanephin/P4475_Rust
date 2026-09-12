@@ -23,8 +23,7 @@ pub use bml::BmlObject;
 pub use codec_error::PinCodecError;
 pub use dataraw_preflight::{DataRawPreflightError, verify_dataraw_preflight};
 pub use detection::{
-    BuildDetectionError, BuildEvidence, P4475_CLIENT_LOCATION, P4475_LOCALE_ID, PinDetectionSource,
-    detect_p4475,
+    BuildDetectionError, BuildEvidence, PinDetectionSource, detect_p4475,
 };
 pub use encoded_block::{
     BlockEncoding, DEFAULT_KART_CRYPTO_KEY, DecodedBlock, EncodedBlockError, FLAG_KART_CRYPTO,

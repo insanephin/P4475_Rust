@@ -10,9 +10,6 @@ use crate::{
     pin::{P4475_MINOR_VERSION, decode_shallow_pin_header_with_limits},
 };
 
-pub const P4475_LOCALE_ID: u16 = 1002;
-pub const P4475_CLIENT_LOCATION: u16 = 118;
-
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum PinDetectionSource {
     Live,
@@ -55,10 +52,7 @@ pub fn detect_p4475(
         let Ok(header) = decode_shallow_pin_header_with_limits(&bytes, limits) else {
             continue;
         };
-        if header.locale_id == P4475_LOCALE_ID
-            && header.client_location == P4475_CLIENT_LOCATION
-            && header.minor_version == P4475_MINOR_VERSION
-        {
+        if header.minor_version == P4475_MINOR_VERSION {
             return Ok(Some(BuildEvidence::PinHeader(source)));
         }
     }
