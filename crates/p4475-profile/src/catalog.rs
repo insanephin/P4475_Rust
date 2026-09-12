@@ -2302,7 +2302,7 @@ mod tests {
                 .iter()
                 .map(|item| (item.category, item.id))
                 .collect::<Vec<_>>(),
-            vec![(1, 45), (3, 1008), (3, 981)]
+            vec![(1, 45), (3, 981), (3, 1008)]
         );
         assert_eq!(catalog.items()[1].serial, 7);
         assert!(catalog.supports_x_parts(1008));
@@ -2712,8 +2712,8 @@ mod tests {
         assert_eq!(spec.parts_wheel_lock, 0);
 
         assert!(std::ptr::eq(
-            catalog.kart_spec(1451).unwrap(),
-            catalog.kart_spec(1452).unwrap()
+            catalog.kart_spec(1009).unwrap(),
+            catalog.kart_spec(1010).unwrap()
         ));
         assert!(catalog.kart_spec(981).is_none());
         assert!(catalog.kart_spec_by_name("UNUSEDSPEC").is_some());
