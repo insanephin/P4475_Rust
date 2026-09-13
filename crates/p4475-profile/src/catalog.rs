@@ -2317,7 +2317,7 @@ mod tests {
             auto_grant: true,
             x_parts_compatible: false,
         }));
-        assert!(!catalog.items()[2].auto_grant);
+        assert!(!catalog.items()[1].auto_grant);
         assert!(catalog.contains_kart(981));
         assert!(!catalog.grants_item(3, 981));
         assert_eq!(catalog.grant_items().count(), 1);
