@@ -34,7 +34,7 @@ async fn real_game_socket_echo_and_time_sync_are_exact_and_monotonic() {
         .unwrap();
 
     let echo = PqUdpEchoBody {
-        value_1: i32::MIN + 5136,
+        value_1: i32::MIN + 4475,
         value_2: -123_456_789,
     };
     send_request(
@@ -185,7 +185,7 @@ async fn two_clients_relay_exact_game_slot_to_latest_game_endpoint() {
         alice.user_no.get(),
         0xBBBB_0002,
         UdpLogicalBody::GameSlotPacket(&game_body),
-        0x5136_0001,
+        0x4475_0001,
     )
     .await;
     let ingress = next_ingress(&mut runtime).await;
@@ -354,7 +354,7 @@ async fn eight_clients_each_relay_exact_movement_to_the_other_seven() {
             identities[sender_index].user_no.get(),
             relay_route_hash,
             UdpLogicalBody::GameSlotPacket(&body),
-            0x5136_0100 + u32::try_from(sender_index).unwrap(),
+            0x4475_0100 + u32::try_from(sender_index).unwrap(),
         )
         .await;
         let ingress = next_ingress(&mut runtime).await;
@@ -461,7 +461,7 @@ async fn eight_clients_sustain_jittered_exact_relay_for_configured_duration() {
     let mut arrival_reorder_count = 0_u64;
     let mut request_count = 0_u64;
     let mut relay_datagram_count = 0_u64;
-    let mut random_state = 0x5136_8a11_5eed_cafe_u64;
+    let mut random_state = 0x4475_8a11_5eed_cafe_u64;
     let duration = udp_stress_duration();
     let started = Instant::now();
     let deadline = started + duration;
@@ -499,7 +499,7 @@ async fn eight_clients_sustain_jittered_exact_relay_for_configured_duration() {
             let route_hash = 0x7400_0000
                 | (u32::try_from(sender_index).unwrap() << 20)
                 | (sender_sequence & 0x000f_ffff);
-            let iv = 0x5136_1000_u32.wrapping_add(u32::try_from(request_count).unwrap());
+            let iv = 0x4475_1000_u32.wrapping_add(u32::try_from(request_count).unwrap());
             let creation_order = request_count;
             let simulated_latency = if operation_index == 0 {
                 Duration::from_millis(30)
@@ -1010,7 +1010,7 @@ async fn oversized_datagram_is_dropped_without_stopping_the_reader() {
         &client,
         runtime.endpoints().game,
         identity.user_no.get(),
-        0x5136_5136,
+        0x4475_4475,
         UdpLogicalBody::PqUdpEcho(echo),
         51,
         config.maximum_payload,

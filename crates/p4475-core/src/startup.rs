@@ -1772,7 +1772,7 @@ mod tests {
             }
         );
 
-        // Exact logical packet captured from the stock 5136 client after a
+        // Exact logical packet captured from the stock 4475 client after a
         // license mission completed. The old parser mistook the first nine
         // bytes of the common context for the derived fields and rejected the
         // remaining 18 bytes, which terminated the login TCP session.

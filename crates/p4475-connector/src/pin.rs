@@ -9,8 +9,8 @@ use crate::{
 };
 
 pub const P4475_PIN_MAGIC: u32 = 0x10EF_037E;
-pub const P4475_MINOR_VERSION: u16 = 5136;
-pub const P4475_STORAGE_ROOT: &str = "카트라이더_5136";
+pub const P4475_MINOR_VERSION: u16 = 4475;
+pub const P4475_STORAGE_ROOT: &str = "카트라이더_4475";
 pub const P4475_SCREENSHOT_DIRECTORY: &str = "스크린샷";
 pub const P4475_RIDER_DATA_DIRECTORY: &str = "라이더데이터";
 

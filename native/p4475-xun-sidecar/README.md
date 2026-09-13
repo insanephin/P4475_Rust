@@ -63,7 +63,7 @@ payload, IDB, or decompiler output are included.
 cmake -S native\p4475-xun-sidecar `
   -B target\p4475-finish-kart-abilities\xun-sidecar-win32 `
   -G "Visual Studio 17 2022" -A Win32 `
-  -DP4475_TEST_EXECUTABLE=C:\Nexon\KartRider_5136\KartRiderU.exe
+  -DP4475_TEST_EXECUTABLE=C:\Nexon\KartRider_4475\KartRiderU.exe
 cmake --build target\p4475-finish-kart-abilities\xun-sidecar-win32 --config Release
 ctest --test-dir target\p4475-finish-kart-abilities\xun-sidecar-win32 -C Release --output-on-failure
 cmake --install target\p4475-finish-kart-abilities\xun-sidecar-win32 `
@@ -123,7 +123,7 @@ separate `instCharger` window and continuous `instChargerGauge`; the sidecar
 interpolates each booster increment across ten update ticks, matching the
 later client. The server also projects the newer `defaultExceedType` and four
 default part types through the sidecar profile; it does not append a newer
-KartSpec tail that the 5136 client cannot decode.
+KartSpec tail that the 4475 client cannot decode.
 
 The sidecar does not copy the latest client's larger tachometer C++ object or
 vtable into P4475. Instead, it keeps the proven P4475 V1 object layout, loads

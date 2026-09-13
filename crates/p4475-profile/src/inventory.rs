@@ -32,7 +32,7 @@ pub enum InventoryBuildError {
 }
 
 /// Encodes the exact 65-byte equipment block reused by rider, room, and race
-/// packets in the Korean 5136 protocol.
+/// packets in the Korean 4475 protocol.
 #[must_use]
 pub fn rider_item_snapshot(items: &RiderItems) -> [u8; 65] {
     let mut output = [0_u8; 65];
@@ -491,7 +491,7 @@ mod tests {
         }
 
         let mut xml = format!(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                <Names>
                    <Kart id="1008" name="resolvedTestKart" />
                    <Kart id="981" name="unresolvedTestKart" />

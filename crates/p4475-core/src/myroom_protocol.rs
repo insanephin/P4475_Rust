@@ -1419,11 +1419,11 @@ mod tests {
 
         let mut emblem = PacketWriter::named(UPDATE_MAIN_EMBLEM_REQUEST_NAME);
         emblem.write_i16(i16::MIN);
-        emblem.write_i16(5136);
+        emblem.write_i16(4475);
         emblem.write_i16(i16::MAX);
         let parsed = parse_update_main_emblem(emblem.as_slice()).unwrap();
         assert_eq!(parsed.emblem_1, i16::MIN);
-        assert_eq!(parsed.emblem_2, 5136);
+        assert_eq!(parsed.emblem_2, 4475);
         assert_eq!(parsed.emblem_3, i16::MAX);
     }
 
@@ -1537,7 +1537,7 @@ mod tests {
 
     #[test]
     fn owner_emblem_reply_is_counted_and_bounded() {
-        let packet = serialize_owner_emblems(&[-1, 7, 5136]).unwrap();
+        let packet = serialize_owner_emblems(&[-1, 7, 4475]).unwrap();
         let mut reader = PacketReader::new(&packet);
         assert_eq!(reader.read_u32().unwrap(), 1_236_207_476);
         assert_eq!(reader.read_i32().unwrap(), 1);
@@ -1545,7 +1545,7 @@ mod tests {
         assert_eq!(reader.read_i32().unwrap(), 3);
         assert_eq!(reader.read_i16().unwrap(), -1);
         assert_eq!(reader.read_i16().unwrap(), 7);
-        assert_eq!(reader.read_i16().unwrap(), 5136);
+        assert_eq!(reader.read_i16().unwrap(), 4475);
         assert!(reader.remaining().is_empty());
 
         let excessive = vec![0; MAX_MYROOM_EMBLEMS + 1];
@@ -1629,7 +1629,7 @@ mod tests {
     #[test]
     fn parts_only_owner_inventory_is_not_discarded_when_karts_are_empty() {
         let parts = [MyRoomParts {
-            item_id: 5136,
+            item_id: 4475,
             serial_number: 7,
             ..MyRoomParts::default()
         }];
@@ -1644,7 +1644,7 @@ mod tests {
         assert_eq!(reader.read_i32().unwrap(), 0);
         assert_eq!(reader.read_i32().unwrap(), 0);
         assert_eq!(reader.read_i32().unwrap(), 1);
-        assert_eq!(reader.read_i16().unwrap(), 5136);
+        assert_eq!(reader.read_i16().unwrap(), 4475);
         assert_eq!(reader.read_i16().unwrap(), 7);
         assert_eq!(reader.read_bytes(36).unwrap().len(), 36);
         assert_eq!(reader.read_i32().unwrap(), 1);
@@ -1863,7 +1863,7 @@ mod tests {
         let base = MyRoomPlayerSlot {
             user_no: 1,
             p2p_address: Ipv4Addr::LOCALHOST,
-            p2p_port: 5136,
+            p2p_port: 4475,
             nickname: String::new(),
             rider_item_snapshot: [0; 65],
             rp: 20_000_000,

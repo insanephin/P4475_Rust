@@ -27,7 +27,7 @@ expands.
 The read-only IDAPython census is kept outside this Git repository at:
 
 ```text
-C:\Users\drash\Documents\kartrider\analysis\ida_5136_server_packet_consumer_census.py
+C:\Users\drash\Documents\kartrider\analysis\ida_4475_server_packet_consumer_census.py
 ```
 
 Its machine-readable output is likewise an external analysis artifact:
@@ -141,7 +141,7 @@ not close that semantic gap because they can share assumptions with the Rust
 writer.
 
 `PqStartCollectRecord`/`PrStartCollectRecord` is now closed at the codec
-boundary from the installed 5136 executable rather than inferred from its
+boundary from the installed 4475 executable rather than inferred from its
 name. The request class uses the 16-byte base-only vtable at `0x01064E78`, so
 its logical packet is exactly hash `0x529107F4`. The 20-byte reply class uses
 vtable `0x01064E9C`; readers `0x00593260`/`0x00593590` consume one raw byte

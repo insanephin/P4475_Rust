@@ -631,7 +631,7 @@ mod tests {
             .insert("FutureMyRoomField".to_owned(), json!([1, 2, 3]));
         let initial = store.save("DurableOwner", &profile).unwrap();
         let proposed = MyRoomInfo {
-            room_id: 5136,
+            room_id: 4475,
             bgm: 7,
             room_password: "room".to_owned(),
             item_password: "item".to_owned(),

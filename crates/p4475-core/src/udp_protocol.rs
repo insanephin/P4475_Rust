@@ -405,7 +405,7 @@ mod tests {
 
     const ACCOUNT_ID: u32 = 0x1020_3040;
     const ROUTE_HASH: u32 = 0xA1B2_C3D4;
-    const IV: u32 = 0x5136_5136;
+    const IV: u32 = 0x4475_4475;
 
     #[test]
     fn classifies_the_six_exact_modern_p4475_packet_hashes() {
@@ -465,7 +465,7 @@ mod tests {
         );
 
         let time_request = PqUdpTimeSyncBody {
-            client_tick: i32::MIN + 5136,
+            client_tick: i32::MIN + 4475,
         };
         let time_reply = time_request.reply(0xFEDC_BA98);
         assert_eq!(time_reply.client_tick, time_request.client_tick);

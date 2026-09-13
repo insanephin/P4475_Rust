@@ -27,15 +27,15 @@ syntactically accepted interleaving inside the executable.
 
 Private evidence used for this pass:
 
-- `analysis/ida_5136_protocol_fsm_probe.log`
-- `analysis/ida_5136_protocol_fsm_transitions.log`
-- `analysis/ida_5136_protocol_fsm_control.log`
-- `analysis/ida_5136_protocol_fsm_control_callbacks.log`
-- `analysis/ida_5136_gamefinal_derived.log`
-- `analysis/ida_5136_next_stage_command_probe.log`
-- `analysis/ida_5136_final_scheduler_types_probe.log`
+- `analysis/ida_4475_protocol_fsm_probe.log`
+- `analysis/ida_4475_protocol_fsm_transitions.log`
+- `analysis/ida_4475_protocol_fsm_control.log`
+- `analysis/ida_4475_protocol_fsm_control_callbacks.log`
+- `analysis/ida_4475_gamefinal_derived.log`
+- `analysis/ida_4475_next_stage_command_probe.log`
+- `analysis/ida_4475_final_scheduler_types_probe.log`
 - `analysis/p4475_server_packet_consumer_census.json`
-- `analysis/physics_5136/KartRiderU.idb`
+- `analysis/physics_4475/KartRiderU.idb`
 - unpacked exact-P4475 `stage/gameFinalIndi` and `stage/gameFinalTeam`
   resources under the private analysis tree
 - the known-working deployed packet trace documented in `PORTING_STATUS.md`

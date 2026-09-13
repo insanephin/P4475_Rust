@@ -1107,9 +1107,9 @@ mod tests {
         assert_eq!(unicode_adler("item"), 0x086e_01af);
         let mut bytes = b"bounded legacy rho".to_vec();
         let original = bytes.clone();
-        decrypt_data(&mut bytes, 0x5136_5136);
+        decrypt_data(&mut bytes, 0x4475_4475);
         assert_ne!(bytes, original);
-        decrypt_data(&mut bytes, 0x5136_5136);
+        decrypt_data(&mut bytes, 0x4475_4475);
         assert_eq!(bytes, original);
     }
 
@@ -1133,7 +1133,7 @@ mod tests {
         let mut header = [0_u8; HEADER_INFO_LENGTH];
         header[4..8].copy_from_slice(&VERSION_MAGIC_10.to_le_bytes());
         header[8..12].copy_from_slice(&1_i32.to_le_bytes());
-        header[12..16].copy_from_slice(&0x5136_1024_u32.to_le_bytes());
+        header[12..16].copy_from_slice(&0x4475_1024_u32.to_le_bytes());
         let block_key = std::array::from_fn::<_, 32, _>(|index| {
             u8::try_from(index)
                 .expect("the fixed 32-byte key index fits in u8")

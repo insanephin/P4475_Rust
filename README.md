@@ -30,7 +30,7 @@ target/p4475-finish-kart-abilities/release/p4475.exe
 
 `p4475.exe`를 인자 없이 실행하면 GUI가 열립니다. 우측 상단에서 한국어, English, 简体中文을 선택할 수 있으며 선택한 언어는 다음 실행에도 유지됩니다. 하나의 실행 파일 안에 서버와 접속기가 들어 있으며 GUI 탭으로 구분됩니다.
 
-1. 서버 탭의 필수 항목인 `클라이언트 또는 Profile 경로`에 P4475 클라이언트 루트를 지정합니다. 비워 두면 서버가 시작되지 않습니다. 예: `C:\Games\KartRider_5136`.
+1. 서버 탭의 필수 항목인 `클라이언트 또는 Profile 경로`에 P4475 클라이언트 루트를 지정합니다. 비워 두면 서버가 시작되지 않습니다. 예: `C:\Games\KartRider_4475`.
 2. 다른 PC가 접속한다면 `내 LAN IPv4로 자동 설정`을 누릅니다. 여러 어댑터가 있으면 목록에서 실제 LAN 주소를 선택합니다.
 3. 새 원격 닉네임으로 처음 접속한다면 `LAN의 새 닉네임 허용`을 체크합니다.
 4. `서버 시작`을 누릅니다.
@@ -127,7 +127,7 @@ GUI의 `트랙 가져오기` 탭은 다른 한국/중국 클라이언트의 `Dat
 
 GUI의 `자산 가져오기` 탭은 최신 중국 클라이언트의 `Data`를 인덱싱합니다. 안쪽의 `카트`, `캐릭터`, `펫`, `플라잉펫` 탭에서 정적 감사를 통과한 항목을 검색·다중 선택할 수 있고, `설치되지 않음만` 필터로 현재 `DataRaw`에 없는 항목만 볼 수 있습니다. 감사 집합은 일반 카트 57종, 복원된 `defaultExceedType`이 1~4인 XUN 시험 카트 100종, 캐릭터 73종, 펫 24종, 플라잉펫 47종입니다. P4475에 없는 새 아이템 결과를 요구하는 일반 카트 6종은 선택할 수 없으므로 현재 일반 카트 51종과 XUN 시험 카트 100종을 가져올 수 있습니다. 타입 5 이상의 별도 스킬 상태 머신을 쓰는 XUN 카트는 아직 표시하지 않습니다.
 
-선택 항목은 가져오기 직전에 의존성 폐쇄와 SHA-256을 다시 검사합니다. 리소스는 완전한 `DataRaw`에 가산 설치하고, 기존 동일 경로 파일의 바이트가 다르면 덮어쓰지 않고 중단합니다. ASCII 코드명을 표시 이름으로 사용하고 나머지 비 ASCII 카탈로그 문자열은 안정적인 해시로 바꿉니다. `itemTable`, 한국 상점, 네 개의 카트 아이템 능력표는 병합하며, 플라잉펫의 중국 지역 파라미터는 한국 클라이언트가 읽을 `param@kr.bml` 별칭도 생성합니다. XUN 카탈로그의 미지원 세대 표기 `grade=13 / engineGrade=9`는 5136 정보창이 아는 V1 분류값 `12 / 8`로만 변환하고 실제 BodyParam/KartSpec 물리는 보존합니다. 서버는 감사된 카트·캐릭터 ID와 대응 `DataRaw` 모델이 모두 있을 때만 새 항목을 자동 지급합니다. XUN 카트는 정확한 빌드용 XUN 사이드카가 필요합니다. 사이드카는 lifecycle/XUN 상태, 여섯 개의 스피드전 물리 소비식, 독립적인 연속형 부능효과 게이지, 최신 카트·기본 파츠 표시값 변환을 연결합니다. 부능효과는 일반 Exceed와 별도 상태·UI·이펙트 경로입니다. 가져오기는 `defaultExceedType`에서 P4475의 `ExceedWaveType`을 복원해 일반 Exceed 효과를 유지하고, 사이드카는 별도의 렌더 객체에 가져온 `effect/charger/카트바디차저발동` 장면을 연결해 부능효과 aura를 시작·정지합니다. 흑기사 XUN은 최신 클라이언트와 같은 변환으로 `드리프트 1158 / 가속력 1159 / 코너링 1050 / 부스터 시간 1054`를 표시합니다. 이 구현은 `GoPlayKart` 크기를 늘리거나 Exceed 효과를 aura 대신 사용하지 않습니다. 정확한 `KartSpec.defaultExceedType=1` 아이템형 카트에는 서버가 개인전 아이템 확률표에서 시작 아이템을 선택하고 해당 카트의 일반 아이템 변환 규칙을 적용합니다. 서버가 시작 때 읽는 `DataPack1_00000.rho5`와 `DataPack4_00002.rho5`는 최초 원본을 `.pristine.bak`으로 한 번만 보존한 뒤 갱신합니다. 작업물·보고서·DataRaw 카탈로그 백업은 `.p4475-asset-import`에 저장되고, 성공하면 접속기의 전체 DataRaw 옵션이 자동으로 켜집니다. 적용 후 서버와 클라이언트를 다시 시작해야 합니다. 새 플라잉펫 ID의 서버 물리/특수효과는 기존 P4475 하드코딩 표에 없는 경우 별도 구현이 필요하므로, 이번 감사 결과는 표시·장착에 필요한 자산/카탈로그 호환성을 뜻합니다.
+선택 항목은 가져오기 직전에 의존성 폐쇄와 SHA-256을 다시 검사합니다. 리소스는 완전한 `DataRaw`에 가산 설치하고, 기존 동일 경로 파일의 바이트가 다르면 덮어쓰지 않고 중단합니다. ASCII 코드명을 표시 이름으로 사용하고 나머지 비 ASCII 카탈로그 문자열은 안정적인 해시로 바꿉니다. `itemTable`, 한국 상점, 네 개의 카트 아이템 능력표는 병합하며, 플라잉펫의 중국 지역 파라미터는 한국 클라이언트가 읽을 `param@kr.bml` 별칭도 생성합니다. XUN 카탈로그의 미지원 세대 표기 `grade=13 / engineGrade=9`는 4475 정보창이 아는 V1 분류값 `12 / 8`로만 변환하고 실제 BodyParam/KartSpec 물리는 보존합니다. 서버는 감사된 카트·캐릭터 ID와 대응 `DataRaw` 모델이 모두 있을 때만 새 항목을 자동 지급합니다. XUN 카트는 정확한 빌드용 XUN 사이드카가 필요합니다. 사이드카는 lifecycle/XUN 상태, 여섯 개의 스피드전 물리 소비식, 독립적인 연속형 부능효과 게이지, 최신 카트·기본 파츠 표시값 변환을 연결합니다. 부능효과는 일반 Exceed와 별도 상태·UI·이펙트 경로입니다. 가져오기는 `defaultExceedType`에서 P4475의 `ExceedWaveType`을 복원해 일반 Exceed 효과를 유지하고, 사이드카는 별도의 렌더 객체에 가져온 `effect/charger/카트바디차저발동` 장면을 연결해 부능효과 aura를 시작·정지합니다. 흑기사 XUN은 최신 클라이언트와 같은 변환으로 `드리프트 1158 / 가속력 1159 / 코너링 1050 / 부스터 시간 1054`를 표시합니다. 이 구현은 `GoPlayKart` 크기를 늘리거나 Exceed 효과를 aura 대신 사용하지 않습니다. 정확한 `KartSpec.defaultExceedType=1` 아이템형 카트에는 서버가 개인전 아이템 확률표에서 시작 아이템을 선택하고 해당 카트의 일반 아이템 변환 규칙을 적용합니다. 서버가 시작 때 읽는 `DataPack1_00000.rho5`와 `DataPack4_00002.rho5`는 최초 원본을 `.pristine.bak`으로 한 번만 보존한 뒤 갱신합니다. 작업물·보고서·DataRaw 카탈로그 백업은 `.p4475-asset-import`에 저장되고, 성공하면 접속기의 전체 DataRaw 옵션이 자동으로 켜집니다. 적용 후 서버와 클라이언트를 다시 시작해야 합니다. 새 플라잉펫 ID의 서버 물리/특수효과는 기존 P4475 하드코딩 표에 없는 경우 별도 구현이 필요하므로, 이번 감사 결과는 표시·장착에 필요한 자산/카탈로그 호환성을 뜻합니다.
 
 ## 팀 배치와 다음 경기 출발 순서
 
@@ -172,7 +172,7 @@ GUI 없이 서버만 실행할 수 있습니다.
 p4475.exe server `
   --bind 192.168.1.10 `
   --advertise 192.168.1.10 `
-  --client-dir C:\Games\KartRider_5136 `
+  --client-dir C:\Games\KartRider_4475 `
   --allow-remote-profile-creation
 ```
 
@@ -180,7 +180,7 @@ p4475.exe server `
 
 ```powershell
 p4475.exe connect `
-  --game-dir C:\Games\KartRider_5136 `
+  --game-dir C:\Games\KartRider_4475 `
   --username player1 `
   --server 192.168.1.10
 ```
@@ -192,7 +192,7 @@ Sikarugir wrapper를 사용하는 macOS 예:
 
 ```bash
 p4475 connect \
-  --game-dir "/Users/player/Games/KartRider_5136" \
+  --game-dir "/Users/player/Games/KartRider_4475" \
   --username player \
   --server 192.168.1.10 \
   --runner sikarugir \
@@ -223,7 +223,7 @@ cargo clippy --workspace --all-targets --all-features -- -D warnings
 실제 클라이언트 RHO 판독 smoke test는 환경 변수를 지정해 별도로 실행합니다.
 
 ```powershell
-$env:P4475_CLIENT_DATA_DIR='C:\Games\KartRider_5136\Data'
+$env:P4475_CLIENT_DATA_DIR='C:\Games\KartRider_4475\Data'
 cargo test -p p4475-server configured_real_client_catalog_matches_the_known_p4475_shape -- --nocapture
 ```
 

@@ -442,7 +442,7 @@ been demonstrated.
   retained as a documented native quirk instead of making the branch unknown
 - [x] post-Angel-correction release validation: complete workspace tests and
   warnings-as-errors Clippy pass; the fixed release binary starts all four
-  transports against the real `KartRider_5136` catalog/Data tree, messenger
+  transports against the real `KartRider_4475` catalog/Data tree, messenger
   probing succeeds, and the installed `item.rho` yields the expected 14/18
   rows with combined weights 400/410
 - [x] IDB-reconstructed local podium scheduler for individual/team final

@@ -36,30 +36,30 @@ wrapper가 보이지 않을 수 있으므로 설치가 끝난 뒤 생성된 `.ap
 
 ```bash
 WRAPPER="/Users/<사용자>/Applications/Sikarugir/kartrider.app"
-GAME_DIR="/Users/<사용자>/Games/KartRider_5136"
+GAME_DIR="/Users/<사용자>/Games/KartRider_4475"
 PREFIX="$WRAPPER/Contents/SharedSupport/prefix"
 
 mkdir -p "$PREFIX/drive_c/Nexon"
-ln -s "$GAME_DIR" "$PREFIX/drive_c/Nexon/KartRider_5136"
+ln -s "$GAME_DIR" "$PREFIX/drive_c/Nexon/KartRider_4475"
 ```
 
-`KartRider_5136`가 이미 존재한다면 덮어쓰지 말고 먼저 대상과 유형을
+`KartRider_4475`가 이미 존재한다면 덮어쓰지 말고 먼저 대상과 유형을
 확인합니다. 일반 폴더라면 wrapper를 새로 만들거나 내용을 직접
 검토하십시오.
 
 ```bash
-ls -ld "$PREFIX/drive_c/Nexon/KartRider_5136"
+ls -ld "$PREFIX/drive_c/Nexon/KartRider_4475"
 ```
 
 ## 3. RootPath 레지스트리 설정
 
-`KartRider_5136.reg` 파일을 만들어 다음 내용을 저장합니다.
+`KartRider_4475.reg` 파일을 만들어 다음 내용을 저장합니다.
 
 ```reg
 Windows Registry Editor Version 5.00
 
-[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Nexon\KartRider_5136\M01]
-"RootPath"="C:\\Nexon\\KartRider_5136"
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Nexon\KartRider_4475\M01]
+"RootPath"="C:\\Nexon\\KartRider_4475"
 ```
 
 Sikarugir wrapper에 포함된 Wine으로 가져옵니다.
@@ -67,10 +67,10 @@ Sikarugir wrapper에 포함된 Wine으로 가져옵니다.
 ```bash
 WINE="$WRAPPER/Contents/SharedSupport/wine/bin/wine"
 DYLD_FALLBACK_LIBRARY_PATH="$WRAPPER/Contents/Frameworks:$WRAPPER/Contents/SharedSupport/wine/lib" \
-WINEPREFIX="$PREFIX" "$WINE" regedit "$GAME_DIR/KartRider_5136.reg"
+WINEPREFIX="$PREFIX" "$WINE" regedit "$GAME_DIR/KartRider_4475.reg"
 ```
 
-게임 폴더에 올바른 `KartRider_5136.reg`가 이미 있다면 그대로 사용해도
+게임 폴더에 올바른 `KartRider_4475.reg`가 이미 있다면 그대로 사용해도
 됩니다.
 
 ## 4. wrapper의 작업 디렉터리 지정
@@ -88,7 +88,7 @@ cp "$PREFIX/drive_c/exec2006615976.bat" \
 
 ```bat
 @echo off
-cd /d "Z:\Users\<사용자>\Games\KartRider_5136"
+cd /d "Z:\Users\<사용자>\Games\KartRider_4475"
 "KartRider.exe" -profile:launcher
 ```
 

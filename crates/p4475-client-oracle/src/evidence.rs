@@ -44,19 +44,19 @@ pub const FSM_AUDITED: &[TransitionEvidence] = &[
     TransitionEvidence {
         transition: "normal channel switch -> reconnect -> channel move-in",
         source_anchor: "sub_BEBF70 plus migration integration trace",
-        artifact: "analysis/ida_5136_protocol_fsm_transitions.log",
+        artifact: "analysis/ida_4475_protocol_fsm_transitions.log",
         confidence: TransitionConfidence::NativeConsumerPlusTrace,
     },
     TransitionEvidence {
         transition: "room lobby -> GrCommandStart -> loading",
         source_anchor: "sub_CF3D10 / sub_CF3F30",
-        artifact: "analysis/ida_5136_protocol_fsm_transitions.log",
+        artifact: "analysis/ida_4475_protocol_fsm_transitions.log",
         confidence: TransitionConfidence::NativeConsumerAndStateEffect,
     },
     TransitionEvidence {
         transition: "GameControl states 1 -> 3 -> 4",
         source_anchor: "sub_A847F0 virtual slots 97/98/99",
-        artifact: "analysis/ida_5136_protocol_fsm_control.log",
+        artifact: "analysis/ida_4475_protocol_fsm_control.log",
         confidence: TransitionConfidence::NativeConsumerAndStateEffect,
     },
     TransitionEvidence {
@@ -68,7 +68,7 @@ pub const FSM_AUDITED: &[TransitionEvidence] = &[
     TransitionEvidence {
         transition: "podium scheduler -> final-stage slot 103 -> ready stage",
         source_anchor: "sub_B42500 / sub_B507D0 / sub_B49BB0 / sub_BED1D0",
-        artifact: "analysis/ida_5136_next_stage_command_probe.log",
+        artifact: "analysis/ida_4475_next_stage_command_probe.log",
         confidence: TransitionConfidence::NativeConsumerAndStateEffect,
     },
     TransitionEvidence {
@@ -106,14 +106,14 @@ pub const AUDITED: &[Evidence] = &[
         packet: "GameResultPacket",
         hash: 0x345C_0651,
         source_anchor: "sub_726CC0 / sub_71BF00 / sub_71BAD0",
-        artifact: "analysis/ida_5136_podium_runtime.log",
+        artifact: "analysis/ida_4475_podium_runtime.log",
         confidence: Confidence::IdbLayoutExactPartialSemantics,
     },
     Evidence {
         packet: "GameNextStagePacket",
         hash: 0x4891_0765,
         source_anchor: "sub_72FC40 plus stage consumer",
-        artifact: "analysis/ida_5136_podium_runtime.log",
+        artifact: "analysis/ida_4475_podium_runtime.log",
         confidence: Confidence::IdbCodecAndConsumerExact,
     },
     Evidence {

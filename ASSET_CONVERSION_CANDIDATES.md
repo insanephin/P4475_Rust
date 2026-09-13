@@ -125,7 +125,7 @@ The planner writes both `compatibility-report.json` and
 ```powershell
 target\release\p4475-assets.exe plan `
   --source-data C:\Nexon\launcher_v2\Data `
-  --target-data C:\Nexon\KartRider_5136\Data `
+  --target-data C:\Nexon\KartRider_4475\Data `
   --output C:\Temp\P4475-kart-candidates `
   --category kart `
   --max-assets 1000

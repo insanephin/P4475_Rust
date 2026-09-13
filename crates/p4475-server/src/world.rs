@@ -15676,7 +15676,7 @@ mod tests {
                 arrival_epoch: 0,
                 transport: UdpTransport::Game,
                 source: SocketAddr::new(identity.source_ip, source_port),
-                iv: 0x5136_5136,
+                iv: 0x4475_4475,
                 account_id: identity.user_no.get(),
                 route_hash: 0x1234_5678,
                 body: UdpIngressBody::GameSlotPacket(Vec::new()),
@@ -20698,7 +20698,7 @@ mod tests {
                 arrival_epoch: stale_epoch,
                 transport: UdpTransport::Game,
                 source: stale_endpoint,
-                iv: 0x5136_5136,
+                iv: 0x4475_4475,
                 account_id: migrated.user_no.get(),
                 route_hash: 0xA5A5_0001,
                 body: UdpIngressBody::GameSlotPacket(Vec::new()),
@@ -20723,7 +20723,7 @@ mod tests {
                 arrival_epoch: fresh_epoch,
                 transport: UdpTransport::Game,
                 source: fresh_endpoint,
-                iv: 0x5136_5136,
+                iv: 0x4475_4475,
                 account_id: migrated.user_no.get(),
                 route_hash: 0xA5A5_0002,
                 body: UdpIngressBody::GameSlotPacket(Vec::new()),
@@ -21356,7 +21356,7 @@ mod tests {
                 arrival_epoch: 1,
                 transport: UdpTransport::Game,
                 source: SocketAddr::new(IpAddr::V4(Ipv4Addr::LOCALHOST), 42_375),
-                iv: 0x5136_5136,
+                iv: 0x4475_4475,
                 account_id: 1,
                 route_hash: 0x1234_5678,
                 body: UdpIngressBody::GameSlotPacket(Vec::new()),
@@ -21835,7 +21835,7 @@ mod tests {
 
         let track = ChangeTrackRequest {
             track: 0x22E6_0323,
-            room_data_header: 0x5136_0001,
+            room_data_header: 0x4475_0001,
             room_data: [0xA5; ROOM_DATA_LENGTH],
         };
         assert!(matches!(
@@ -23001,7 +23001,7 @@ mod tests {
             .unwrap();
         let identity = world.claim_identity(source, "Rider").await.unwrap();
         let room = world.create_room().await.unwrap();
-        let token = MigrationToken::new(0x5136).unwrap();
+        let token = MigrationToken::new(0x4475).unwrap();
         world
             .begin_migration(
                 source,
@@ -24634,7 +24634,7 @@ mod tests {
         let mut owner = register_channel_session(&mut world, "DirectEntryOwner", 67, 56_000, 8);
         let mut visitor = register_channel_session(&mut world, "DirectEntryVisitor", 67, 56_002, 8);
         let owner_info = MyRoomInfo {
-            room_id: 5136,
+            room_id: 4475,
             bgm: 7,
             use_room_password: 0,
             use_item_password: 1,
@@ -26163,7 +26163,7 @@ mod tests {
         );
 
         let protected_info = MyRoomInfo {
-            room_id: 5136,
+            room_id: 4475,
             bgm: 7,
             use_room_password: 1,
             use_item_password: 1,
@@ -28401,7 +28401,7 @@ mod tests {
         let session = owner.session;
         let (world, actor) = spawn_prepared_world(world, 16);
         let proposed = MyRoomInfo {
-            room_id: 5136,
+            room_id: 4475,
             bgm: 7,
             room_password: "owner room".to_owned(),
             ..MyRoomInfo::default()

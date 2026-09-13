@@ -225,7 +225,7 @@ pub fn parse_equip_plant_part(
         kart_serial: reader.read_i16()?,
         replaced_part: None,
     };
-    // Retained C# fixtures contain only the first descriptor. The stock 5136
+    // Retained C# fixtures contain only the first descriptor. The stock 4475
     // writer appends a second five-i16 descriptor for the displaced part.
     // Accept the retained legacy shape as well as the exact stock shape, but
     // reject every other size.

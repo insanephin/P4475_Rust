@@ -37,7 +37,7 @@ pub const MAX_XML_ATTRIBUTE_VALUE_BYTES: usize = 4 * 1024;
 pub const MAX_XML_ATTRIBUTES_PER_ELEMENT: usize = 256;
 
 const CATALOG_FORMAT_VERSION: &str = "3";
-const CATALOG_PROTOCOL_VERSION: &str = "5136";
+const CATALOG_PROTOCOL_VERSION: &str = "4475";
 const CATALOG_REGION: &str = "kr";
 
 // The stock P4475 Data catalog contains 5,756 items, 62 categories, and
@@ -61,7 +61,7 @@ const UNSAFE_CHARACTER_ITEM_IDS: &[u16] = &[
 
 // `zeta_/kr/shop/data/item.kml` is a display catalog, not an ownership
 // allow-list. It still contains foreign-region and retired rows whose Korean
-// 5136 client resources are absent. The client can draw the preceding card,
+// 4475 client resources are absent. The client can draw the preceding card,
 // then fault while preloading one of these entries. These build-specific IDs
 // are the complement of the stock Korean ownership list for the three affected
 // cosmetic categories.
@@ -565,7 +565,7 @@ pub fn is_grant_category(category: u16) -> bool {
 }
 
 /// Returns whether a stock shop row is safe to publish as an implicit owned
-/// item to the Korean protocol-5136 client.
+/// item to the Korean protocol-4475 client.
 #[must_use]
 pub fn is_stock_item_safe_for_implicit_grant(category: u16, item_id: u16) -> bool {
     match category {
@@ -615,7 +615,7 @@ pub enum CatalogInventoryError {
     MultipleRoots,
 
     #[error(
-        "kart catalog is not a Korean protocol 5136 format-3 catalog \
+        "kart catalog is not a Korean protocol 4475 format-3 catalog \
          (format={format_version:?}, protocol={protocol_version:?}, region={region:?})"
     )]
     WrongCatalog {
@@ -2261,7 +2261,7 @@ mod tests {
         let path = directory.path().join("catalog.xml");
         fs::write(
             &path,
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Inventory total="0" categories="0" />
             </KartCatalog>"#,
         )
@@ -2282,7 +2282,7 @@ mod tests {
     #[test]
     fn parses_normalizes_and_classifies_inventory() {
         let catalog = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Names />
                 <Inventory total="3" categories="2">
                     <Item category="3" id="981" name="chicken_gold9" autoGrant="false" />
@@ -2331,7 +2331,7 @@ mod tests {
     #[allow(clippy::float_cmp)]
     fn retains_xun_body_param_classification_without_a_hardcoded_kart_list() {
         let catalog = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Names>
                     <Kart id="2001" name="speedS" />
                     <Kart id="2002" name="itemL" />
@@ -2458,7 +2458,7 @@ mod tests {
     fn rejects_invalid_auto_grant_attribute() {
         assert!(matches!(
             parse_structural(
-                r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+                r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                     <Inventory total="1" categories="1">
                         <Item category="3" id="1008" name="kart" autoGrant="maybe" />
                     </Inventory>
@@ -2474,7 +2474,7 @@ mod tests {
     fn rejects_invalid_x_parts_compatible_attribute() {
         assert!(matches!(
             parse_structural(
-                r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+                r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                     <Inventory total="1" categories="1">
                         <Item category="3" id="1008" xPartsCompatible="maybe" />
                     </Inventory>
@@ -2489,7 +2489,7 @@ mod tests {
     #[test]
     fn optional_emblem_catalog_is_bounded_unique_and_source_ordered() {
         let catalog = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Emblems total="3">
                     <Emblem id="7" />
                     <Emblem id="8193" />
@@ -2505,7 +2505,7 @@ mod tests {
 
         for invalid in ["-3", "0"] {
             let xml = format!(
-                r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+                r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                     <Emblems><Emblem id="{invalid}" /></Emblems>
                     <Inventory total="0" categories="0" />
                 </KartCatalog>"#
@@ -2517,7 +2517,7 @@ mod tests {
         }
 
         let duplicate = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Emblems><Emblem id="7" /><Emblem id="7" /></Emblems>
                 <Inventory total="0" categories="0" />
             </KartCatalog>"#,
@@ -2529,7 +2529,7 @@ mod tests {
         ));
 
         let mismatch = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Emblems total="2"><Emblem id="7" /></Emblems>
                 <Inventory total="0" categories="0" />
             </KartCatalog>"#,
@@ -2544,7 +2544,7 @@ mod tests {
         ));
 
         let excessive = format!(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Emblems total="{}" />
                 <Inventory total="0" categories="0" />
             </KartCatalog>"#,
@@ -2559,7 +2559,7 @@ mod tests {
     #[test]
     fn parses_and_resolves_bounded_kart_item_abilities() {
         let catalog = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Inventory total="0" categories="0" />
                 <Abilities total="5" resolved="5">
                     <TransformByKart>
@@ -2606,7 +2606,7 @@ mod tests {
     #[test]
     fn rejects_malformed_or_duplicate_kart_item_transforms() {
         let malformed = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Inventory total="0" categories="0" />
                 <Abilities><TransformByKart>
                     <Rule kartId="1410" sourceId="7" targetId="99" probability="101" gitType="no_flag" />
@@ -2621,7 +2621,7 @@ mod tests {
         ));
 
         let duplicate = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Inventory total="0" categories="0" />
                 <Abilities><TransformByKart>
                     <Rule kartId="1410" sourceId="7" targetId="99" probability="100" gitType="no_flag" />
@@ -2642,7 +2642,7 @@ mod tests {
     #[test]
     fn resolves_generated_names_and_specs_with_exact_csharp_defaults_and_scales() {
         let catalog = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Names>
                     <Kart id="1008" name="SHURIKEN9" />
                     <Kart id="1009" name="sharedSpec" />
@@ -2732,7 +2732,7 @@ mod tests {
     #[test]
     fn rejects_duplicate_ids_spec_names_sections_and_body_params() {
         let duplicate_id = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Names><Kart id="1" name="one" /><Kart id="1" name="two" /></Names>
                 <Specs><Spec name="one"><BodyParam /></Spec></Specs>
                 <Inventory total="0" categories="0" />
@@ -2744,7 +2744,7 @@ mod tests {
         ));
 
         let duplicate_spec = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Names><Kart id="1" name="one" /></Names>
                 <Specs>
                     <Spec name="One"><BodyParam /></Spec>
@@ -2759,7 +2759,7 @@ mod tests {
         ));
 
         let duplicate_sections = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Names /><Names />
                 <Inventory total="0" categories="0" />
             </KartCatalog>"#,
@@ -2770,7 +2770,7 @@ mod tests {
         ));
 
         let duplicate_body = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Names><Kart id="1" name="one" /></Names>
                 <Specs><Spec name="one"><BodyParam /><BodyParam /></Spec></Specs>
                 <Inventory total="0" categories="0" />
@@ -2785,7 +2785,7 @@ mod tests {
     #[test]
     fn rejects_partial_or_malformed_metadata_but_allows_unresolved_entries() {
         let names_only = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Names><Kart id="1" name="one" /></Names>
                 <Inventory total="0" categories="0" />
             </KartCatalog>"#,
@@ -2796,7 +2796,7 @@ mod tests {
         ));
 
         let specs_only = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Specs><Spec name="one"><BodyParam /></Spec></Specs>
                 <Inventory total="0" categories="0" />
             </KartCatalog>"#,
@@ -2807,7 +2807,7 @@ mod tests {
         ));
 
         let missing_body = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Names><Kart id="1" name="one" /></Names>
                 <Specs><Spec name="one"><ModelParam /></Spec></Specs>
                 <Inventory total="0" categories="0" />
@@ -2819,7 +2819,7 @@ mod tests {
         ));
 
         let unresolved = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Names>
                     <Kart id="1" name="one" />
                     <Kart id="2" name="intentionallyMissing" />
@@ -2850,7 +2850,7 @@ mod tests {
         );
 
         let target_overflow = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Names><Kart id="1" name="one" /></Names>
                 <Specs>
                     <Spec name="one"><BodyParam SpeedSlotCapacity="256" /></Spec>
@@ -2871,7 +2871,7 @@ mod tests {
     fn enforces_name_text_attribute_and_field_bounds() {
         let long_name = "n".repeat(MAX_KART_NAME_BYTES + 1);
         let error = parse_structural(&format!(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Names><Kart id="1" name="{long_name}" /></Names>
                 <Specs><Spec name="one"><BodyParam /></Spec></Specs>
                 <Inventory total="0" categories="0" />
@@ -2884,7 +2884,7 @@ mod tests {
 
         let long_attribute = "v".repeat(MAX_XML_ATTRIBUTE_VALUE_BYTES + 1);
         let error = parse_structural(&format!(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Unknown value="{long_attribute}" />
                 <Inventory total="0" categories="0" />
             </KartCatalog>"#
@@ -2896,7 +2896,7 @@ mod tests {
 
         let long_text = "x".repeat(MAX_XML_TEXT_BYTES + 1);
         let error = parse_structural(&format!(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Unknown>{long_text}</Unknown>
                 <Inventory total="0" categories="0" />
             </KartCatalog>"#
@@ -2911,7 +2911,7 @@ mod tests {
             write!(attributes, r#" f{index}="0""#).unwrap();
         }
         let error = parse_structural(&format!(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Unknown{attributes} />
                 <Inventory total="0" categories="0" />
             </KartCatalog>"#
@@ -2925,7 +2925,7 @@ mod tests {
     #[test]
     fn rejects_wrong_catalog_identity_and_doctype() {
         let wrong = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="cn">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="cn">
                 <Inventory total="0" categories="0" />
             </KartCatalog>"#,
         );
@@ -2936,7 +2936,7 @@ mod tests {
 
         let doctype = parse_structural(
             r#"<!DOCTYPE KartCatalog>
-            <KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            <KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Inventory total="0" categories="0" />
             </KartCatalog>"#,
         );
@@ -2946,7 +2946,7 @@ mod tests {
     #[test]
     fn rejects_duplicate_and_zero_item_ids() {
         let duplicate = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Inventory total="2" categories="1">
                     <Item category="3" id="1008" />
                     <Item category="3" id="1008" />
@@ -2962,7 +2962,7 @@ mod tests {
         ));
 
         let zero = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Inventory total="1" categories="1"><Item category="3" id="0" /></Inventory>
             </KartCatalog>"#,
         );
@@ -2975,7 +2975,7 @@ mod tests {
     #[test]
     fn checks_declared_counts() {
         let item_count = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Inventory total="2" categories="1"><Item category="3" id="1008" /></Inventory>
             </KartCatalog>"#,
         );
@@ -2988,7 +2988,7 @@ mod tests {
         ));
 
         let category_count = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Inventory total="1" categories="2"><Item category="3" id="1008" /></Inventory>
             </KartCatalog>"#,
         );
@@ -3004,7 +3004,7 @@ mod tests {
     #[test]
     fn production_load_rejects_truncated_catalog() {
         let result = CatalogInventory::from_xml(
-            br#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            br#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Inventory total="2" categories="1">
                     <Item category="3" id="1008" />
                     <Item category="3" id="981" />
@@ -3020,7 +3020,7 @@ mod tests {
     #[test]
     fn rejects_nested_inventory_spoof() {
         let result = parse_structural(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Wrapper><Inventory total="0" categories="0" /></Wrapper>
             </KartCatalog>"#,
         );

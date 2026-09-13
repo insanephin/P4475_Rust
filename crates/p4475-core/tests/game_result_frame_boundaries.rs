@@ -24,7 +24,7 @@ fn four_to_five_humans_cross_1024_but_round_trip_under_the_real_frame_limit() {
     assert_eq!(four_player.len(), 900);
     assert_eq!(five_player.len(), 1_112);
 
-    let initial_iv = 0x5136_5136;
+    let initial_iv = 0x4475_4475;
     let mut send_iv = initial_iv;
     let wire = encode_encrypted(&five_player, &mut send_iv, DEFAULT_MAX_PAYLOAD)
         .expect("the real 1 MiB transport limit must accept a five-player result");

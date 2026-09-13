@@ -3,7 +3,7 @@
 Last updated: 2026-08-11
 
 This ledger records the read-only audit of
-`C:\Users\drash\Documents\kartrider\KartRider_5136\logs`. The capture files
+`C:\Users\drash\Documents\kartrider\KartRider_4475\logs`. The capture files
 remain external evidence and are not copied into this repository.
 
 ## Corpus boundary

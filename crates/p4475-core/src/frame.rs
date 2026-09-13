@@ -199,7 +199,7 @@ mod tests {
     #[test]
     fn short_encrypted_frame_matches_independent_p4475_golden() {
         let payload = [0xc8, 0x04, 0x9d, 0x1e, 0x10, 0x32, 0x54, 0x76];
-        let mut iv = 0x5136_5136;
+        let mut iv = 0x4475_4475;
         let wire = encode_encrypted(&payload, &mut iv, DEFAULT_MAX_PAYLOAD).unwrap();
 
         assert_eq!(

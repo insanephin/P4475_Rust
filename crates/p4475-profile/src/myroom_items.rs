@@ -455,7 +455,7 @@ mod tests {
         .unwrap();
         fs::write(
             root.path().join("NewKart.json"),
-            br#"[{"KartID":5136,"KartSN":7,"FutureField":true}]"#,
+            br#"[{"KartID":4475,"KartSN":7,"FutureField":true}]"#,
         )
         .unwrap();
         fs::write(
@@ -482,7 +482,7 @@ mod tests {
         assert_eq!(
             inventory.karts,
             [MyRoomKart {
-                kart_id: 5136,
+                kart_id: 4475,
                 serial_number: 7,
             }]
         );

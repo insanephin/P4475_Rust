@@ -3539,7 +3539,7 @@ mod tests {
             worker_release.wait();
         });
         let proposed = MyRoomInfo {
-            room_id: 5136,
+            room_id: 4475,
             bgm: 7,
             ..MyRoomInfo::default()
         };
@@ -3602,7 +3602,7 @@ mod tests {
             worker_release.wait();
         });
         let proposed = MyRoomInfo {
-            room_id: 5136,
+            room_id: 4475,
             bgm: 9,
             ..MyRoomInfo::default()
         };
@@ -5284,7 +5284,7 @@ mod tests {
         }
 
         let mut xml = format!(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr"><Inventory total="{}" categories="60">"#,
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr"><Inventory total="{}" categories="60">"#,
             items.len()
         );
         for (category, id) in items {

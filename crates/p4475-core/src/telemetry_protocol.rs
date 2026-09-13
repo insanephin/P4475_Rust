@@ -228,9 +228,9 @@ fn parse_game_report(packet: &[u8]) -> Result<TelemetryReport, TelemetryProtocol
     let _nested_diagnostic_prefix = reader.read_bytes(20)?;
     let _nested_diagnostic_value = reader.read_i32()?;
     let _nested_diagnostic_suffix = reader.read_bytes(16)?;
-    // Every captured producer appends the same 19-byte post-5136 extension
+    // Every captured producer appends the same 19-byte post-4475 extension
     // that the current C# handler leaves unread.
-    let _post_5136_extension = reader.read_bytes(19)?;
+    let _post_4475_extension = reader.read_bytes(19)?;
     finish(reader, TelemetryRequestKind::GameReport)?;
     Ok(TelemetryReport::GameReport {
         protected_metric_0,

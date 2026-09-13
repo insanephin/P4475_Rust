@@ -5101,7 +5101,7 @@ async fn update_rider_equipment(
         pet_id = selection.pet,
         flying_pet_id = selection.flying_pet,
         flying_pet_spec_available = selection.flying_pet == 0
-            || p4475_core::kart_physics::P4475FlyingPetSpecSnapshot::korean_5136(
+            || p4475_core::kart_physics::P4475FlyingPetSpecSnapshot::korean_4475(
                 selection.flying_pet,
             )
             .is_some(),
@@ -5548,7 +5548,7 @@ fn selected_physics_metadata(
 
     if flying_pet_id != 0 {
         if let Some(spec) =
-            p4475_core::kart_physics::P4475FlyingPetSpecSnapshot::korean_5136(flying_pet_id)
+            p4475_core::kart_physics::P4475FlyingPetSpecSnapshot::korean_4475(flying_pet_id)
         {
             snapshot.flying_pet = spec;
         } else {
@@ -6701,7 +6701,7 @@ mod tests {
         }
         assert_eq!(item_count, 6_800);
         let xml = format!(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Names>
                     <Kart id="{KNOWN_KART_ID}" name="sessionKnownKart" />
                     <Kart id="{MISSING_SPEC_KART_ID}" name="sessionMissingKartSpec" />
@@ -11279,7 +11279,7 @@ mod tests {
         let mut expected_snapshot = P4475KartPhysicsSnapshot::csharp_s7_baseline();
         expected_snapshot.kart = *catalog.kart_spec(981).unwrap();
         expected_snapshot.flying_pet =
-            p4475_core::kart_physics::P4475FlyingPetSpecSnapshot::korean_5136(83).unwrap();
+            p4475_core::kart_physics::P4475FlyingPetSpecSnapshot::korean_4475(83).unwrap();
         assert_eq!(
             resolved.block,
             build_p4475_kart_physics_block(&expected_snapshot).unwrap()
@@ -12086,7 +12086,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn myroom_reentry_current_membership_ignores_invalid_self_fallback_info() {
         let owner_info = MyRoomInfo {
-            room_id: 5136,
+            room_id: 4475,
             room_password: "owner-room-secret".to_owned(),
             item_password: "owner-item-secret".to_owned(),
             ..MyRoomInfo::default()
@@ -12198,7 +12198,7 @@ mod tests {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn myroom_random_entry_dispatch_uses_the_only_eligible_public_room() {
         let owner_info = MyRoomInfo {
-            room_id: 5136,
+            room_id: 4475,
             use_item_password: 1,
             room_password: "public-room-raw-secret".to_owned(),
             item_password: "public-item-raw-secret".to_owned(),
@@ -13347,7 +13347,7 @@ mod tests {
         .unwrap();
         fs::write(
             owner_directory.join("NewKart.json"),
-            br#"[{"KartID":5136,"KartSN":17}]"#,
+            br#"[{"KartID":4475,"KartSN":17}]"#,
         )
         .unwrap();
         fs::write(
@@ -13379,7 +13379,7 @@ mod tests {
             count_2: 9,
         }];
         let karts = [MyRoomKart {
-            kart_id: 5136,
+            kart_id: 4475,
             serial_number: 17,
         }];
         let parts = [MyRoomParts {
@@ -14303,7 +14303,7 @@ mod tests {
         let config = ServerConfig::default();
         let mut owner_context = bind_test_profile(&profiles, &owner.identity).await;
         let proposed = MyRoomInfo {
-            room_id: 5136,
+            room_id: 4475,
             bgm: 7,
             use_room_password: 1,
             room_password: "durable room".to_owned(),
@@ -14496,7 +14496,7 @@ mod tests {
         let karts_path = rider_directory.join("NewKart.json");
         fs::write(
             &parts_path,
-            br#"[{"ID":5136,"SN":1,"Engine":2,"EngineGrade":3,"EngineValue":4}]"#,
+            br#"[{"ID":4475,"SN":1,"Engine":2,"EngineGrade":3,"EngineValue":4}]"#,
         )
         .unwrap();
 
@@ -14519,13 +14519,13 @@ mod tests {
         );
         assert_eq!(
             i16::from_le_bytes(packets[0][24..26].try_into().unwrap()),
-            5136
+            4475
         );
         drop(lane);
 
         fs::write(
             &karts_path,
-            br#"[{"KartID":5136,"KartSN":7,"FutureField":true}]"#,
+            br#"[{"KartID":4475,"KartSN":7,"FutureField":true}]"#,
         )
         .unwrap();
         let admission = profiles
@@ -16532,7 +16532,7 @@ mod tests {
             .unwrap();
         drop(lane);
 
-        let token = MigrationToken::new(0x5136).unwrap();
+        let token = MigrationToken::new(0x4475).unwrap();
         world
             .begin_migration(
                 source,
@@ -16858,7 +16858,7 @@ mod tests {
         context.bind_profile(identity.clone(), profile);
         drop(lane);
 
-        let token = MigrationToken::new(0x5136).unwrap();
+        let token = MigrationToken::new(0x4475).unwrap();
         world
             .begin_migration(
                 source,

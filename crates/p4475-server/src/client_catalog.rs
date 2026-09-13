@@ -28,7 +28,7 @@ use quick_xml::{
 };
 use thiserror::Error;
 
-// P4475's stock Data has a smaller catalog than the later P5136 client:
+// P4475's stock Data has a smaller catalog than the later P4475 client:
 // the observed complete shape is 1,176 names and 99 specs.
 const MINIMUM_KART_NAMES: usize = 1_000;
 const MINIMUM_KART_SPECS: usize = 90;
@@ -1066,7 +1066,7 @@ fn build_catalog_xml(
     let mut writer = Writer::new(Vec::with_capacity(8 * 1024 * 1024));
     let mut root = BytesStart::new("KartCatalog");
     root.push_attribute(("formatVersion", "3"));
-    root.push_attribute(("protocolVersion", "5136"));
+    root.push_attribute(("protocolVersion", "4475"));
     root.push_attribute(("region", "kr"));
     writer
         .write_event(Event::Start(root))

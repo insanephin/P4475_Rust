@@ -679,7 +679,7 @@ pub(crate) mod tests {
         }
         assert_eq!(item_count, 6_802);
         let xml = format!(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Names>
                     <Kart id="{KNOWN_KART_ID}" name="testKnownKart" />
                     <Kart id="{MISSING_SPEC_KART_ID}" name="testMissingKartSpec" />

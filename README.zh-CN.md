@@ -28,7 +28,7 @@ target/p4475-finish-kart-abilities/release/p4475.exe
 
 不带参数运行 `p4475.exe` 即可打开 GUI。可在右上角选择 한국어、English 或简体中文，所选语言会在下次启动时恢复。服务器和连接器位于同一个程序的两个标签页中。
 
-1. 在“服务器”标签页中，将必填的“客户端或 Profile 路径”设为 P4475 客户端根目录，例如 `C:\Games\KartRider_5136`。
+1. 在“服务器”标签页中，将必填的“客户端或 Profile 路径”设为 P4475 客户端根目录，例如 `C:\Games\KartRider_4475`。
 2. 如果需要让另一台电脑连接，请选择“自动设置本机局域网 IPv4”；检测到多个网卡时，请选择真实的局域网网卡。
 3. 远程昵称首次连接时，请启用“允许在局域网创建新昵称”。
 4. 选择“启动服务器”。
@@ -167,7 +167,7 @@ XUN 辅助端点与原版游戏协议分离，仅供可选 XUN DLL 接收车辆�
 p4475.exe server `
   --bind 192.168.1.10 `
   --advertise 192.168.1.10 `
-  --client-dir C:\Games\KartRider_5136 `
+  --client-dir C:\Games\KartRider_4475 `
   --allow-remote-profile-creation
 ```
 
@@ -175,7 +175,7 @@ p4475.exe server `
 
 ```powershell
 p4475.exe connect `
-  --game-dir C:\Games\KartRider_5136 `
+  --game-dir C:\Games\KartRider_4475 `
   --username player1 `
   --server 192.168.1.10
 ```
@@ -186,7 +186,7 @@ macOS Sikarugir 示例：
 
 ```bash
 p4475 connect \
-  --game-dir "/Users/player/Games/KartRider_5136" \
+  --game-dir "/Users/player/Games/KartRider_4475" \
   --username player \
   --server 192.168.1.10 \
   --runner sikarugir \
@@ -217,7 +217,7 @@ cargo clippy --workspace --all-targets --all-features -- -D warnings
 真实客户端 RHO smoke test 需要单独运行：
 
 ```powershell
-$env:P4475_CLIENT_DATA_DIR='C:\Games\KartRider_5136\Data'
+$env:P4475_CLIENT_DATA_DIR='C:\Games\KartRider_4475\Data'
 cargo test -p p4475-server configured_real_client_catalog_matches_the_known_p4475_shape -- --nocapture
 ```
 

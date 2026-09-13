@@ -6,7 +6,7 @@
 //! snapshot to [`build_p4475_kart_physics_block`].
 //!
 //! The field formulas and order mirror
-//! `StartGameData.GetKartSpac` through `WritePost5136KartSpec`. Post-P4475
+//! `StartGameData.GetKartSpac` through `WritePost4475KartSpec`. Post-P4475
 //! fields are intentionally absent.
 
 use std::{error::Error, fmt};
@@ -654,8 +654,8 @@ impl P4475FlyingPetSpecSnapshot {
     /// mapped to this snapshot's field order.  Unknown IDs preserve the C#
     /// behavior of a zero/default spec by returning `None` to the caller.
     #[must_use]
-    pub fn korean_5136(id: u16) -> Option<Self> {
-        // Source: KartRider.Data/Compatibility/Korean5136FlyingPetPerformance.cs.
+    pub fn korean_4475(id: u16) -> Option<Self> {
+        // Source: KartRider.Data/Compatibility/Korean4475FlyingPetPerformance.cs.
         // Keep this table bounded and immutable; it is protocol compatibility
         // data, not user-controlled input.
         const SPECS: &[(u16, [f32; 9])] = &[
@@ -1811,8 +1811,8 @@ mod tests {
     }
 
     #[test]
-    fn korean_5136_flying_pet_table_matches_reference_sentinels() {
-        let id32 = P4475FlyingPetSpecSnapshot::korean_5136(32).unwrap();
+    fn korean_4475_flying_pet_table_matches_reference_sentinels() {
+        let id32 = P4475FlyingPetSpecSnapshot::korean_4475(32).unwrap();
         assert_eq!(
             id32.start_forward_accel_force_item.to_bits(),
             1_300.0_f32.to_bits()
@@ -1823,13 +1823,13 @@ mod tests {
         );
         assert_eq!(id32.forward_accel_force.to_bits(), 0.0_f32.to_bits());
 
-        let id83 = P4475FlyingPetSpecSnapshot::korean_5136(83).unwrap();
+        let id83 = P4475FlyingPetSpecSnapshot::korean_4475(83).unwrap();
         assert_eq!(id83.forward_accel_force.to_bits(), 3.5_f32.to_bits());
         assert_eq!(id83.item_booster_time.to_bits(), 300.0_f32.to_bits());
         assert_eq!(id83.drift_escape_force.to_bits(), 0.0_f32.to_bits());
 
-        assert!(P4475FlyingPetSpecSnapshot::korean_5136(20).is_none());
-        assert!(P4475FlyingPetSpecSnapshot::korean_5136(u16::MAX).is_none());
+        assert!(P4475FlyingPetSpecSnapshot::korean_4475(20).is_none());
+        assert!(P4475FlyingPetSpecSnapshot::korean_4475(u16::MAX).is_none());
     }
 
     #[test]

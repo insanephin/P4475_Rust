@@ -114,7 +114,7 @@ mod tests {
     #[test]
     fn frame_matches_the_csharp_udp_golden() {
         let payload = (0_u8..21).collect::<Vec<_>>();
-        let wire = encode_datagram(&payload, 0x5136_5136, DEFAULT_MAX_DATAGRAM_PAYLOAD).unwrap();
+        let wire = encode_datagram(&payload, 0x4475_4475, DEFAULT_MAX_DATAGRAM_PAYLOAD).unwrap();
         assert_eq!(
             wire,
             [
@@ -125,7 +125,7 @@ mod tests {
         );
 
         let (iv, decoded) = decode_datagram(&wire, DEFAULT_MAX_DATAGRAM_PAYLOAD).unwrap();
-        assert_eq!(iv, 0x5136_5136);
+        assert_eq!(iv, 0x4475_4475);
         assert_eq!(decoded, payload);
     }
 

@@ -28,7 +28,7 @@ target/p4475-finish-kart-abilities/release/p4475.exe
 
 Run `p4475.exe` without arguments to open the GUI. Choose 한국어, English, or 简体中文 in the upper-right corner; the selection is restored on the next run. The server and connector are two tabs in the same executable.
 
-1. In the Server tab, set the required **Client or Profile path** to the P4475 client root, for example `C:\Games\KartRider_5136`.
+1. In the Server tab, set the required **Client or Profile path** to the P4475 client root, for example `C:\Games\KartRider_4475`.
 2. If another PC will connect, select **Auto-configure my LAN IPv4** and choose the real LAN adapter when several are listed.
 3. Enable **Allow new nicknames on LAN** when a remote nickname connects for the first time.
 4. Select **Start server**.
@@ -168,7 +168,7 @@ Run only the server:
 p4475.exe server `
   --bind 192.168.1.10 `
   --advertise 192.168.1.10 `
-  --client-dir C:\Games\KartRider_5136 `
+  --client-dir C:\Games\KartRider_4475 `
   --allow-remote-profile-creation
 ```
 
@@ -176,7 +176,7 @@ Run only the connector:
 
 ```powershell
 p4475.exe connect `
-  --game-dir C:\Games\KartRider_5136 `
+  --game-dir C:\Games\KartRider_4475 `
   --username player1 `
   --server 192.168.1.10
 ```
@@ -187,7 +187,7 @@ macOS Sikarugir example:
 
 ```bash
 p4475 connect \
-  --game-dir "/Users/player/Games/KartRider_5136" \
+  --game-dir "/Users/player/Games/KartRider_4475" \
   --username player \
   --server 192.168.1.10 \
   --runner sikarugir \
@@ -218,7 +218,7 @@ cargo clippy --workspace --all-targets --all-features -- -D warnings
 Run the real-client RHO smoke test separately:
 
 ```powershell
-$env:P4475_CLIENT_DATA_DIR='C:\Games\KartRider_5136\Data'
+$env:P4475_CLIENT_DATA_DIR='C:\Games\KartRider_4475\Data'
 cargo test -p p4475-server configured_real_client_catalog_matches_the_known_p4475_shape -- --nocapture
 ```
 

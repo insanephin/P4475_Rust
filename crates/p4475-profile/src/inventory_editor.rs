@@ -651,7 +651,7 @@ mod tests {
 
     fn catalog() -> CatalogInventory {
         CatalogInventory::from_structural_xml_for_tests(
-            r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
+            r#"<KartCatalog formatVersion="3" protocolVersion="4475" region="kr">
                 <Names><Kart id="764" name="marathon13" /></Names>
                 <Specs><Spec name="marathon13"><BodyParam DescEnchantCap="25" /></Spec></Specs>
                 <Inventory total="5" categories="1">

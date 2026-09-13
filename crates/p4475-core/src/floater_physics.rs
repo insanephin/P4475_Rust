@@ -1,6 +1,6 @@
 //! P4475 legacy Floater/socket tuning contributions.
 //!
-//! The Korean 5136 server stores three tune codes in `TuneData.json`. Codes
+//! The Korean 4475 server stores three tune codes in `TuneData.json`. Codes
 //! 101 through 903 are the three grades of nine speed-physics options used by the C#
 //! `Use_TuneSpec` path. The 10xxx codes are item-mode client abilities: they
 //! are valid persistent Floater state but do not alter the server-authored kart

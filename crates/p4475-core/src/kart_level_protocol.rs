@@ -1,6 +1,6 @@
 //! P4475 legacy kart-level request and response codecs.
 //!
-//! These packet layouts follow the Korean 5136 C# compatibility handlers.
+//! These packet layouts follow the Korean 4475 C# compatibility handlers.
 //! Request parsers deliberately require the exact stock-client body sizes: the
 //! retained client emits fixed-width records and no optional suffix is known.
 

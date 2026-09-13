@@ -576,8 +576,8 @@ a partial authoritative transition.
 The pinned IDB was re-probed through each `GoItem*` vtable offset `+0x24` and
 joined to both the native producer and `Gop*` writer. The resulting ledger is
 `analysis/P4475_ITEM_OPERATION_SEMANTICS.md`; the reproducible probe and full
-output are `analysis/ida_5136_type12_semantics_probe.py` and
-`analysis/ida_5136_type12_semantics_probe_v5.log`.
+output are `analysis/ida_4475_type12_semantics_probe.py` and
+`analysis/ida_4475_type12_semantics_probe_v5.log`.
 
 Rust now has class-specific field decoders for 79 of the 80 direct-writer
 classes. The original fifteen are Barricade, Banana, Mine, Rocket, CokeRocket,
@@ -621,7 +621,7 @@ wire. EventObject and Course raw 12 are object IDs rather than lifecycle
 states. CubeForBoss's exact writer lengths are 77/69, not 73/65: the earlier
 census omitted its four-byte class dword.
 The sixth pass used the corrected primary-vtable RTTI scan in
-`analysis/ida_5136_five_unknown_occurrence_probe.py`. BossPrison is emitted by
+`analysis/ida_4475_five_unknown_occurrence_probe.py`. BossPrison is emitted by
 GoBossKart target selection; BoundRoad by BombRobot/MechanicBall timer and lane
 patterns; Falling by PetitMeteor/SpaceBombing lane patterns; and Piratebomb by
 controller branch 12 after per-entry target filtering. Course carries a
@@ -680,7 +680,7 @@ each frame through outer GameSlot parsing and registry admission. A World test
 also proves that `StartRoom` replaces `RaceProgress` and releases prior-race
 registry capacity rather than accumulating the 1,024-object bound across the
 server lifetime. The RTTI/caller recovery is reproducible via
-`analysis/ida_5136_type12_runtime_consumer_probe.py` and its `.log` output.
+`analysis/ida_4475_type12_runtime_consumer_probe.py` and its `.log` output.
 The shield/UFO/Lockdown/Thunderbolt pass adds a separate 23-state literal
 wire-to-registry table. Thunderbolt's counted target vector uses a validated
 raw-range descriptor and is decoded on demand; it is never reduced to a
@@ -1008,7 +1008,7 @@ For `team_points=10, team=1`, the next dword consequently became
 
 - The previously deployed C# server emitted the same malformed 269-byte
   one-human and 486-byte two-human layout. The exact two-human fixture is in
-  `KartRider_5136\logs\packet-trace_20260717_210737_188_13040.log` at packet
+  `KartRider_4475\logs\packet-trace_20260717_210737_188_13040.log` at packet
   sequences 2173/2176. Every retained historical result has
   `winning_team=0`; those solo zeroes mask the team-field corruption, so the
   old packet bytes are not a valid team-result golden fixture.
@@ -1021,7 +1021,7 @@ For `team_points=10, team=1`, the next dword consequently became
   at 64, and no longer appends the five unconsumed bytes. The immutable result
   snapshot, complete DNF roster, final-stage tick, and atomic all-recipient
   publication are unchanged; the two-human/no-AI packet is now 476 bytes.
-- The current read-only C# source contains a later Korean5136-specific branch
+- The current read-only C# source contains a later Korean4475-specific branch
   that selects the opposite order. It is not treated as stronger evidence
   than the user's known-working deployed trace, and no C# file was changed.
 
@@ -1154,7 +1154,7 @@ entry merely to avoid a client crash.
   packet from 357 to 352 bytes without removing a racer.
   The deployed P4475 settlement order is final `GameControl(type=4)`,
   `GameNextStage`, then `GameResult`; Rust now uses that captured order rather
-  than the later source-only Korean5136 branch.
+  than the later source-only Korean4475 branch.
 - C# excludes the first human finisher from the earlier
   `GameControl(type=3)` broadcast. Rust preserves that recipient exclusion;
   adding it back would be a speculative incompatibility change.
@@ -1333,7 +1333,7 @@ policy gap.
 ### Retained 19,496-record corpus completion (2026-07-30)
 
 - The external
-  `C:\Users\drash\Documents\kartrider\KartRider_5136\logs` corpus is now an
+  `C:\Users\drash\Documents\kartrider\KartRider_4475\logs` corpus is now an
   executable opt-in test boundary rather than a prose-only inventory.
   `P4475_PACKET_TRACE_DIR` drives a read-only parser that verifies all 19,496
   incoming records, 100 distinct hashes, and 97 TCP hashes. Every TCP hash is
@@ -1411,7 +1411,7 @@ policy gap.
   `4293B8F1245CB28277677A0E6263356FC8917626B65686A42649B2A378576376`).
   `--version` reports `p4475 0.1.5`; the release target is the single fixed
   Cargo output directory. The latest stock-data loader test used the user's
-  real `KartRider_5136\Data` directly, loaded 493 catalog transforms, classified
+  real `KartRider_4475\Data` directly, loaded 493 catalog transforms, classified
   1,282 automatic and 14 quarantined karts, and required no generated
   `Profile/KartCatalog.xml`. The earlier bounded smoke started all four
   transports and passed messenger reachability. The installed
@@ -1586,7 +1586,7 @@ unchanged and is evidence only.
 - The C# receive path was audited from `ClientSession.OnPacket` rather than
   treating source order as client order. It reads the hash under the session
   lock, establishes or acquires the identity-generation operation, invokes
-  `Korean5136Protocol.TryHandle` first, then the general packet dispatcher,
+  `Korean4475Protocol.TryHandle` first, then the general packet dispatcher,
   and only then its large fallback handler. The P4475 path is therefore:
   server `PcFirstMessage`; client `PqLogin` and server `PrLogin`; client
   `PqGetRider`; complete `LoRpGetRiderItemPacket` inventory stream followed by
@@ -1720,7 +1720,7 @@ unchanged and is evidence only.
 ### Correct stock P4475 and LAN E2E setup (2026-07-30)
 
 - The local stock P4475 installation is
-  `C:\Users\drash\Documents\kartrider\KartRider_5136`, not the
+  `C:\Users\drash\Documents\kartrider\KartRider_4475`, not the
   `HF_20051214_Factory` client copies. Its `KartRider.exe` SHA-256 is the
   connector's exact supported P4475 hash:
   `629F084E2A12C6FA1FF0EA603B90F8768454D13A1BC2DF6A8504F8AA06FD6194`.
@@ -1748,8 +1748,8 @@ unchanged and is evidence only.
   Advertised IPv4:                 192.168.1.10
   Configured port:                 39311
   Profile root:                    <rust repo>\Profile
-  KartCatalog.xml:                 <KartRider_5136>\Profile\KartCatalog.xml
-  Client Data directory:           <KartRider_5136>\Data
+  KartCatalog.xml:                 <KartRider_4475>\Profile\KartCatalog.xml
+  Client Data directory:           <KartRider_4475>\Data
   Allow new remote nicknames:      checked
   ```
 
@@ -3242,7 +3242,7 @@ These items prevent a "port complete" claim.
 
 ## Exact resume plan
 
-1. Start the fresh release with the stock `KartRider_5136` client root (or its
+1. Start the fresh release with the stock `KartRider_4475` client root (or its
    `Data` directory). The Rust server now rebuilds its immutable catalog
    directly from `kart.rho`, `item.rho`, and RHO5; `Profile\KartCatalog.xml`
    is not required. Launch
@@ -3581,7 +3581,7 @@ and connector.
   `KartSpec.defaultExceedType == 1` assigns `KartSpec.startItemId`, using
   `SlotData.RandomItemSkill(nickname, 2)`. The `2` deliberately chooses the
   individual item probability table regardless of the room's team flag.
-- P4475 cannot consume the post-5136 KartSpec tail directly. At race start the
+- P4475 cannot consume the post-4475 KartSpec tail directly. At race start the
   compatibility server therefore selects from its configured individual table,
   applies the equipped kart's ordinary `no_flag` transform, and emits one
   target-scoped stock `GameSlotPacket` type-1 award. Floater and
@@ -3741,7 +3741,7 @@ and connector.
   `dualBooster` and `exceed` effects call `0x00F65AA0` with creation mode
   `0x0C`, matching the later charger's recovered mode. A live resource lookup
   also showed that importing loose `effect/charger` files does not add the
-  post-5136 `charger` node to P4475's already-built `engine_common` graph.
+  post-4475 `charger` node to P4475's already-built `engine_common` graph.
   The registration hook therefore uses a real `charger` ID only. A missing
   node stays fail-closed; it never substitutes the unrelated stock `exceed`
   resource. The resource and instance handle remain in the DLL side table, so
