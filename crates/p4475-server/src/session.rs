@@ -6700,9 +6700,9 @@ mod tests {
         let xml = format!(
             r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
                 <Names>
-                    <Kart id="1008" name="sessionKnownKart" />
-                    <Kart id="981" name="sessionMissingKartSpec" />
-                    <Kart id="1064" name="sessionXunKart" />
+                    <Kart id="981" name="sessionKnownKart" />
+                    <Kart id="1008" name="sessionMissingKartSpec" />
+                    <Kart id="1454" name="sessionXunKart" />
                 </Names>
                 <Specs>
                     <Spec name="sessionBaseKart">
