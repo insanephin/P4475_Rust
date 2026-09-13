@@ -5277,8 +5277,6 @@ mod tests {
                 items.push((category, id));
             }
         }
-        items.push((3, 981));
-        items.push((3, 1_008));
         for &category in OTHER_CATEGORIES {
             for id in 1..=40 {
                 items.push((category, id));

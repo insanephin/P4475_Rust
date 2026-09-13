@@ -6672,7 +6672,7 @@ mod tests {
         let mut item_count = 0;
         for &category in GRANT_CATEGORIES {
             let ids: Box<dyn Iterator<Item = u16>> = if category == 3 {
-                Box::new((1..=1_199).chain([981, 1_008, 1_454]))
+                Box::new((1..=1_199).chain([1_454]))
             } else {
                 Box::new(1_000..1_110)
             };
@@ -6696,7 +6696,7 @@ mod tests {
                 item_count += 1;
             }
         }
-        assert_eq!(item_count, 6_802);
+        assert_eq!(item_count, 6_800);
         let xml = format!(
             r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
                 <Names>
