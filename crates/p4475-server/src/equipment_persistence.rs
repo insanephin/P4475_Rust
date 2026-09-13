@@ -629,6 +629,8 @@ pub(crate) mod tests {
     }
 
     pub(crate) fn catalog() -> CatalogInventory {
+        const KNOWN_KART_ID: u16 = 1_008;
+        const MISSING_SPEC_KART_ID: u16 = 981;
         const GRANT_CATEGORIES: &[u16] = &[
             1, 2, 3, 4, 7, 8, 9, 11, 12, 13, 14, 16, 18, 20, 21, 22, 23, 26, 27, 28, 30, 31, 32,
             36, 37, 38, 39, 43, 44, 45, 46, 49, 52, 53, 55, 59, 61, 67, 68, 69, 70,
@@ -679,8 +681,8 @@ pub(crate) mod tests {
         let xml = format!(
             r#"<KartCatalog formatVersion="3" protocolVersion="5136" region="kr">
                 <Names>
-                    <Kart id="1008" name="testKnownKart" />
-                    <Kart id="981" name="testMissingKartSpec" />
+                    <Kart id="{KNOWN_KART_ID}" name="testKnownKart" />
+                    <Kart id="{MISSING_SPEC_KART_ID}" name="testMissingKartSpec" />
                 </Names>
                 <Specs>
                     <Spec name="testKnownKart">

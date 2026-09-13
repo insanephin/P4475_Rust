@@ -4321,7 +4321,7 @@ mod tests {
         fs::write(directory.join("Launcher.json"), b"{}").unwrap();
         fs::write(
             directory.join("Favorite.json"),
-            b"\xef\xbb\xbf[{\"ItemCatID\":3,\"ItemID\":1008,\"ItemSN\":1}]",
+            b"\xef\xbb\xbf[{\"ItemCatID\":3,\"ItemID\":981,\"ItemSN\":1}]",
         )
         .unwrap();
         let imported = FavoriteItemKey::new(3, 981, 1);

@@ -193,7 +193,7 @@ mod tests {
         fs::write(directory.join("Launcher.json"), b"{}").unwrap();
         fs::write(
             directory.join("Locked.json"),
-            br#"[{"ItemCatID":3,"ItemID":1008,"ItemSN":1}]"#,
+            br#"[{"ItemCatID":3,"ItemID":981,"ItemSN":1}]"#,
         )
         .unwrap();
         let store = ProfileStore::new(root.path());

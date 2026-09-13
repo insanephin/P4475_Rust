@@ -220,7 +220,7 @@ mod tests {
         let directory = root.path().join("SidecarFavoriteRider");
         fs::create_dir_all(&directory).unwrap();
         fs::write(directory.join("Launcher.json"), b"{}").unwrap();
-        let sidecar = br#"[{"ItemCatID":3,"ItemID":1008,"ItemSN":1}]"#;
+        let sidecar = br#"[{"ItemCatID":3,"ItemID":981,"ItemSN":1}]"#;
         fs::write(directory.join("Favorite.json"), sidecar).unwrap();
         let store = ProfileStore::new(root.path());
         let lease = store.acquire_race_run_lease().unwrap();
@@ -296,8 +296,8 @@ mod tests {
         fs::write(
             directory.join("Favorite.json"),
             br#"[
-                {"ItemCatID":3,"ItemID":1008,"ItemSN":1},
-                {"ItemCatID":3,"ItemID":1008,"ItemSN":2}
+                {"ItemCatID":3,"ItemID":981,"ItemSN":1},
+                {"ItemCatID":3,"ItemID":981,"ItemSN":2}
             ]"#,
         )
         .unwrap();
@@ -529,7 +529,7 @@ mod tests {
         let outside = root.path().join("outside-favorite.json");
         fs::create_dir_all(&directory).unwrap();
         fs::write(directory.join("Launcher.json"), b"{}").unwrap();
-        fs::write(&outside, br#"[{"ItemCatID":3,"ItemID":1008,"ItemSN":1}]"#).unwrap();
+        fs::write(&outside, br#"[{"ItemCatID":3,"ItemID":981,"ItemSN":1}]"#).unwrap();
         symlink(&outside, directory.join("Favorite.json")).unwrap();
         let store = ProfileStore::new(root.path());
         let lease = store.acquire_race_run_lease().unwrap();
@@ -559,7 +559,7 @@ mod tests {
             directory.join("Launcher.json"),
             serde_json::to_vec(&json!({
                 "P4475RustFavoriteItems": [
-                    {"ItemCatID": 3, "ItemID": 1008, "ItemSN": 1}
+                    {"ItemCatID": 3, "ItemID": 981, "ItemSN": 1}
                 ]
             }))
             .unwrap(),
