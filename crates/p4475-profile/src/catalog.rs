@@ -2304,7 +2304,7 @@ mod tests {
                 .collect::<Vec<_>>(),
             vec![(1, 45), (3, 981), (3, 1008)]
         );
-        assert_eq!(catalog.items()[1].serial, 7);
+        assert_eq!(catalog.items()[2].serial, 7);
         assert!(catalog.supports_x_parts(1008));
         assert!(!catalog.supports_x_parts(981));
         assert!(is_grant_category(3));

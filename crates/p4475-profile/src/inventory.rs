@@ -505,7 +505,7 @@ mod tests {
             items.len()
         );
         for (category, id) in items {
-            let x_parts = if category == 3 && id == 981 {
+            let x_parts = if category == 3 && id == 1_008 {
                 r#" xPartsCompatible="true""#
             } else {
                 ""
@@ -518,7 +518,7 @@ mod tests {
 
     fn equipment_with_unresolved_sidecars() -> EquipmentExceptions {
         let granted_plant = PlantExcRecord {
-            id: 981,
+            id: 1_008,
             serial: 2,
             engine_category: 43,
             engine_id: 1,
@@ -530,7 +530,7 @@ mod tests {
             kit_id: 4,
         };
         let granted_parts = PartsExcRecord {
-            id: 981,
+            id: 1_008,
             serial: 2,
             engine: 1,
             engine_grade: 1,
@@ -552,7 +552,7 @@ mod tests {
             plant: vec![
                 granted_plant,
                 PlantExcRecord {
-                    id: 1_008,
+                    id: 981,
                     ..granted_plant
                 },
             ],
@@ -560,7 +560,7 @@ mod tests {
             parts: vec![
                 granted_parts,
                 PartsExcRecord {
-                    id: 1_008,
+                    id: 981,
                     ..granted_parts
                 },
             ],
@@ -575,15 +575,15 @@ mod tests {
         profile.rider.slot_changer = 321;
         profile.granted_karts = vec![
             GrantedKart {
-                kart_id: 981,
-                serial: 2,
-            },
-            GrantedKart {
-                kart_id: 981,
+                kart_id: 1_008,
                 serial: 2,
             },
             GrantedKart {
                 kart_id: 1_008,
+                serial: 2,
+            },
+            GrantedKart {
+                kart_id: 981,
                 serial: 1,
             },
         ];
@@ -596,14 +596,14 @@ mod tests {
         .unwrap();
         assert_eq!(snapshot.plant_exceptions.len(), 1);
         assert_eq!(snapshot.parts_exceptions.len(), 2);
-        assert_eq!(snapshot.plant_exceptions[0].id, 981);
-        assert_eq!(snapshot.parts_exceptions[0].id, 981);
+        assert_eq!(snapshot.plant_exceptions[0].id, 1_008);
+        assert_eq!(snapshot.parts_exceptions[0].id, 1_008);
         assert_eq!(snapshot.parts_exceptions[0].serial, 2);
         assert_eq!(snapshot.parts_exceptions[0].engine, 1);
         assert_eq!(
             snapshot.parts_exceptions[1],
             PartsExcRecord {
-                id: 981,
+                id: 1_008,
                 serial: 1,
                 ..PartsExcRecord::default()
             }
@@ -622,7 +622,7 @@ mod tests {
         assert_eq!(
             category_three
                 .iter()
-                .filter(|record| record.id == 981 && record.serial == 2)
+                .filter(|record| record.id == 1_008 && record.serial == 2)
                 .count(),
             1
         );
@@ -648,7 +648,7 @@ mod tests {
         );
 
         profile.granted_karts.push(GrantedKart {
-            kart_id: 1_008,
+            kart_id: 981,
             serial: 2,
         });
         let manual_snapshot = build_inventory_snapshot_with_equipment(
@@ -663,7 +663,7 @@ mod tests {
             manual_snapshot.item_groups[48]
                 .records
                 .iter()
-                .any(|record| record.id == 1_008 && record.serial == 2)
+                .any(|record| record.id == 981 && record.serial == 2)
         );
     }
 
