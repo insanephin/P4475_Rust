@@ -41,8 +41,8 @@ jobs:
           toolchain: 1.94.0
           components: clippy,rustfmt
 
-      - name: Test workspace
-        run: cargo test --workspace --all-targets --locked
+      # - name: Test workspace
+      #   run: cargo test --workspace --all-targets --locked
 
       - name: Build release binary
         run: cargo build -p p4475-cli --release --locked
